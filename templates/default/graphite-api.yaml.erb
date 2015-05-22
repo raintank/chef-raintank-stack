@@ -1,0 +1,17 @@
+cache:
+  CACHE_DIR: <%= @cache_dir %>
+  CACHE_TYPE: <%= @cache_type %>
+finders: <% @finders.each do |f| %>
+- <%= f %>
+<% end -%>
+functions: <% @functions.each do |f| %>
+- <%= f %>
+<% end -%>
+<% if @kairosdb -%>
+kairosdb:
+  uri: http://<%= @kairosdb_host %>:<%= @kairosdb_port %>
+  es:
+    url: http://<%= @elasticsearch_host %>:<%= @elasticsearch_port %>/
+<% end -%>
+search_index: <%= @search_index %>
+time_zone: <%= @time_zone %>

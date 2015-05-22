@@ -1,0 +1,43 @@
+# URL of rabbitmq server
+rabbitmq-url = "amqp://<%= @rabbitmq_host %>"
+# graphite (or compatible) hostname
+carbon-addr = "<%= @carbon_host %>"
+# graphite (or compatible) port
+carbon-port = <%= @carbon_port %>
+# enable writing metrics to carbon
+enable-carbon = <%= @carbon_enable %>
+# kairosdb api address
+kairosdb-url = "http://<%= @kairosdb_host %>:<%= @kairosdb_port %>"
+# enable writing metrics to kairosdb
+enable-kairosdb = <%= @kairosdb_enable %>
+# Elasticsearch's domain
+elasticsearch-domain = "<%= @elasticsearch_host %>"
+# Optional elasticsearch items:
+# port, defaults to 9200
+elasticsearch-port = <%= @elasticsearch_port %>
+# username to use when connecting to elasticsearch
+<% if @elasticsearch_user -%>
+elasticsearch-user = "<%= @elasticsearch_user %>"
+# password to use when connecting to elasticsearch
+elasticsearch-passwd = "<%= @elasticsearch_pass %>"
+<% end -%>
+# Address (hostname + port) for redis
+redis-addr = "<%= @redis_host %>:<%= @redis_port %>"
+# Optional password for connecting to redis
+<% if @redis_passwd -%>
+redis-passwd = "<%= @redis_passwd %>"
+<% end -%>
+# Optional redis database number
+<% if @redis_db -%>
+redis-db = <%= @redis_db %>
+<% end -%>
+# Debug level. Can be "debug", "info", "warning", "error", or "critical", in
+# descending verbosity.
+log-level = "<%= @debug_level %>"
+# Path to log file. Optional, but it conflicts with using syslog.
+<% if @log_file -%>
+log-file = "<%= @log_file %>"
+<% elsif @syslog %>
+# Use syslog, if true. Conflicts with log-file.
+syslog = <%= @syslog %>
+<% end -%>
