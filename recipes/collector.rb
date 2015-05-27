@@ -45,6 +45,7 @@ template '/etc/init/raintank-collector.conf' do
 end
 
 service "raintank-collector" do
+  provider Chef::Provider::Service::Upstart
   action [ :enable, :start ]
 end
 
