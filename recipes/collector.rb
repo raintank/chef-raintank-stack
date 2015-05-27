@@ -45,6 +45,12 @@ template '/etc/init/raintank-collector.conf' do
 end
 
 service "raintank-collector" do
+  case node["platform"]
+  when "ubuntu"
+    if node["platform_version"].to_f >= 9.10
+      provider Chef::Provider::Service::Upstart
+    end
+  end
   action [ :enable, :start ]
 end
 
