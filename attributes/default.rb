@@ -47,6 +47,20 @@ default[:raintank_stack][:grafana_domain] = node[:grafana][:domain]
 override[:mysql][:socket] = '/var/run/mysqld/mysqld.sock'
 override[:mysql][:version] = '5.5'
 
+# statsd
+default[:raintank_stack][:statsd][:listen_addr] = ':8125'
+default[:raintank_stack][:statsd][:admin_addr] = ':8126'
+default[:raintank_stack][:statsd][:profile_addr] = ':6060'
+default[:raintank_stack][:statsd][:graphite_addr] = '127.0.0.1:2003'
+default[:raintank_stack][:statsd][:flush_interval] = 60
+default[:raintank_stack][:statsd][:processes] = 4
+default[:raintank_stack][:statsd][:instance] = '${HOST}'
+default[:raintank_stack][:statsd][:prefix_rates] = 'stats.'
+default[:raintank_stack][:statsd][:prefix_timers] = 'stats.timers.'
+default[:raintank_stack][:statsd][:prefix_gauges] = 'stats.gauges.'
+default[:raintank_stack][:statsd][:percentile_thresholds] = '90,75'
+default[:raintank_stack][:statsd][:max_timers_per_s] = 10000
+
 default[:java][:install_flavor] = "oracle"
 default[:java][:oracle][:accept_oracle_download_terms] = true
 default[:rabbitmq][:enabled_plugins] = [ 'rabbitmq_consistent_hash_exchange', 'rabbitmq_management' ]
