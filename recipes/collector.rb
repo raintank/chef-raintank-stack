@@ -25,6 +25,8 @@ package "node-raintank-collector" do
   action :upgrade
 end
 
+package "fping"
+
 directory "/etc/raintank/collector" do
   owner "root"
   group "root"

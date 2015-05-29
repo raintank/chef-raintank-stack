@@ -13,13 +13,14 @@ server {
   }
 
   # ignore obviously false requests
-  if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|[a-z]?html?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
+  if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
     return 404;
   }
 
   # opt-in to the future
   add_header "X-UA-Compatible" "IE=Edge,chrome=1";
 
+  root "<%= node['raintank_stack']['grafana_root'] %>";
   location @grafana {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;

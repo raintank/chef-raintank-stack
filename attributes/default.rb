@@ -42,6 +42,7 @@ default[:raintank_stack][:syslog] = false
 # nginx
 default[:raintank_stack][:grafana_backend] = "localhost:3000"
 default[:raintank_stack][:grafana_domain] = node[:grafana][:domain]
+default[:raintank_stack][:grafana_root] = "/usr/share/grafana/public"
 
 # database
 override[:mysql][:socket] = '/var/run/mysqld/mysqld.sock'
