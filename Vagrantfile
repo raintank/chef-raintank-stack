@@ -84,7 +84,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       grafana: {
 	domain: "portal.raintank.local",
 	db_type: "mysql",
-	db_host: "localhost:3306",
+	db_host: "localhost",
+	db_port: "3306",
 	db_name: "grafana",
 	db_user: "root",
 	db_password: "rootpass",
