@@ -18,7 +18,8 @@
 #
 
 include_recipe "raintank_stack::docker"
-include_recipe "raintank_stack::mysql"
+#include_recipe "raintank_stack::mysql"
+include_recipe "raintank_stack::mariadb"
 include_recipe "raintank_stack::kairosdb"
 include_recipe "influxdb"
 include_recipe "rabbitmq"

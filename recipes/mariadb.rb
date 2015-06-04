@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_stack
+# Cookbook Name:: mariadb
 # Recipe:: mysql
 #
 # Copyright (C) 2015 Jeremy Bingham
@@ -17,22 +17,13 @@
 # limitations under the License.
 #
 
-# Set up a MySQL server for the raintank stack.
-
-mysql_service 'default' do
-  initial_root_password node['mysql']['server_root_password']
-  socket node['mysql']['socket']
-  version node['mysql']['version']
-  action [:create, :start]
-end
-
-mysql_client 'default' do
-  action :create
-end
+include_recipe "mariadb"
+include_recipe "mariadb::server"
 
 # and create the grafana database if it doesn't exist. Installing grafana will
 # not, by itself, create it.
 mysql2_chef_gem 'default' do
+  provider Chef::Provider::Mysql2ChefGem::Mariadb
   action :install
 end
 

@@ -81,6 +81,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         server_debian_password: 'debpass',
         server_repl_password: 'replpass'
       },
+      mariadb: {
+        server_root_password: 'rootpass',
+        server_debian_password: 'debpass',
+        server_repl_password: 'replpass',
+	use_default_repository: true
+      },
       grafana: {
 	domain: "portal.raintank.local",
 	db_type: "mysql",
