@@ -39,6 +39,12 @@ default[:raintank_stack][:debug_level] = "info"
 default[:raintank_stack][:log_file] = "/var/log/raintank/metric.log"
 default[:raintank_stack][:syslog] = false
 
+# database related
+default[:raintank_stack][:create_database] = true
+default[:raintank_stack][:create_replication_user] = false
+default[:mariadb][:galera][:cluster_name] = "galera_raintank"
+default[:mariadb][:galera][:wsrep_cluster_address] = "gcom://"
+
 # nginx
 default[:raintank_stack][:grafana_backend] = "localhost:3000"
 default[:raintank_stack][:grafana_domain] = node[:grafana][:domain]

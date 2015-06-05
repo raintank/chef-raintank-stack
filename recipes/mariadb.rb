@@ -18,7 +18,7 @@
 #
 
 include_recipe "mariadb"
-include_recipe "mariadb::server"
+include_recipe "mariadb::galera"
 
 # and create the grafana database if it doesn't exist. Installing grafana will
 # not, by itself, create it.
@@ -27,12 +27,15 @@ mysql2_chef_gem 'default' do
   action :install
 end
 
-mysql_database node['grafana']['db_name'] do
-  connection(
-    :host => node['grafana']['db_host'],
-    :port => node['grafana']['db_port'],
-    :username => 'root',
-    :password => node['mysql']['server_root_password']
-  )
-  action :create
+connection_info = { :host => node['grafana']['db_host'],
+  :port => node['grafana']['db_port'],
+  :username => 'root',
+  :password => node['mysql']['server_root_password']
+}
+
+if node[:raintank_stack][:create_database]
+  mysql_database node['grafana']['db_name'] do
+    connection connection_info
+    action :create
+  end
 end
