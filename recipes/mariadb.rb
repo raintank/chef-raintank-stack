@@ -30,7 +30,7 @@ end
 connection_info = { :host => node['grafana']['db_host'],
   :port => node['grafana']['db_port'],
   :username => 'root',
-  :password => node['mysql']['server_root_password']
+  :password => node['mariadb']['server_root_password']
 }
 
 if node[:raintank_stack][:create_database]

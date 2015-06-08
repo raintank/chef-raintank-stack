@@ -43,7 +43,8 @@ default[:raintank_stack][:syslog] = false
 default[:raintank_stack][:create_database] = true
 default[:raintank_stack][:create_replication_user] = false
 default[:mariadb][:galera][:cluster_name] = "galera_raintank"
-default[:mariadb][:galera][:wsrep_cluster_address] = "gcom://"
+default[:mariadb][:galera][:wsrep_cluster_address] = "gcomm://"
+default[:mariadb][:galera][:wsrep_sst_method] = "xtrabackup"
 
 # nginx
 default[:raintank_stack][:grafana_backend] = "localhost:3000"
