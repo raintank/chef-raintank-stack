@@ -56,6 +56,7 @@ service "raintank-collector" do
   action [ :enable, :start ]
 end
 
+collector_name =  node['raintank_stack']['collector_name'] || node.hostname
 template node['raintank_stack']['collector_config'] do
   source 'config.json.erb'
   mode '0644'
@@ -63,7 +64,7 @@ template node['raintank_stack']['collector_config'] do
   group 'root'
   action :create
   variables({
-    collector_name: node['raintank_stack']['collector_name'],
+    collector_name: collector_name,
     num_cpus: node['raintank_stack']['num_cpus'] || node.cpu.total,
     server_url: node['raintank_stack']['server_url'],
     api_key: node['raintank_stack']['api_key']

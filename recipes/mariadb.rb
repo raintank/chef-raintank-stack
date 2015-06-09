@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "mariadb"
 include_recipe "mariadb::galera"
 
 # and create the grafana database if it doesn't exist. Installing grafana will
@@ -37,5 +36,33 @@ if node[:raintank_stack][:create_database]
   mysql_database node['grafana']['db_name'] do
     connection connection_info
     action :create
+  end
+
+  if !node['raintank_stack']['sst_user'].nil?
+    mysql_database_user node['raintank_stack']['sst_user'] do
+      connection connection_info
+      password node['raintank_stack']['sst_password']
+      action :create
+    end
+    mysql_database_user node['raintank_stack']['sst_user'] do
+      connection connection_info
+      password node['raintank_stack']['sst_password']
+      privileges [ :reload, :"lock tables", :"replication client" ]
+      action :grant
+    end
+  end
+  if node['grafana']['db_user'] != 'root'
+    mysql_database_user node['grafana']['db_user'] do
+      connection connection_info
+      password node['grafana']['db_password']
+      action :create
+    end
+    mysql_database_user node['grafana']['db_user'] do
+      connection connection_info
+      password node['grafana']['db_password']
+      database_name node['grafana']['db_name']
+      privileges [:all]
+      action :grant
+    end
   end
 end
