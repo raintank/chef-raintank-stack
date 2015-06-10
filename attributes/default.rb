@@ -69,7 +69,16 @@ default[:raintank_stack][:statsd][:prefix_gauges] = 'stats.gauges.'
 default[:raintank_stack][:statsd][:percentile_thresholds] = '90,75'
 default[:raintank_stack][:statsd][:max_timers_per_s] = 10000
 
+# cassandra
+default[:raintank_stack][:cassandra][:cluster_name] = "Test Cluster"
+default[:raintank_stack][:cassandra][:num_tokens] = 256
+default[:raintank_stack][:cassandra][:seeds] = []
+default[:raintank_stack][:cassandra][:listen_interface] = "eth0"
+default[:raintank_stack][:cassandra][:rpc_interface] = node[:raintank_stack][:cassandra][:listen_interface]
+default[:raintank_stack][:cassandra][:snitch] = "SimpleSnitch"
+
 default[:java][:install_flavor] = "oracle"
+default[:java][:jdk_version] = "8"
 default[:java][:oracle][:accept_oracle_download_terms] = true
 default[:rabbitmq][:enabled_plugins] = [ 'rabbitmq_consistent_hash_exchange', 'rabbitmq_management' ]
 default[:go][:version] = "1.4.2"
