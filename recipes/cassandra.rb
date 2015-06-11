@@ -28,7 +28,8 @@ template "/etc/cassandra/cassandra.yaml" do
     :num_tokens => node['raintank_stack']['cassandra']['num_tokens'],
     :seeds => seeds,
     :listen_interface => node['raintank_stack']['cassandra']['listen_interface'],
-    :rpc_interface => node['raintank_stack']['cassandra']['rpc_interface'],
+    :rpc_address => node['raintank_stack']['cassandra']['rpc_address'],
+    :broadcast_rpc_address => node['raintank_stack']['cassandra']['broadcast_rpc_address'],
     :snitch => node['raintank_stack']['cassandra']['snitch']
   })
   notifies :restart, 'service[cassandra]'

@@ -74,7 +74,8 @@ default[:raintank_stack][:cassandra][:cluster_name] = "Test Cluster"
 default[:raintank_stack][:cassandra][:num_tokens] = 256
 default[:raintank_stack][:cassandra][:seeds] = []
 default[:raintank_stack][:cassandra][:listen_interface] = "eth0"
-default[:raintank_stack][:cassandra][:rpc_interface] = node[:raintank_stack][:cassandra][:listen_interface]
+default[:raintank_stack][:cassandra][:rpc_address] = "0.0.0.0"
+default[:raintank_stack][:cassandra][:broadcast_rpc_address] = node.ipaddress
 default[:raintank_stack][:cassandra][:snitch] = "SimpleSnitch"
 
 default[:java][:install_flavor] = "oracle"
