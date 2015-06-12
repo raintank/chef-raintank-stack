@@ -98,6 +98,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       },
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9"
+      },
+      influxdb: {
+	version: "0.8.8"
       }
     }
 

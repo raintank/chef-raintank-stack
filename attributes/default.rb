@@ -78,6 +78,9 @@ default[:raintank_stack][:cassandra][:rpc_address] = "0.0.0.0"
 default[:raintank_stack][:cassandra][:broadcast_rpc_address] = node.ipaddress
 default[:raintank_stack][:cassandra][:snitch] = "SimpleSnitch"
 
+# influxdb
+override['influxdb']['version'] = "0.8.8"
+
 default[:java][:install_flavor] = "oracle"
 default[:java][:jdk_version] = "8"
 default[:java][:oracle][:accept_oracle_download_terms] = true
