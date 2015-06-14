@@ -20,6 +20,35 @@
 include_recipe 'nginx::repo'
 include_recipe 'nginx'
 
+# create ssl cert files if we're doing that
+if node['raintank_stack']['nginx']['use_ssl']
+  directory "/etc/nginx/ssl" do
+    owner node['nginx']['user']
+    group node['nginx']['group']
+    mode '0700'
+    action :create
+  end
+
+  # Later: this should use chef-vault instead of encrypted data bags
+  certs = Chef::EncryptedDataBagItem.load(:grafana_ssl_certs, node['raintank_stack']['nginx']['ssl_data_bag']).to_hash
+  cert_file = node['raintank_stack']['nginx']['ssl_cert_file']
+  cert_key = node['raintank_stack']['ssl_key_file']
+  file node['raintank_stack']['nginx']['ssl_cert_file'] do
+    owner node['nginx']['user']
+    group node['nginx']['group']
+    mode '0600'
+    content certs['ssl_cert']
+    action :create
+  end
+  file node['raintank_stack']['nginx']['ssl_key_file'] do
+    owner node['nginx']['user']
+    group node['nginx']['group']
+    mode '0600'
+    content certs['ssl_key']
+    action :create
+  end
+end
+
 # nginx on first boot
 execute "nginx-stop-and-kill" do
   creates "/etc/nginx/firstboot"
@@ -28,8 +57,14 @@ execute "nginx-stop-and-kill" do
   notifies :start, "service[nginx]", :immediately
 end
 
+gn_source = if node['raintank_stack']['nginx']['use_ssl']
+  "app_grafana_ssl.conf.erb"
+else
+  "app_grafana.conf.erb"
+end
+
 template "/etc/nginx/sites-available/grafana" do
-  source "app_grafana.conf.erb"
+  source gn_source
 end
 
 nginx_site 'default' do

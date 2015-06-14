@@ -50,6 +50,10 @@ default[:mariadb][:galera][:wsrep_sst_method] = "xtrabackup"
 default[:raintank_stack][:grafana_backend] = "localhost:3000"
 default[:raintank_stack][:grafana_domain] = node[:grafana][:domain]
 default[:raintank_stack][:grafana_root] = "/usr/share/grafana/public"
+default[:raintank_stack][:nginx][:use_ssl] = false
+default[:raintank_stack][:nginx][:ssl_cert_file] = "/etc/nginx/ssl/grafana.crt"
+default[:raintank_stack][:nginx][:ssl_key_file] = "/etc/nginx/ssl/grafana.key"
+default[:raintank_stack][:nginx][:ssl_data_bag] = node[:raintank_stack][:grafana_domain]
 
 # database
 override[:mysql][:socket] = '/var/run/mysqld/mysqld.sock'
