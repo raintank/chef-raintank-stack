@@ -31,6 +31,11 @@ server {
     return 404;
   }
 
+  ## Block http user agent - wget ##
+  if ($http_user_agent ~* (SecopsSecurityScan) ) {
+     return 403;
+  }
+
   # opt-in to the future
   add_header "X-UA-Compatible" "IE=Edge,chrome=1";
 

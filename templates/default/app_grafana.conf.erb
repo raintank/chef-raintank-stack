@@ -11,6 +11,10 @@ server {
   if ($request_method !~ GET|POST|PUT|DELETE|PATCH) {
     return 405;
   }
+  ## Block http user agent - wget ##
+  if ($http_user_agent ~* (SecopsSecurityScan) ) {
+     return 403;
+  }
 
   # ignore obviously false requests
   if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
