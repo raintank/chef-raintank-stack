@@ -100,7 +100,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9",
 	nginx: {
-	  use_ssl: true
+	  use_ssl: false
 	}
       },
       influxdb: {
@@ -109,7 +109,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
 
     chef.encrypted_data_bag_secret_key_path = "~/.chef/encrypted_data_bag_secret"
-    chef.data_bags_path = "./data_bags"
+    chef.data_bags_path = "../../data_bags"
 
     chef.run_list = [
       'recipe[raintank_stack::default]'

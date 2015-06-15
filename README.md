@@ -1,10 +1,10 @@
 # raintank-stack-cookbook
 
-TODO: Enter the cookbook description here.
+Install the entire raintank stack on one box with this cookbook, or use the individual recipes to install the different components across multiple machines.
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+Currently Ubuntu 14.04. Other versions of Ubuntu, Debian, and RHEL/CentOS are coming later.
 
 ## Attributes
 
