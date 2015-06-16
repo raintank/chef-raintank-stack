@@ -45,6 +45,7 @@ default[:raintank_stack][:create_replication_user] = false
 default[:mariadb][:galera][:cluster_name] = "galera_raintank"
 default[:mariadb][:galera][:wsrep_cluster_address] = "gcomm://"
 default[:mariadb][:galera][:wsrep_sst_method] = "xtrabackup"
+override['mariadb']['galera']['cluster_search_query'] = "tags:mariadb AND chef_environment:#{node.environment} AND mariadb_galera_cluster_name:#{node['mariadb']['galera']['cluster_name']}"
 
 # nginx
 default[:raintank_stack][:grafana_backend] = "localhost:3000"

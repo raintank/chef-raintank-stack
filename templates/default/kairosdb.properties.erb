@@ -123,7 +123,7 @@ kairosdb.datastore.cassandra.write_consistency_level=QUORUM
 
 #===============================================================================
 # Cache file cleaning schedule. Uses Quartz Cron syntax
-kairosdb.query_cache.cache_file_cleaner_schedule=0 0 12 ? * SUN *
+kairosdb.query_cache.cache_file_cleaner_schedule=10 0/5 * * * ?
 
 #By default the query cache is located in kairos_cache under the system temp folder as
 #defined by java.io.tmpdir system property.  To override set the following value
