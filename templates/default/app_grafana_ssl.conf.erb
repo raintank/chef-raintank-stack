@@ -16,6 +16,23 @@ server {
   }
 }
 
+<% if node["use_datadog"] %>
+server {
+  listen 127.0.0.1:8899;
+  server_name _;
+  location / {
+    root   /var/www/nginx-default;
+    index  index.html index.htm;
+  }
+  location /nginx_status {
+    stub_status on;
+    access_log  off;
+    allow       127.0.0.1;
+    deny        all;
+  }
+}
+<% end %>
+
 server {
   listen 80;
   server_name <%= node['raintank_stack']['grafana_domain'] %>;
