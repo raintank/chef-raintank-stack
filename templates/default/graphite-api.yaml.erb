@@ -15,3 +15,8 @@ kairosdb:
 <% end -%>
 search_index: <%= @search_index %>
 time_zone: <%= @time_zone %>
+<% if @use_statsd %>
+statsd:
+  host: '<%= @statsd_host %>'
+  port: '<%= @statsd_port %>'
+<% end -%>

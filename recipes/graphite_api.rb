@@ -24,6 +24,11 @@ end
 package "graphite-api-rt" do
   action :upgrade
 end
+group "graphite" do
+  members "graphite"
+  system
+  action :create
+end
 
 directory "/var/lib/graphite" do
   owner "graphite"
@@ -54,7 +59,10 @@ template "/etc/graphite-api.yaml" do
     elasticsearch_host: node['raintank_stack']['elasticsearch_host'],
     elasticsearch_port: node['raintank_stack']['elasticsearch_port'],
     search_index: node['raintank_stack']['search_index'],
-    time_zone: node['raintank_stack']['time_zone']
+    time_zone: node['raintank_stack']['time_zone'],
+    use_statsd: node['raintank_stack']['graphite_api']['use_statsd'],
+    statsd_host: node['raintank_stack']['graphite_api']['statsd_host'],
+    statsd_port: node['raintank_stack']['graphite_api']['statsd_port']
   })
   notifies :restart, 'service[graphite-api]'
 end

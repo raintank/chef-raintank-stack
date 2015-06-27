@@ -19,6 +19,9 @@ default[:raintank_stack][:elasticsearch_host] = "localhost"
 default[:raintank_stack][:elasticsearch_port] = 9200
 default[:raintank_stack][:search_index] = "/var/lib/graphite/index"
 default[:raintank_stack][:time_zone] = "UTC"
+default[:raintank_stack][:graphite_api][:use_statsd] = false
+default[:raintank_stack][:graphite_api][:statsd_host] = "localhost"
+default[:raintank_stack][:graphite_api][:statsd_port] = 8125
 
 # collector
 default[:raintank_stack][:collector_config] = "/etc/raintank/collector/config.json"
