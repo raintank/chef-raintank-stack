@@ -4,7 +4,7 @@ default[:raintank_stack][:kairosdb][:package] = "kairosdb_0.9.4-6_all.deb"
 default[:raintank_stack][:kairosdb][:url] = "https://github.com/kairosdb/kairosdb/releases/download/v#{node[:raintank_stack][:kairosdb][:version]}/#{node[:raintank_stack][:kairosdb][:package]}"
 default[:raintank_stack][:kairosdb][:host_list] = "localhost:9160"
 default[:raintank_stack][:kairosdb][:keyspace] = "kairosdb"
-default[:raintank_stack][:kairosdb][:replication_factor] = 1
+default[:raintank_stack][:kairosdb][:replication_factor] = 3
 default[:raintank_stack][:kairosdb][:write_delay] = 1000
 default[:raintank_stack][:kairosdb][:write_buffer_max_size] = 500000
 
