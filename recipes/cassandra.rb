@@ -9,6 +9,7 @@ apt_repository 'cassandra' do
 end
 
 package 'cassandra'
+package 'cassandra-tools'
 package 'dsc21'
 
 service 'cassandra' do
