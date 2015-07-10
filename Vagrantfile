@@ -89,7 +89,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       },
       grafana: {
 	domain: "portal.raintank.local",
-	root_url: "https://portal.raintank.local/",
+	root_url: "http://portal.raintank.local/",
 	db_type: "mysql",
 	db_host: "localhost",
 	db_port: "3306",
@@ -99,6 +99,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       },
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9",
+	ping_port: 9090,
+	kairosdb: {
+	  replication_factor: 1
+	},
 	nginx: {
 	  use_ssl: false
 	}
@@ -108,8 +112,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     }
 
-    chef.encrypted_data_bag_secret_key_path = "~/.chef/encrypted_data_bag_secret"
-    chef.data_bags_path = "../../data_bags"
+    #chef.encrypted_data_bag_secret_key_path = "~/.chef/encrypted_data_bag_secret"
+    #chef.data_bags_path = "../../data_bags"
 
     chef.run_list = [
       'recipe[raintank_stack::default]'

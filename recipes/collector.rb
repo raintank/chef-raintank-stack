@@ -67,7 +67,8 @@ template node['raintank_stack']['collector_config'] do
     collector_name: collector_name,
     num_cpus: node['raintank_stack']['num_cpus'] || node.cpu.total,
     server_url: node['raintank_stack']['server_url'],
-    api_key: node['raintank_stack']['api_key']
+    api_key: node['raintank_stack']['api_key'],
+    ping_port: node['raintank_stack']['ping_port']
   })
   # notifies ....
   notifies :restart, 'service[raintank-collector]'

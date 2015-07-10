@@ -29,6 +29,7 @@ default[:raintank_stack][:collector_name] = "PublicTest"
 default[:raintank_stack][:num_cpus] = nil
 default[:raintank_stack][:server_url] = "http://localhost:3000"
 default[:raintank_stack][:api_key] = "REPLACE_ME"
+default[:raintank_stack][:ping_port] = 8080
 
 # metric
 default[:raintank_stack][:rabbitmq_host] = "localhost"
