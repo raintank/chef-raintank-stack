@@ -4,6 +4,10 @@ Install the entire raintank stack on one box with this cookbook, or use the indi
 
 These cookbooks can be utilized in a variety of ways.
 
+## Supported platforms
+
+Currently Ubuntu 14.04. Other versions of Ubuntu, Debian, and RHEL/CentOS are coming later.
+
 ## Recipes
 
 The entire stack is comprised of the following cookbooks, which are all included in this repository.
@@ -40,15 +44,15 @@ If you don't already have Vagrant installed, you'll need to install it. You'll a
 - Get VirtualBox - https://www.virtualbox.org/wiki/Downloads
 
 #### b) Download necessary Vagrant plugins
+ 
+The Chef stack utilizes the Vagrant berkshelf and omnibus plugins. The vagrant berkshelf plugin requires installing berkshelf. The easiest way, by far, to install berkchef is to install the [Chef development kit](https://downloads.chef.io/chef-dk/), but you can try installing berkshelf on its own. If you do install chefdk and you use rbenv to manage your rubies, we highly recommend checking out https://github.com/docwhat/rbenv-chefdk. This rbenv plugin lets you easily switch to using the ruby embedded in chefdk, which makes certain tasks a lot easier.
 
-The Chef stack utilizes the Vagrant berkshelf and omnibus plugins. Once you've got Vagrant installed, you should be able to easily install these plugins by typing:
+Once you have Vagrant installed, you should be able to easily install these plugins by typing:
 
 ```
 vagrant plugin install vagrant-berkshelf
 vagrant plugin install vagrant-omnibus
 ```
-
-If you use rbenv to manage your rubies, we highly recommend checking out https://github.com/docwhat/rbenv-chefdk {why}
 
 #### c) Bring up your development environment
 
