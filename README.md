@@ -62,6 +62,7 @@ From the directory containing this repo, install the cookbooks and bring up your
 berks install # install the chef cookbooks in your berkshelf.
 vagrant up    # bring up the vagrant instance of the whole stack
 ```
+
 #### d) Cross fingers, and wait
 
 The process should bootstrap your Vagrant instance, and install and configure the entire raintank stack by utilizing chef-solo. Depending on the speed of your CPU and network connection, the process should take about 10-30 minutes.
@@ -69,17 +70,23 @@ The process should bootstrap your Vagrant instance, and install and configure th
 #### e) SSH into your development environment
 
 You can see all the instances running under Vagrant by running:
+
 ```
 vagrant global-status
 ```
+
 You should see your instance running. Note the instance-id (first column). Go ahead and SSH into by running:
+
 ```
 vagrant ssh instance-id
 ```
+
 You should be able to log-in and the VM should be healthy. You can discover the IP address of your new instance by running:
+
 ```
 ifconfig eth1
 ```
+
 #### f) Verify the stack is up
 
 In a browser try to bring up `https://IP`
