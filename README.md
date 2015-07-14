@@ -6,7 +6,9 @@ These cookbooks can be utilized in a variety of ways.
 
 ## Supported platforms
 
-Currently Ubuntu 14.04. Other versions of Ubuntu, Debian, and RHEL/CentOS are coming later.
+We currently support only Ubuntu 14.04. Other versions of Ubuntu, Debian, and RHEL/CentOS are coming later. 
+
+
 
 ## Recipes
 
@@ -38,25 +40,32 @@ Before you get started, you will need to configure your workstation to work with
 
 #### a) Install Vagrant, and set up a provider
 
-If you don't already have Vagrant installed, you'll need to install it. You'll also need to set up a virtualization platform for Vagrant to work with. The easiest is VirtualBox, which Vagrant has default support for. 
+If you don't already have Vagrant installed, you'll need to install it: 
 
 - Get Vagrant - http://www.vagrantup.com/downloads.html
+
+You'll also need to set up a virtualization platform for Vagrant to work with. The easiest is VirtualBox, which Vagrant has default support for:
+
 - Get VirtualBox - https://www.virtualbox.org/wiki/Downloads
 
-#### b) Download necessary Vagrant plugins
+#### b) Download the Chef Development kit, and installnecessary  plugins
  
-The Chef stack utilizes the Vagrant berkshelf and omnibus plugins. The vagrant berkshelf plugin requires installing berkshelf. The easiest way, by far, to install berkchef is to install the [Chef development kit](https://downloads.chef.io/chef-dk/), but you can try installing berkshelf on its own. If you do install chefdk and you use rbenv to manage your rubies, we highly recommend checking out https://github.com/docwhat/rbenv-chefdk. This rbenv plugin lets you easily switch to using the ruby embedded in chefdk, which makes certain tasks a lot easier.
+The stack utilizes chef as well as the Vagrant berkshelf and Vagrant omnibus plugins.
 
-Once you have Vagrant installed, you should be able to easily install these plugins by typing:
+- Get the Chef DK - http://downloads.chef.io/chef-dk
+
+Install the plugins by typing:
 
 ```
 vagrant plugin install vagrant-berkshelf
 vagrant plugin install vagrant-omnibus
 ```
 
+If you do install chefdk and you use rbenv to manage your rubies, we highly recommend checking out https://github.com/docwhat/rbenv-chefdk. This rbenv plugin lets you easily switch to using the ruby embedded in chefdk, which makes certain tasks a lot easier.
+
 #### c) Bring up your development environment
 
-From the directory containing this repo, install the cookbooks and bring up your environment!
+From the directory containing this repo, install the cookbooks and bring up your environment by typing:
 
 ```
 berks install # install the chef cookbooks in your berkshelf.
@@ -89,13 +98,13 @@ ifconfig eth1
 
 #### f) Verify the stack is up
 
-In a browser try to bring up `https://IP`
+In a browser try to bring up `http://IP`
 
 You should see a Litmus log-in screen. The default username and password is `admin/admin`
 
 You should add `portal.raintank.local` to your /etc/hosts or equivalent, and use this URL for testing.
 
-Make sure you can add an endpoint and see datapoints in a dashboard.
+Make sure you can add an endpoint, and see datapoints in a dashboard.
 
 #### g) Enjoy
 
@@ -118,8 +127,6 @@ The GOROOT is in `/opt/go` and is writable by the vagrant user.
 {COMING SOON}
 
 An even *easier* way, if you're so inclined, is to use a prebuilt Litmus vagrant box. Once those start getting built, you'll be able to download them and be off in even shorter order. These may not be as up to date as building the vagrant instance yourself with chef-solo, though.
-
-
 
 This cookbook can also be used to build an all-in-one litmus server on a VM somewhere as well, using either chef-solo or chef-server. Take a look at `examples/example_env.rb` for some reasonable settings to build from. The `attributes/default.rb` and `Vagrantfile` files are also useful to look at when building your nod, role, or environment attributes for this. Beyond that, it should not be a complicated process. If it does seem complicate to you, you may want to try one of the vagrant options above, or wait until such time that we are able to make cloud images or AMIs available.
 
