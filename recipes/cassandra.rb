@@ -18,6 +18,7 @@ end
 
 seeds = node[:raintank_stack][:cassandra][:seeds].join(",") # todo: search for
 							    # appropriate nodes
+
 template "/etc/cassandra/cassandra.yaml" do
   source "cassandra.yaml.erb"
   mode "0644"
@@ -31,7 +32,9 @@ template "/etc/cassandra/cassandra.yaml" do
     :listen_interface => node['raintank_stack']['cassandra']['listen_interface'],
     :rpc_address => node['raintank_stack']['cassandra']['rpc_address'],
     :broadcast_rpc_address => node['raintank_stack']['cassandra']['broadcast_rpc_address'],
-    :snitch => node['raintank_stack']['cassandra']['snitch']
+    :snitch => node['raintank_stack']['cassandra']['snitch'],
+    :concurrent_reads => node['raintank_stack']['cassandra']['concurrent_reads'],
+    :concurrent_writes => node['raintank_stack']['cassandra']['concurrent_writes']
   })
   notifies :restart, 'service[cassandra]'
 end

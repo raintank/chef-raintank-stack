@@ -86,6 +86,8 @@ default[:raintank_stack][:cassandra][:listen_interface] = "eth0"
 default[:raintank_stack][:cassandra][:rpc_address] = "0.0.0.0"
 default[:raintank_stack][:cassandra][:broadcast_rpc_address] = node.ipaddress
 default[:raintank_stack][:cassandra][:snitch] = "SimpleSnitch"
+default[:raintank_stack][:cassandra][:concurrent_reads] = 8 * node.cpu.total
+default[:raintank_stack][:cassandra][:concurrent_writes] = 8 * node.cpu.total
 
 # influxdb
 override['influxdb']['version'] = "0.8.8"
