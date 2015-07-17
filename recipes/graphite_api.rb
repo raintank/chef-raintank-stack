@@ -53,6 +53,7 @@ template "/etc/graphite-api.yaml" do
     cache_type:	node['raintank_stack']['cache_type'],
     finders: node['raintank_stack']['finders'],
     functions: node['raintank_stack']['functions'],
+    cassandras: node['raintank_stack']['cassandras'],
     kairosdb: node['raintank_stack']['kairosdb_enable'],
     kairosdb_host: node['raintank_stack']['kairosdb_host'],
     kairosdb_port: node['raintank_stack']['kairosdb_port'],

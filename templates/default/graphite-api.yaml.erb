@@ -9,7 +9,15 @@ functions: <% @functions.each do |f| %>
 <% end -%>
 <% if @kairosdb -%>
 kairosdb:
+  <% if !@cassandras.nil? %>
+  cassandra:
+    hosts:
+      <% @cassandras.each do |c| -%>
+        - <%= c %>
+      <% end -%>
+  <% else %>
   uri: http://<%= @kairosdb_host %>:<%= @kairosdb_port %>
+  <% end -%>
   es:
     url: http://<%= @elasticsearch_host %>:<%= @elasticsearch_port %>/
 <% end -%>
@@ -18,5 +26,5 @@ time_zone: <%= @time_zone %>
 <% if @use_statsd %>
 statsd:
   host: '<%= @statsd_host %>'
-  port: '<%= @statsd_port %>'
+  port: <%= @statsd_port %>
 <% end -%>

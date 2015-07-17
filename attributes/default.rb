@@ -13,6 +13,7 @@ default[:raintank_stack][:cache_dir] = "/tmp/graphite-api-cache"
 default[:raintank_stack][:cache_type] = "filesystem"
 default[:raintank_stack][:finders] = [ 'graphite_kairosdb.KairosdbFinder' ]
 default[:raintank_stack][:functions] = [ 'graphite_api.functions.SeriesFunctions', 'graphite_api.functions.PieFunctions' ]
+default[:raintank_stack][:cassandras] = []
 default[:raintank_stack][:kairosdb_host] = "localhost"
 default[:raintank_stack][:kairosdb_port] = 8080
 default[:raintank_stack][:elasticsearch_host] = "localhost"
