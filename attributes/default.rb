@@ -23,6 +23,7 @@ default[:raintank_stack][:time_zone] = "UTC"
 default[:raintank_stack][:graphite_api][:use_statsd] = false
 default[:raintank_stack][:graphite_api][:statsd_host] = "localhost"
 default[:raintank_stack][:graphite_api][:statsd_port] = 8125
+default[:raintank_stack][:graphite_api][:log_level] = "INFO"
 
 # collector
 default[:raintank_stack][:collector_config] = "/etc/raintank/collector/config.json"

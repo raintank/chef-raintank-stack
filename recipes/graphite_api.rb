@@ -63,7 +63,8 @@ template "/etc/graphite-api.yaml" do
     time_zone: node['raintank_stack']['time_zone'],
     use_statsd: node['raintank_stack']['graphite_api']['use_statsd'],
     statsd_host: node['raintank_stack']['graphite_api']['statsd_host'],
-    statsd_port: node['raintank_stack']['graphite_api']['statsd_port']
+    statsd_port: node['raintank_stack']['graphite_api']['statsd_port'],
+    log_level: node['raintank_stack']['graphite_api']['log_level']
   })
   notifies :restart, 'service[graphite-api]'
 end

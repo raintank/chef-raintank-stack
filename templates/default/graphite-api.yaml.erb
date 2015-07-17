@@ -28,3 +28,20 @@ statsd:
   host: '<%= @statsd_host %>'
   port: <%= @statsd_port %>
 <% end -%>
+logging:
+  version: 1
+  handlers:
+    raw:
+      level: <%= @log_level %>
+      class: logging.StreamHandler
+      formatter: raw
+  loggers:
+    root:
+      handlers:
+        - raw
+      level: <%= @log_level %>
+      propagate: false
+    graphite_api:
+      handlers:
+        - raw
+      level: <%= @log_level %>
