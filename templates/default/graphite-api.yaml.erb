@@ -9,7 +9,7 @@ functions: <% @functions.each do |f| %>
 <% end -%>
 <% if @kairosdb -%>
 kairosdb:
-  <% if !@cassandras.nil? %>
+  <% if !@cassandras.empty? %>
   cassandra:
     hosts:
       <% @cassandras.each do |c| -%>
