@@ -41,3 +41,6 @@ log-file = "<%= @log_file %>"
 # Use syslog, if true. Conflicts with log-file.
 syslog = <%= @syslog %>
 <% end -%>
+<% if @expvar_addr %>
+expvar_addr = "<%= @expvar_addr %>"
+<% end -%>

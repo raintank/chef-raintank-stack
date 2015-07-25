@@ -64,7 +64,8 @@ template "/etc/raintank/raintank-metric.conf" do
     redis_db: node['raintank_stack']['redis_db'],
     debug_level: node['raintank_stack']['debug_level'],
     log_file: node['raintank_stack']['log_file'],
-    syslog: node['raintank_stack']['syslog']
+    syslog: node['raintank_stack']['syslog'],
+    expvar_addr: node['raintank_stack']['expvar_addr']
   })
   notifies :restart, 'service[raintank-metric]'
 end
