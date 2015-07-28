@@ -19,7 +19,7 @@
 
 # install the vimeo statsdaemon
 
-packagecloud_repo "ct/raintank" do
+packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
   type "deb"
 end
 
