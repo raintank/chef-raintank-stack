@@ -48,7 +48,7 @@ You'll also need to set up a virtualization platform for Vagrant to work with. T
 
 - Get VirtualBox - https://www.virtualbox.org/wiki/Downloads
 
-#### b) Download the Chef Development kit, and installnecessary  plugins
+#### b) Download the Chef Development kit, and install necessary  plugins
  
 The stack utilizes chef as well as the Vagrant berkshelf and Vagrant omnibus plugins.
 
