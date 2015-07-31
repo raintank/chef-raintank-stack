@@ -128,7 +128,7 @@ The GOROOT is in `/opt/go` and is writable by the vagrant user.
 
 An even *easier* way, if you're so inclined, is to use a prebuilt Litmus vagrant box. Once those start getting built, you'll be able to download them and be off in even shorter order. These may not be as up to date as building the vagrant instance yourself with chef-solo, though.
 
-This cookbook can also be used to build an all-in-one litmus server on a VM somewhere as well, using either chef-solo or chef-server. Take a look at `examples/example_env.rb` for some reasonable settings to build from. The `attributes/default.rb` and `Vagrantfile` files are also useful to look at when building your nod, role, or environment attributes for this. Beyond that, it should not be a complicated process. If it does seem complicate to you, you may want to try one of the vagrant options above, or wait until such time that we are able to make cloud images or AMIs available.
+This cookbook can also be used to build an all-in-one litmus server on a VM somewhere, using either chef-solo or chef-server. Take a look at `examples/example_env.rb` for some reasonable settings to build from. The `attributes/default.rb` and `Vagrantfile` files are also useful to look at when building your nod, role, or environment attributes for this. Beyond that, it should not be a complicated process. If it does seem complicate to you, you may want to try one of the vagrant options above, or wait until such time that we are able to make cloud images or AMIs available.
 
 The individual recipes can also be used to build the raintank stack in a cluster, with different components on different servers.
 
