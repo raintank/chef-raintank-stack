@@ -63,8 +63,16 @@ else
   "app_grafana.conf.erb"
 end
 
+server_names = [ node['raintank_stack']['grafana_domain'] ]
+if node['raintank_stack']['grafana_domain_aliases'] 
+  server_names += node['raintank_stack']['grafana_domain_aliases']
+end
+
 template "/etc/nginx/sites-available/grafana" do
   source gn_source
+  variables({
+    :server_names => server_names
+  })
 end
 
 nginx_site 'default' do
