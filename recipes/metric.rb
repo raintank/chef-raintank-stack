@@ -21,8 +21,16 @@ packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
   type "deb"
 end
 
+pkg_version = node['raintank_stack']['package_version']['raintank-metric']
+pkg_action = if pkg_version.nil?
+  :upgrade
+else
+  :install
+end
+
 package "raintank-metric" do
-  action :upgrade
+  version pkg_version
+  action :install
 end
 
 directory "/var/log/raintank" do

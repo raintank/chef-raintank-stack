@@ -1,6 +1,9 @@
 # general
 default[:raintank_stack][:packagecloud_repo] = "raintank/raintank"
 
+# package versions hash
+default[:raintank_stack][:package_version] = {}
+
 # kairosdb
 default[:raintank_stack][:kairosdb][:version] = "0.9.4"
 default[:raintank_stack][:kairosdb][:package] = "kairosdb_0.9.4-6_all.deb"
