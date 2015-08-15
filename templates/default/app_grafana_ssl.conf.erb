@@ -35,7 +35,7 @@ server {
 
 server {
   listen 80;
-  server_name <%= @server_names.join ' ' %>;
+  server_name <%= node['raintank_stack']['grafana_domain'] %>;
   # root "<%= node['raintank_stack']['grafana_root'] %>";
   return 301 https://$host$request_uri;
 }
@@ -43,7 +43,7 @@ server {
 # TODO: allow for listening on HTTPS, upgrading the connection for non-SSL.
 server {
   listen 443 default ssl; # for Linux
-  server_name <%= @server_names.join ' ' %>;
+  server_name <%= node['raintank_stack']['grafana_domain'] %>;
 
   ssl_certificate <%= node['raintank_stack']['nginx']['ssl_cert_file'] %>;
   ssl_certificate_key <%= node['raintank_stack']['nginx']['ssl_key_file'] %>;

@@ -63,16 +63,8 @@ else
   "app_grafana.conf.erb"
 end
 
-server_names = [ node['raintank_stack']['grafana_domain'] ]
-if node['raintank_stack']['grafana_domain_aliases'] 
-  server_names += node['raintank_stack']['grafana_domain_aliases']
-end
-
 template "/etc/nginx/sites-available/grafana" do
   source gn_source
-  variables({
-    :server_names => server_names
-  })
 end
 
 nginx_site 'default' do
@@ -81,4 +73,43 @@ end
 
 nginx_site "grafana" do
   notifies :restart, 'service[nginx]'
+end
+
+if !node['raintank_stack']['grafana_domain_aliases'].nil?
+  node['raintank_stack']['grafana_domain_aliases'].each do |site|
+    ssl_cert = ssl_key = nil
+    if site['use_ssl']
+      redir_certs = Chef::EncryptedDataBagItem.load(:grafana_ssl_certs, site['server_name']).to_hash
+      ssl_cert = site['ssl_cert_file']
+      ssl_key = site['ssl_key_file']
+      file ssl_cert do
+	owner node['nginx']['user']
+	group node['nginx']['group']
+	mode '0600'
+	content redir_certs['ssl_cert']
+	action :create
+      end
+      file ssl_key do
+	owner node['nginx']['user']
+	group node['nginx']['group']
+	mode '0600'
+	content redir_certs['ssl_key']
+	action :create
+      end
+    end
+    template "/etc/nginx/sites-available/#{site['server_name']}" do
+      source "app_grafana_redir.conf.erb"
+      variables({
+	server_name: site['server_name'],
+	redir_name: node['raintank_stack']['grafana_domain'],
+	use_ssl: site['use_ssl'],
+	ssl_cert: ssl_cert,
+	ssl_key: ssl_key
+      })
+    end
+    nginx_site site['server_name'] do
+      notifies :restart, 'service[nginx]'
+    end
+
+  end
 end
