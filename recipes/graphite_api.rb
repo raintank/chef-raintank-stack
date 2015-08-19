@@ -21,9 +21,18 @@ packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
   type "deb"
 end
 
-package "graphite-api-rt" do
-  action :upgrade
+pkg_version = node['raintank_stack']['package_version']['graphite_api']
+pkg_action = if pkg_version.nil?
+  :upgrade
+else
+  :install
 end
+
+package "graphite-api-rt" do
+  version pkg_version
+  action pkg_action
+end
+
 group "graphite" do
   members "graphite"
   system
