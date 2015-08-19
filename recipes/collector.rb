@@ -21,7 +21,7 @@ packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
   type "deb"
 end
 
-pkg_version = node['raintank_stack']['package_version']['raintank-collector']
+pkg_version = node['raintank_stack']['package_version']['raintank_collector']
 pkg_action = if pkg_version.nil?
   :upgrade
 else
