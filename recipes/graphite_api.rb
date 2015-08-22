@@ -51,6 +51,8 @@ service "graphite-api" do
   action [ :enable, :start ]
 end
 
+elasticsearch_host = find_haproxy || node['raintank_stack']['elasticsearch_host']
+
 template "/etc/graphite-api.yaml" do
   source 'graphite-api.yaml.erb'
   owner 'root'
@@ -66,7 +68,7 @@ template "/etc/graphite-api.yaml" do
     kairosdb: node['raintank_stack']['kairosdb_enable'],
     kairosdb_host: node['raintank_stack']['kairosdb_host'],
     kairosdb_port: node['raintank_stack']['kairosdb_port'],
-    elasticsearch_host: node['raintank_stack']['elasticsearch_host'],
+    elasticsearch_host: elasticsearch_host,
     elasticsearch_port: node['raintank_stack']['elasticsearch_port'],
     search_index: node['raintank_stack']['search_index'],
     time_zone: node['raintank_stack']['time_zone'],
