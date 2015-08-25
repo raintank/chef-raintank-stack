@@ -50,6 +50,11 @@ service "raintank-metric" do
   action [ :enable, :start ]
 end
 
+elasticsearch_host = find_haproxy || node['raintank_stack']['elasticsearch_host']
+kairosdb_host = find_haproxy || node['raintank_stack']['kairosdb_host']
+rabbitmq_host = find_haproxy || node['raintank_stack']['rabbitmq_host']
+carbon_host = find_haproxy || node['raintank_stack']['carbon_host']
+
 template "/etc/raintank/raintank-metric.conf" do
   source "raintank-metric.conf.erb"
   mode '0644'
@@ -57,14 +62,14 @@ template "/etc/raintank/raintank-metric.conf" do
   group 'root'
   action :create
   variables({
-    rabbitmq_host: node['raintank_stack']['rabbitmq_host'],
-    carbon_host: node['raintank_stack']['carbon_host'],
+    rabbitmq_host: rabbitmq_host,
+    carbon_host: carbon_host,
     carbon_port: node['raintank_stack']['carbon_port'],
     carbon_enable: node['raintank_stack']['carbon_enable'],
-    kairosdb_host: node['raintank_stack']['kairosdb_host'],
+    kairosdb_host: kairosdb_host,
     kairosdb_port: node['raintank_stack']['kairosdb_port'],
     kairosdb_enable: node['raintank_stack']['kairosdb_enable'],
-    elasticsearch_host: node['raintank_stack']['elasticsearch_host'],
+    elasticsearch_host: elasticsearch_host,
     elasticsearch_port: node['raintank_stack']['elasticsearch_port'],
     redis_host: node['raintank_stack']['redis_host'],
     redis_port: node['raintank_stack']['redis_port'],

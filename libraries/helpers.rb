@@ -21,10 +21,10 @@
 
 module RaintankStack
   module Helpers
-    def find_haproxy(haproxy_tag = "haproxy")
+    def find_haproxy
       return nil? unless node.attribute?('gce')
       zone = node['gce']['instance']['zone']
-      haproxy = search("node", "tags:#{haproxy_tag} AND chef_environment:#{node.chef_environment}")
+      haproxy = search("node", node['raintank_stack']['haproxy_search'])
       h = haproxy.select { |h| h['gce']['instance']['zone'] == zone }.first
       return (h) ? h.ipaddress : nil
     end
