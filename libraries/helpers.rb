@@ -25,7 +25,8 @@ module RaintankStack
       return nil? unless node.attribute?('gce')
       zone = node['gce']['instance']['zone']
       haproxy = search("node", "tags:#{haproxy_tag} AND chef_environment:#{node.chef_environment}")
-      return haproxy.select { |h| h['gce']['instance']['zone'] == zone }.first
+      h = haproxy.select { |h| h['gce']['instance']['zone'] == zone }.first
+      return (h) ? h.ipaddress : nil
     end
   end
 end
