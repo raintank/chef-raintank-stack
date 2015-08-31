@@ -30,7 +30,7 @@ end
 
 package "raintank-metric" do
   version pkg_version
-  action :install
+  action pkg_action
 end
 
 directory "/var/log/raintank" do
