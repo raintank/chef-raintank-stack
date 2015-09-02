@@ -4,7 +4,11 @@ maintainer_email 'jeremy@raintank.io'
 license          'Apache 2.0'
 description      'Installs/Configures raintank-stack'
 long_description 'Installs/Configures raintank-stack'
+<<<<<<< HEAD
 version          '0.2.0'
+=======
+version          '0.1.14'
+>>>>>>> master
 
 depends 'docker', '~> 0.37.0'
 depends 'rabbitmq', '~> 4.0.0'
