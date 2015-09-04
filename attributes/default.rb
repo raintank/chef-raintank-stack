@@ -106,3 +106,37 @@ default[:java][:jdk_version] = "8"
 default[:java][:oracle][:accept_oracle_download_terms] = true
 default[:rabbitmq][:enabled_plugins] = [ 'rabbitmq_consistent_hash_exchange', 'rabbitmq_management' ]
 default[:go][:version] = "1.4.2"
+
+# nsq_* tools
+default[:raintank_stack][:nsq_tools][:base][:max_in_flight] = 200
+default[:raintank_stack][:nsq_tools][:base][:num_msg] = 0
+default[:raintank_stack][:nsq_tools][:base][:nsqd_addr] = "localhost:4150"
+default[:raintank_stack][:nsq_tools][:base][:statsd_addr] = "localhost:8125"
+default[:raintank_stack][:nsq_tools][:base][:statsd_type] = "datadog"
+
+## metrics_to_elasticsearch
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:channel] = "elasticsearch"
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
+
+## metrics_to_kairosdb
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:channel] = "kairos"
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
+
+## probe_events_to_elasticsearch
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:channel] = "elasticsearch"
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:topic] = "probe_events"
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
