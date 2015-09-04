@@ -9,7 +9,7 @@ else
   :install
 end
 
-package "nsq_metrics_to_elasticsearch" do
+package "nsq-metrics-to-elasticsearch" do
   version pkg_version
   action pkg_action
 end

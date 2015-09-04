@@ -9,7 +9,7 @@ else
   :install
 end
 
-package "nsq_metrics_to_kairos" do
+package "nsq-metrics-to-kairos" do
   version pkg_version
   action pkg_action
 end

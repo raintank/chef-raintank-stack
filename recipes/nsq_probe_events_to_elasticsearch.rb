@@ -9,7 +9,7 @@ else
   :install
 end
 
-package "nsq_probe_events_to_elasticsearch" do
+package "nsq-probe-events-to-elasticsearch" do
   version pkg_version
   action pkg_action
 end
@@ -34,7 +34,7 @@ template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
     :channel => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['channel'],
     :lookupd => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['lookupd'],
     :max_in_flight => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['max_in_flight'],
-    :consumer => node['raintank_stack']['nsq_tools']['probe_events_to_kairos']['consumer'],
+    :consumer => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['consumer'],
     :num_msg => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['num_msg'],
     :nsqd_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['nsqd_addr'],
     :statsd_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_addr'],

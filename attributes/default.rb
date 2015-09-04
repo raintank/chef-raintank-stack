@@ -110,7 +110,7 @@ default[:go][:version] = "1.4.2"
 # nsq_* tools
 default[:raintank_stack][:nsq_tools][:base][:max_in_flight] = 200
 default[:raintank_stack][:nsq_tools][:base][:num_msg] = 0
-default[:raintank_stack][:nsq_tools][:base][:nsqd_addr] = [ "localhost:4150" ]
+default[:raintank_stack][:nsq_tools][:base][:nsqd_addr] = []
 default[:raintank_stack][:nsq_tools][:base][:statsd_addr] = "localhost:8125"
 default[:raintank_stack][:nsq_tools][:base][:statsd_type] = "datadog"
 
