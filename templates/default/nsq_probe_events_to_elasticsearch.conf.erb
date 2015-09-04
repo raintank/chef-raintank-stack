@@ -25,4 +25,4 @@ setgid root
 console log # log stdout/stderr to /var/log/upstart/
 
 
-exec /usr/sbin/nsq_probe_events_to_elasticsearch "-channel=elasticsearch" "-topic=probe_events" "-nsqd-tcp-address=localhost"
+exec /usr/sbin/nsq_probe_events_to_elasticsearch "-channel=<%= @channel -%>" "-topic=<%= @topic -%>" <% @nsqd_addr.each |naddr| do -%> "-nsqd-tcp-address=<%= naddr -%>"<% end -%> <%= "\"-consumer-opt=#{@consumer}\"" if @consumer -%> <%= "\"-lookupd-http-address=#{@lookupd}\"" if @lookupd -%> <%= "\"-n=#{@num_msg}\"" if @num_msg -%> "-statsd-addr=<%= @statsd_addr -%>" "-statsd-type=<%= @statsd_type -%>"

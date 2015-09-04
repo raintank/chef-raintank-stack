@@ -25,4 +25,4 @@ setgid root
 console log # log stdout/stderr to /var/log/upstart/
 
 
-exec /usr/sbin/nsq_metrics_to_kairos "-channel=kairos" "-topic=metrics" "-nsqd-tcp-address=localhost"
+exec /usr/sbin/nsq_metrics_to_kairos "-channel=<%= @channel -%>" "-topic=<%= @topic -%>" <% @nsqd_addr.each |naddr| do -%> "-nsqd-tcp-address=<%= naddr -%>"<% end -%> <%= "\"-consumer-opt=#{@consumer}\"" if @consumer -%> <%= "\"-lookupd-http-address=#{@lookupd}\"" if @lookupd -%> "-statsd-addr=<%= @statsd_addr -%>" "-statsd-type=<%= @statsd_type -%>" <%= "\"-concurrency=#{@concurrency}\"" if @concurrency %> <%= "\"-producer-opt=#{@producer}\"" if @producer -%> -topic-lowprio="<%= @topic_low -%>" 

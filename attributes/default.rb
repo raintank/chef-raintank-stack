@@ -110,7 +110,7 @@ default[:go][:version] = "1.4.2"
 # nsq_* tools
 default[:raintank_stack][:nsq_tools][:base][:max_in_flight] = 200
 default[:raintank_stack][:nsq_tools][:base][:num_msg] = 0
-default[:raintank_stack][:nsq_tools][:base][:nsqd_addr] = "localhost:4150"
+default[:raintank_stack][:nsq_tools][:base][:nsqd_addr] = [ "localhost:4150" ]
 default[:raintank_stack][:nsq_tools][:base][:statsd_addr] = "localhost:8125"
 default[:raintank_stack][:nsq_tools][:base][:statsd_type] = "datadog"
 
@@ -126,6 +126,7 @@ default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_type] = 
 ## metrics_to_kairosdb
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:channel] = "kairos"
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:topic_low] = "metrics-lowprio"
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
