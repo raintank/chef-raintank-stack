@@ -113,6 +113,9 @@ default[:raintank_stack][:nsq_tools][:base][:num_msg] = 0
 default[:raintank_stack][:nsq_tools][:base][:nsqd_addr] = []
 default[:raintank_stack][:nsq_tools][:base][:statsd_addr] = "localhost:8125"
 default[:raintank_stack][:nsq_tools][:base][:statsd_type] = "datadog"
+default[:raintank_stack][:nsq_tools][:base][:elastic_addr] = "localhost:9200"
+default[:raintank_stack][:nsq_tools][:base][:redis_addr] = "localhost:6379"
+default[:raintank_stack][:nsq_tools][:base][:kairos_addr] = "localhost:8080"
 
 ## metrics_to_elasticsearch
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:channel] = "elasticsearch"
@@ -122,6 +125,8 @@ default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:num_msg] = node
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
 
 ## metrics_to_kairosdb
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:channel] = "kairos"
@@ -132,6 +137,7 @@ default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:num_msg] = node[:raint
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:kairos_addr] = node[:raintank_stack][:nsq_tools][:base][:kairos_addr]
 
 ## probe_events_to_elasticsearch
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:channel] = "elasticsearch"
@@ -141,3 +147,4 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:num_msg] =
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]

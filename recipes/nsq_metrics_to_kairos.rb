@@ -41,7 +41,8 @@ template "/etc/init/nsq_metrics_to_kairos.conf" do
     :statsd_addr => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['topic'],
-    :topic_low => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['topic_low']
+    :topic_low => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['topic_low'],
+    :kairos_addr => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['kairos_addr']
   })
   notifies :restart, "service[nsq_metrics_to_kairos]"
 end

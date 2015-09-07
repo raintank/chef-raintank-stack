@@ -25,4 +25,4 @@ setgid root
 console log # log stdout/stderr to /var/log/upstart/
 
 
-exec /usr/sbin/nsq_metrics_to_elasticsearch "-channel=<%= @channel -%>" "-topic=<%= @topic -%>" <% @nsqd_addr.each do |naddr| -%> "-nsqd-tcp-address=<%= naddr -%>"<% end -%> <%= "\"-consumer-opt=#{@consumer}\"" if @consumer -%> <%= "\"-lookupd-http-address=#{@lookupd}\"" if @lookupd -%> <%= "\"-n=#{@num_msg}\"" if @num_msg -%> "-statsd-addr=<%= @statsd_addr -%>" "-statsd-type=<%= @statsd_type -%>"
+exec /usr/sbin/nsq_metrics_to_elasticsearch "-channel=<%= @channel -%>" "-topic=<%= @topic -%>" <% @nsqd_addr.each do |naddr| -%> "-nsqd-tcp-address=<%= naddr -%>"<% end -%> <%= "\"-consumer-opt=#{@consumer}\"" if @consumer -%> <%= "\"-lookupd-http-address=#{@lookupd}\"" if @lookupd -%> "-statsd-addr=<%= @statsd_addr -%>" "-statsd-type=<%= @statsd_type -%>" "-elastic-addr=<%= @elastic_addr -%>" "-redis-addr=<%= @redis_addr -%>"
