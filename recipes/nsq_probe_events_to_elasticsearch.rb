@@ -24,6 +24,8 @@ service "nsq_probe_events_to_elasticsearch" do
   action [ :enable, :start ]
 end
 
+nsqd_addrs = find_nsqd
+
 template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
   source "nsq_probe_events_to_elasticsearch.conf.erb"
   mode '0644'
@@ -35,7 +37,7 @@ template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
     :lookupd => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['lookupd'],
     :max_in_flight => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['max_in_flight'],
     :consumer => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['consumer'],
-    :nsqd_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['nsqd_addr'],
+    :nsqd_addr => nsqd_addrs,
     :statsd_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['topic'],

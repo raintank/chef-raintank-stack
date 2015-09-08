@@ -28,6 +28,11 @@ module RaintankStack
       h = haproxy.select { |h| h['gce']['instance']['zone'] == zone }.first
       return (h) ? h.ipaddress : nil
     end
+    def find_nsqd
+      # eventually we'll want to limit this search to only the same zone
+      nsqds = search("node", node['raintank_stack']['nsqd_search'])
+      return nsqds.map { |n| n.ipaddress }
+    end
   end
 end
 

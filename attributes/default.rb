@@ -1,6 +1,7 @@
 # general
 default[:raintank_stack][:packagecloud_repo] = "raintank/raintank"
 default[:raintank_stack][:haproxy_search] = "tags:haproxy AND chef_environment:#{node.chef_environment}"
+default[:raintank_stack][:nsqd_search] = "tags:nsqd AND chef_environment:#{node.chef_environment}"
 
 # package versions hash
 default[:raintank_stack][:package_version] = {}
