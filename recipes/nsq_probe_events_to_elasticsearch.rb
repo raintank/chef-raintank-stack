@@ -24,7 +24,7 @@ service "nsq_probe_events_to_elasticsearch" do
   action [ :enable, :start ]
 end
 
-nsqd_addrs = find_nsqd
+nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['nsqd_addr']
 
 template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
   source "nsq_probe_events_to_elasticsearch.conf.erb"
