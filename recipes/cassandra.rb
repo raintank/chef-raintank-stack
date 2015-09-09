@@ -8,8 +8,14 @@ apt_repository 'cassandra' do
   key 'http://debian.datastax.com/debian/repo_key'
 end
 
-package 'cassandra'
-package 'cassandra-tools'
+package 'cassandra' do
+  version '2.1.9'
+  action :upgrade
+end
+package 'cassandra-tools' do
+  version '2.1.9'
+  action :upgrade
+end
 package 'dsc21'
 
 service 'cassandra' do
