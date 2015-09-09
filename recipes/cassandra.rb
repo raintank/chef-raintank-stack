@@ -10,11 +10,11 @@ end
 
 package 'cassandra' do
   version '2.1.9'
-  action :install
+  action :upgrade
 end
 package 'cassandra-tools' do
   version '2.1.9'
-  action :install
+  action :upgrade
 end
 package 'dsc21'
 
