@@ -9,6 +9,8 @@ apt_repository 'cassandra' do
 end
 
 package 'cassandra'
+  version '2.1.9'
+end
 package 'cassandra-tools'
 package 'dsc21'
 
