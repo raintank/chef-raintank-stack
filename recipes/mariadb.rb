@@ -17,6 +17,11 @@
 # limitations under the License.
 #
 
+node.hostname =~ /(\d+?)/
+s_id = $1 || 1
+node.override[:mariadb][:replication][:server_id] = s_id.to_s
+node.set[:mariadb][:mysqld][:options][:log_slave_updates] = 1
+
 include_recipe "mariadb::galera"
 
 # and create the grafana database if it doesn't exist. Installing grafana will
@@ -64,5 +69,17 @@ if node[:raintank_stack][:create_database]
       privileges [:all]
       action :grant
     end
+  end
+  mysql_database_user node['raintank_stack']['repl_user'] do
+    connection connection_info
+    password node['raintank_stack']['repl_pass']
+    action :create
+  end
+  mysql_database_user node['raintank_stack']['repl_user'] do
+    connection connection_info
+    password node['raintank_stack']['repl_pass']
+    privileges :repl_slave
+    host node['raintank_stack']['repl_host']
+    action :grant
   end
 end
