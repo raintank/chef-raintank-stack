@@ -75,7 +75,7 @@ nginx_site "grafana" do
   notifies :restart, 'service[nginx]'
 end
 
-if !node['raintank_stack']['grafana_domain_aliases'].nil?
+if !node['raintank_stack']['grafana_domain_aliases'].nil? && !node['raintank_stack']['skip_grafana_aliases']
   node['raintank_stack']['grafana_domain_aliases'].each do |site|
     ssl_cert = ssl_key = nil
     if site['use_ssl']
