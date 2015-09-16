@@ -31,7 +31,7 @@ module RaintankStack
     def find_nsqd(port=4150)
       # eventually we'll want to limit this search to only the same zone
       nsqds = search("node", node['raintank_stack']['nsqd_search'])
-      return nsqds.map { |n| "#{n.ipaddress}:#{port}" }
+      return nsqds.map { |n| "#{n.fqdn}:#{port}" }
     end
   end
 end
