@@ -34,7 +34,7 @@ logging:
     raw:
       level: <%= @log_level %>
       class: logging.handlers.RotatingFileHandler
-      filename: <%= @log_dir %>/app.log %>
+      filename: <%= @log_dir %>/app.log
       backupCount: 2
       maxBytes: 536870912
       formatter: raw
@@ -42,7 +42,7 @@ logging:
       class : logging.handlers.RotatingFileHandler
       formatter: default
       level   : ERROR
-      filename: <%= @log_dir %>/flask.log %>
+      filename: <%= @log_dir %>/flask.log
       backupCount: 2
       maxBytes: 536870912
   loggers:
