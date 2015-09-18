@@ -47,6 +47,14 @@ directory "/var/lib/graphite" do
   action :create
 end
 
+directory node['raintank_stack']['graphite_api']['log_dir'] do
+  owner "graphite"
+  group "graphite"
+  mode "0755"
+  recursive true
+  action :create
+end
+
 service "graphite-api" do
   action [ :enable, :start ]
 end
@@ -77,6 +85,7 @@ template "/etc/graphite-api.yaml" do
     statsd_host: node['raintank_stack']['graphite_api']['statsd_host'],
     statsd_port: node['raintank_stack']['graphite_api']['statsd_port'],
     log_level: node['raintank_stack']['graphite_api']['log_level']
+    log_dir: node['raintank_stack']['graphite_api']['log_dir']
   })
   notifies :restart, 'service[graphite-api]'
 end

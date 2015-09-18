@@ -32,6 +32,7 @@ default[:raintank_stack][:graphite_api][:use_statsd] = false
 default[:raintank_stack][:graphite_api][:statsd_host] = "localhost"
 default[:raintank_stack][:graphite_api][:statsd_port] = 8125
 default[:raintank_stack][:graphite_api][:log_level] = "INFO"
+default[:raintank_stack][:graphite_api][:log_dir] = "/var/log/graphite"
 
 # collector
 default[:raintank_stack][:collector_config] = "/etc/raintank/collector/config.json"
