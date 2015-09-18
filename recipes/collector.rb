@@ -31,9 +31,8 @@ end
 package "node-raintank-collector" do
   version pkg_version
   action pkg_action
+  notifies :restart, 'service[raintank-collector]', :delayed
 end
-
-package "fping"
 
 directory "/etc/raintank/collector" do
   owner "root"
@@ -61,7 +60,7 @@ service "raintank-collector" do
       provider Chef::Provider::Service::Upstart
     end
   end
-  action [ :enable, :start ]
+  action [ :enable, :start]
 end
 
 collector_name =  node['raintank_stack']['collector_name'] || node.hostname
@@ -79,5 +78,5 @@ template node['raintank_stack']['collector_config'] do
     ping_port: node['raintank_stack']['ping_port']
   })
   # notifies ....
-  notifies :restart, 'service[raintank-collector]'
+  notifies :restart, 'service[raintank-collector]', :delayed
 end
