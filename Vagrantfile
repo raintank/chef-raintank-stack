@@ -107,6 +107,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	  use_ssl: false
 	}
       },
+      grafana: {
+	version: "2.2.1-1442246728ubuntu",
+	db_user: "root"
+      },
       influxdb: {
 	version: "0.8.8"
       }
