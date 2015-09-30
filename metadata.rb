@@ -8,7 +8,7 @@ version          '0.2.1'
 
 depends 'docker', '~> 0.37.0'
 depends 'rabbitmq', '~> 4.0.0'
-depends 'elasticsearch', '~> 0.3.13'
+depends 'elasticsearch', '~> 0.3.14'
 depends 'redis2', '~> 0.5.1'
 depends 'mysql', '~> 6.0.22'
 depends 'packagecloud', '~> 0.0.17'
