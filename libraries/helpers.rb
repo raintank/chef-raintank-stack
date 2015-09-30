@@ -30,7 +30,7 @@ module RaintankStack
     end
     def find_nsqd(port=4150)
       if Chef::Config[:solo]
-	return [ "127.0.0.1:#{port} ]
+	return [ "127.0.0.1:#{port}" ]
       end
       # eventually we'll want to limit this search to only the same zone
       nsqds = search("node", node['raintank_stack']['nsqd_search'])
