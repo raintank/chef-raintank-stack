@@ -29,5 +29,5 @@ docker_image 'spotify/cassandra'
 
 docker_container 'spotify/cassandra' do
   detach true
-  port [ "9160:9160" ]
+  port [ "9160:9160", "9042:9042" ]
 end

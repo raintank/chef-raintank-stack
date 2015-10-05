@@ -108,6 +108,9 @@ default[:java][:jdk_version] = "8"
 default[:java][:oracle][:accept_oracle_download_terms] = true
 default[:rabbitmq][:enabled_plugins] = [ 'rabbitmq_consistent_hash_exchange', 'rabbitmq_management' ]
 default[:go][:version] = "1.4.2"
+default[:elasticsearch][:version] = "1.4.4"
+default[:elasticsearch][:filename] = "elasticsearch-1.4.4.tar.gz"
+default[:elasticsearch][:download_url] = "http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.4.tar.gz"
 
 # nsq_* tools
 default[:raintank_stack][:nsq_tools][:base][:max_in_flight] = 200
