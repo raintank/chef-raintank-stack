@@ -3,7 +3,9 @@ start on filesystem or runlevel [2345]
 stop on runlevel [!2345]
 
 respawn
+respawn limit 2 5
 umask 022
+limit nofile 10240 10240
 #nice 
 #chroot /
 chdir /
