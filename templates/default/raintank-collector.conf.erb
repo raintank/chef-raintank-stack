@@ -25,6 +25,7 @@ chdir /
 setuid root
 setgid root
 console log # log stdout/stderr to /var/log/upstart/
+limit nofile 10000 10000
 
 chdir /usr/local/lib/node_modules/raintank-collector
 exec /usr/bin/nodejs "/usr/local/lib/node_modules/raintank-collector/app.js" "-c" "<%= @collector_config %>"
