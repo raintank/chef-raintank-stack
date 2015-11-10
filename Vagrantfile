@@ -53,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
   end
   #
   # View the documentation for the provider you're using for more
@@ -96,6 +96,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	db_name: "grafana",
 	db_user: "root",
 	db_password: "rootpass",
+	auto_assign_org: false
       },
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9",
@@ -107,11 +108,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	  use_ssl: false
 	}
       },
+      cassandra: {
+	listen_interface: "eth0",
+	'seeds' => []
+      },
       influxdb: {
 	version: "0.8.8"
       },
       go: {
 	version: "1.4.2"
+      },
+      nsq: {
+	version: "0.3.5",
+	go_version: "go1.4.2",
+	nsqd: {
+	  statsd_interval: "10s",
+	  e2e_processing_latency_window_time: "10s",
+	  e2e_processing_latency_percentile: "0.90,0.99",
+	  mem_queue_size: 0,
+	  sync_every: 4,
+	  max_msg_size: "10024768",
+	  lookupd_tcp_address: [],
+	  msg_timeout: "60s"
+	},
+	nsqadmin: {
+	  lookupd_http_address: [],
+	  nsqd_http_address: [],
+	  statsd_interval: "10s"
+	}
       }
     }
 

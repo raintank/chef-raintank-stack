@@ -16,7 +16,10 @@ package 'cassandra-tools' do
   version '2.1.9'
   action :install
 end
-package 'dsc21'
+package 'dsc21' do
+  version '2.1.9-1'
+  action :install
+end
 
 service 'cassandra' do
   action [ :enable, :start ]

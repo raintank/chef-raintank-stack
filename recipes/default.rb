@@ -29,7 +29,7 @@ include_recipe "redis2::default_instance"
 include_recipe "java"
 include_recipe "elasticsearch"
 # may need to reorder these
-include_recipe "raintank_stack::metric"
+#include_recipe "raintank_stack::metric"
 include_recipe "raintank_stack::graphite_api"
 include_recipe "raintank_stack::collector"
 include_recipe "raintank_stack::nsq_server"
