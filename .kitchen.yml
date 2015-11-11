@@ -2,7 +2,7 @@
 driver:
   name: vagrant
   customize:
-    memory: 4096
+    memory: 8192
     cpus: 2
 
 provisioner:
@@ -20,6 +20,12 @@ suites:
         server_debian_password: debpass
         server_repl_password: replpass
         use_default_repository: true
+        mysqld:
+          options:
+            binlog_format: ROW
+            innodb_autoinc_lock_mode: 2
+        galera:
+          wsrep_sst_method: xtrabackup-v2
       grafana: 
         domain: portal.raintank.local
         root_url: http://portal.raintank.local/
@@ -29,6 +35,7 @@ suites:
         db_name: grafana
         db_user: grafana
         db_password: gnarblatz
+        auto_assign_org: false
       raintank_stack:
         api_key: eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9
         ping_port: 9090
@@ -36,6 +43,12 @@ suites:
           replication_factor: 1
         nginx:
           use_ssl: false
+        cassandra:
+          concurrent_reads: 32,
+          concurrent_writes: 32
+      cassandra:
+        listen_interface: eth0
+        seeds: [ 127.0.0.1 ]
       influxdb:
         version: 0.8.8
       go:
@@ -66,6 +79,12 @@ suites:
         server_debian_password: debpass
         server_repl_password: replpass
         use_default_repository: true
+        mysqld:
+          options:
+            binlog_format: ROW
+            innodb_autoinc_lock_mode: 2
+        galera:
+          wsrep_sst_method: xtrabackup-v2
       grafana: 
         domain: portal.raintank.local
         root_url: http://portal.raintank.local/
@@ -75,6 +94,7 @@ suites:
         db_name: grafana
         db_user: grafana
         db_password: gnarblatz
+        auto_assign_org: false
       raintank_stack:
         api_key: eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9
         ping_port: 9090
@@ -82,6 +102,12 @@ suites:
           replication_factor: 1
         nginx:
           use_ssl: false
+        cassandra:
+          concurrent_reads: 32,
+          concurrent_writes: 32
+      cassandra:
+        listen_interface: eth0
+        seeds: [ 127.0.0.1 ]
       influxdb:
         version: 0.8.8
       go:
@@ -102,3 +128,4 @@ suites:
           lookupd_http_address: []
           nsqd_http_address: []
           statsd_interval: 10s
+

@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  config.vm.hostname = 'raintank-stack-berkshelf'
+  config.vm.hostname = 'portal.raintank.local'
 
   # Set the version of chef to install using the vagrant-omnibus plugin
   # NOTE: You will need to install the vagrant-omnibus plugin:
@@ -85,7 +85,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         server_root_password: 'rootpass',
         server_debian_password: 'debpass',
         server_repl_password: 'replpass',
-	use_default_repository: true
+	use_default_repository: true,
+	mysqld: {
+	  options: {
+	    binlog_format: "ROW",
+	    innodb_autoinc_lock_mode: 2
+	  }
+	},
+	galera: {
+	  wsrep_sst_method: 'xtrabackup-v2'
+	}
       },
       grafana: {
 	domain: "portal.raintank.local",
@@ -147,7 +156,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #chef.data_bags_path = "../../data_bags"
 
     chef.run_list = [
-      'recipe[raintank_stack::default]'
+      'recipe[raintank_stack::default]',
+      'recipe[raintank_stack::env_load]'
     ]
   end
 end

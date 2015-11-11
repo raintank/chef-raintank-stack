@@ -88,6 +88,7 @@ default[:raintank_stack][:statsd][:prefix_timers] = 'stats.timers.'
 default[:raintank_stack][:statsd][:prefix_gauges] = 'stats.gauges.'
 default[:raintank_stack][:statsd][:percentile_thresholds] = '90,75'
 default[:raintank_stack][:statsd][:max_timers_per_s] = 10000
+default[:raintank_stack][:env_load_url] = "https://github.com/raintank/env-load/releases/download/20151103/env-load_linux_amd64"
 
 # cassandra
 default[:raintank_stack][:cassandra][:cluster_name] = "Test Cluster"

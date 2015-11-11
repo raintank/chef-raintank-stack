@@ -17,9 +17,12 @@
 # limitations under the License.
 #
 
-#include_recipe "raintank_stack::docker"
+if node[:raintank_stack][:use_docker_cassandra]
+  include_recipe "raintank_stack::docker"
+else
+  include_recipe "raintank_stack::cassandra"
+end
 #include_recipe "raintank_stack::mysql"
-include_recipe "raintank_stack::cassandra"
 include_recipe "raintank_stack::mariadb"
 include_recipe "raintank_stack::kairosdb"
 include_recipe "rabbitmq"

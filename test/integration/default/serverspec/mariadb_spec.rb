@@ -27,7 +27,7 @@ def grafana_user_exists
   EOF
 end
 
-describe package("mariadb-galera-server") do
+describe package("mariadb-galera-server-10.0") do
   it { should be_installed }
 end
 
@@ -51,4 +51,17 @@ end
 describe command(grafana_user_exists) do
   its(:exit_status) { should eq 0 }
   its(:stdout) { should match(/| localhost | grafana |/) }
+end
+
+describe 'MariaDB config options' do
+  # make sure the sst methods are in place
+  context mysql_config('wsrep-sst-method') do
+    its(:value) { should eq 'xtrabackup-v2' }
+  end
+  context mysql_config('binlog-format') do
+    its(:value) { should eq 'ROW' }
+  end
+  context mysql_config('innodb-autoinc-lock-mode') do
+    its(:value) { should eq 2 }
+  end
 end

@@ -22,6 +22,12 @@ describe command("/usr/local/bin/nsqd --version") do
   its(:stdout) { should match(/0.3.5/) }
 end
 
+describe command("curl 'http://localhost:4151/stats'") do
+  its(:stdout) { should match(/metrics\s/) }
+  its(:stdout) { should match(/metrics-lowprio/) }
+  its(:stdout) { should match(/probe_events/) }
+end
+
 describe "nsqadmin" do
   it "is listening on port 4171" do
     expect(port(4171)).to be_listening
