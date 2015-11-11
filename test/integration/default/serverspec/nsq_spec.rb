@@ -24,7 +24,7 @@ end
 
 describe "nsqadmin" do
   it "is listening on port 4171" do
-    expect(port(4151)).to be_listening
+    expect(port(4171)).to be_listening
   end
   it "has nsqadmin running" do
     expect(service("nsqadmin")).to be_running

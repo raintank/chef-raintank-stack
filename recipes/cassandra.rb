@@ -45,5 +45,5 @@ template "/etc/cassandra/cassandra.yaml" do
     :concurrent_reads => node['raintank_stack']['cassandra']['concurrent_reads'],
     :concurrent_writes => node['raintank_stack']['cassandra']['concurrent_writes']
   })
-  notifies :restart, 'service[cassandra]'
+  notifies :restart, 'service[cassandra]', :immediately
 end

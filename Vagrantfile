@@ -53,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "4096"]
+    vb.customize ["modifyvm", :id, "--memory", "8192"]
   end
   #
   # View the documentation for the provider you're using for more
@@ -106,11 +106,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	},
 	nginx: {
 	  use_ssl: false
+	},
+	cassandra: {
+	  concurrent_reads: 32,
+	  concurrent_writes: 32
 	}
       },
       cassandra: {
 	listen_interface: "eth0",
-	'seeds' => []
+	'seeds' => [ "127.0.0.1" ]
       },
       influxdb: {
 	version: "0.8.8"

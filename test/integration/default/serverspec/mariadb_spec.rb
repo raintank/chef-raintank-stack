@@ -27,6 +27,10 @@ def grafana_user_exists
   EOF
 end
 
+describe package("mariadb-galera-server") do
+  it { should be_installed }
+end
+
 describe "mariadb" do
   it "is listening on port 3306" do
     expect(port(3306)).to be_listening

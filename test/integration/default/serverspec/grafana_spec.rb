@@ -2,6 +2,10 @@ require 'serverspec'
 
 set :backend, :exec
 
+describe package("grafana") do
+  it { should be_installed }
+end
+
 describe "grafana" do
   it "is listening on port 3000" do
     expect(port(3000)).to be_listening
@@ -13,6 +17,7 @@ describe "grafana" do
     expect(service("grafana-server")).to be_enabled
   end
 end
+
 describe "grafana configuration" do
   describe file("/etc/grafana/grafana.ini") do
     it { should be_file }

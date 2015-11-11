@@ -9,3 +9,7 @@ describe "cassandra" do
   # raintank-stack still uses cassandra in a docker instance, so don't d
   # other tests for now.
 end
+
+describe package("cassandra") do
+  it { should be_installed.with_version('2.1.9') }
+end
