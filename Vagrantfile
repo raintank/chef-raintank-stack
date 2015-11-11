@@ -119,8 +119,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	cassandra: {
 	  concurrent_reads: 32,
 	  concurrent_writes: 32
-	},
-	do_env_load: false
+	}
       },
       cassandra: {
 	listen_interface: "eth0",
