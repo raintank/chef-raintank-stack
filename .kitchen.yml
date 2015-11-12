@@ -13,7 +13,9 @@ platforms:
 
 suites:
   - name: default
-    run_list: raintank_stack::default
+    run_list: 
+      - raintank_stack::default
+      - raintank_stack::env_load
     attributes:
       mariadb: 
         server_root_password: rootpass
@@ -73,6 +75,7 @@ suites:
     run_list: 
       - raintank_stack::default
       - raintank_stack::capybara
+      - raintank_stack::env_load
     attributes:
       mariadb: 
         server_root_password: rootpass
