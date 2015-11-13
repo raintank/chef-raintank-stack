@@ -162,4 +162,12 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:listen] = 
 ## metric_tank
 default[:raintank_stack][:nsq_tools][:metric_tank][:channel] = "tank"
 default[:raintank_stack][:nsq_tools][:metric_tank][:topic] = "metrics"
-default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":36063"
+default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":6060"
+default[:raintank_stack][:nsq_tools][:metric_tank][:ttl] = 3024000
+default[:raintank_stack][:nsq_tools][:metric_tank][:chunkspan] = 600
+default[:raintank_stack][:nsq_tools][:metric_tank][:numchunks] = 20
+default[:raintank_stack][:nsq_tools][:metric_tank][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
+default[:raintank_stack][:nsq_tools][:metric_tank][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
+default[:raintank_stack][:nsq_tools][:metric_tank][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
+default[:raintank_stack][:nsq_tools][:metric_tank][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
+default[:raintank_stack][:nsq_tools][:metric_tank][:dump_file] = "/metric_tank.gob"

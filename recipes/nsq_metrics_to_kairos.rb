@@ -39,7 +39,7 @@ directory "/etc/raintank" do
 end
 
 template "/etc/raintank/nsq_metrics_to_kairos.conf" do
-  source "nsq_metrics_to_kairos.conf.erb"
+  source "nsq_metrics_to_kairos.ini.erb"
   mode '0644'
   owner 'root'
   group 'root'

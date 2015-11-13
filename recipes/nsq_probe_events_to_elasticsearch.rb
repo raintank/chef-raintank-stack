@@ -38,8 +38,8 @@ directory "/etc/raintank" do
   action :create
 end
 
-template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
-  source "nsq_probe_events_to_elasticsearch.conf.erb"
+template "/etc/raintank/nsq_probe_events_to_elasticsearch.conf" do
+  source "nsq_probe_events_to_elasticsearch.ini.erb"
   mode '0644'
   owner 'root'
   group 'root'

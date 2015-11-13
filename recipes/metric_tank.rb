@@ -46,7 +46,11 @@ template "/etc/raintank/metric_tank.ini" do
   variables({
     :channel => node['raintank_stack']['nsq_tools']['metric_tank']['channel'],
     :topic => node['raintank_stack']['nsq_tools']['metric_tank']['topic'],
+    :max_in_flight => node['raintank_stack']['nsq_tools']['metric_tank']['max_in_flight'],
     :listen => node['raintank_stack']['nsq_tools']['metric_tank']['listen'],
+    :ttl => node['raintank_stack']['nsq_tools']['metric_tank']['ttl'],
+    :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['chunkspan'],
+    :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['numchunks'], 
     :cassandras => cassandra_addrs.join(',')
     :nsqds => nsqds.join(',')
   })
