@@ -134,6 +134,7 @@ default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_addr] = 
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:listen] = ":36060"
 
 ## metrics_to_kairosdb
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:channel] = "kairos"
@@ -145,6 +146,7 @@ default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:nsqd_addr] = node[:rai
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:kairos_addr] = node[:raintank_stack][:nsq_tools][:base][:kairos_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:listen] = ":36061"
 
 ## probe_events_to_elasticsearch
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:channel] = "elasticsearch"
@@ -155,3 +157,9 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:nsqd_addr]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:listen] = ":36062"
+
+## metric_tank
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:channel] = "tank"
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:listen] = ":36063"

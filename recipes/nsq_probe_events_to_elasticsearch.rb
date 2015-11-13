@@ -37,11 +37,12 @@ template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
     :lookupd => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['lookupd'],
     :max_in_flight => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['max_in_flight'],
     :consumer => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['consumer'],
-    :nsqd_addr => nsqd_addrs,
+    :nsqd_addr => nsqd_addrs.join(','),
     :statsd_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['topic'],
-    :elastic_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['elastic_addr']
+    :elastic_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['elastic_addr'],
+    :listen =>  node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['listen']
   })
   notifies :restart, "service[nsq_probe_events_to_elasticsearch]"
 end

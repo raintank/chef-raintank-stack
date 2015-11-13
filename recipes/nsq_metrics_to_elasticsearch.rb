@@ -26,8 +26,8 @@ end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['nsqd_addr']
 
-template "/etc/init/nsq_metrics_to_elasticsearch.conf" do
-  source "nsq_metrics_to_elasticsearch.conf.erb"
+template "/etc/raintank/nsq_metrics_to_elasticsearch.ini" do
+  source "nsq_metrics_to_elasticsearch.ini.erb"
   mode '0644'
   owner 'root'
   group 'root'
@@ -37,12 +37,13 @@ template "/etc/init/nsq_metrics_to_elasticsearch.conf" do
     :lookupd => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['lookupd'],
     :max_in_flight => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['max_in_flight'],
     :consumer => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['consumer'],
-    :nsqd_addr => nsqd_addrs,
+    :nsqd_addr => nsqd_addrs.join(','),
     :statsd_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['topic'],
     :elastic_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['elastic_addr'],
-    :redis_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['redis_addr']
+    :redis_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['redis_addr'],
+    :listen =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['listen']
   })
   notifies :restart, "service[nsq_metrics_to_elasticsearch]"
 end

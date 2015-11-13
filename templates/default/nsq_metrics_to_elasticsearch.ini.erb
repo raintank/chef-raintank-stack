@@ -1,0 +1,9 @@
+# config file for nsq_metrics_to_elasticsearch - managed by Chef
+nsqd-tcp-address = <%= @nsqd_addr %>
+channel = <%= @channel %>
+topic = <%= @topic %>
+statsd-addr = <%= @statsd_addr %>
+statsd-type = <%= @statsd_type %>
+elastic-addr = <%= @elastic_addr %>
+redis-addr = <%= @redis_addr %>
+listen = <%= @listen %>
