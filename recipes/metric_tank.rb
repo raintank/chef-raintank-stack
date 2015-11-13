@@ -29,6 +29,14 @@ cassandra_addrs = find_cassandras
 
 # once raintank-metric#45 is accepted, this can be finished with a config file
 
+directory "/etc/raintank" do
+  owner "root"
+  group "root"
+  mode "0644"
+  recursive true
+  action :create
+end
+
 template "/etc/raintank/metric_tank.ini" do
   source "metric_tank.ini.erb"
   mode '0644'

@@ -30,6 +30,14 @@ end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['nsqd_addr']
 
+directory "/etc/raintank" do
+  owner "root"
+  group "root"
+  mode "0644"
+  recursive true
+  action :create
+end
+
 template "/etc/init/nsq_probe_events_to_elasticsearch.conf" do
   source "nsq_probe_events_to_elasticsearch.conf.erb"
   mode '0644'

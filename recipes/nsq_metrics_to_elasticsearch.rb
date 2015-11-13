@@ -30,6 +30,14 @@ end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['nsqd_addr']
 
+directory "/etc/raintank" do
+  owner "root"
+  group "root"
+  mode "0644"
+  recursive true
+  action :create
+end
+
 template "/etc/raintank/nsq_metrics_to_elasticsearch.ini" do
   source "nsq_metrics_to_elasticsearch.ini.erb"
   mode '0644'
