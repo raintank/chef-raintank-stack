@@ -27,13 +27,21 @@ end
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['metrics_to_tank']['nsqd_addr']
 cassandra_addrs = find_cassandras
 
-# once raintank-metric#45 is accepted, this can be finished with a config file
-
 directory "/etc/raintank" do
   owner "root"
   group "root"
   mode "0644"
   recursive true
+  action :create
+end
+
+dump_dir = ::File.dirname(node['raintank_stack']['nsq_tools']['metric_tank']['dump_file'])
+directory dump_dir do 
+  owner "root"
+  group "root"
+  mode "0755"
+  recursive true
+  not_if { ::File.exist?(dump_dir) }
   action :create
 end
 
@@ -50,9 +58,10 @@ template "/etc/raintank/metric_tank.ini" do
     :listen => node['raintank_stack']['nsq_tools']['metric_tank']['listen'],
     :ttl => node['raintank_stack']['nsq_tools']['metric_tank']['ttl'],
     :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['chunkspan'],
-    :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['numchunks'], 
-    :cassandras => cassandra_addrs.join(',')
-    :nsqds => nsqds.join(',')
+    :numchunks => node['raintank_stack']['nsq_tools']['metric_tank']['numchunks'], 
+    :cassandras => cassandra_addrs.join(','),
+    :nsqds => nsqds.join(','),
+    :dump_file => node['raintank_stack']['nsq_tools']['metric_tank']['dump_file']
   })
   notifies :restart, "service[metric_tank]"
 end

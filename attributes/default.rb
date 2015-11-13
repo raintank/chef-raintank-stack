@@ -170,4 +170,4 @@ default[:raintank_stack][:nsq_tools][:metric_tank][:max_in_flight] = node[:raint
 default[:raintank_stack][:nsq_tools][:metric_tank][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
 default[:raintank_stack][:nsq_tools][:metric_tank][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:metric_tank][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
-default[:raintank_stack][:nsq_tools][:metric_tank][:dump_file] = "/metric_tank.gob"
+default[:raintank_stack][:nsq_tools][:metric_tank][:dump_file] = "/var/lib/metric_tank/metric_tank.gob"
