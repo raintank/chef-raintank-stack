@@ -12,6 +12,10 @@ end
 package "nsq-probe-events-to-elasticsearch" do
   version pkg_version
   action pkg_action
+  case node["platform"]
+  when "ubuntu"
+    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
+  end
 end
 
 service "nsq_probe_events_to_elasticsearch" do

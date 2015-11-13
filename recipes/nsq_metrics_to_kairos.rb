@@ -12,6 +12,10 @@ end
 package "nsq-metrics-to-kairos" do
   version pkg_version
   action pkg_action
+  case node["platform"]
+  when "ubuntu"
+    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
+  end
 end
 
 service "nsq_metrics_to_kairos" do
