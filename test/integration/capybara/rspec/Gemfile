@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'rspec'
+gem 'headless'
+gem 'capybara'
+gem "capybara-webkit"
+#gem 'selenium-webdriver'

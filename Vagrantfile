@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  config.vm.hostname = 'raintank-stack-berkshelf'
+  config.vm.hostname = 'portal.raintank.local'
 
   # Set the version of chef to install using the vagrant-omnibus plugin
   # NOTE: You will need to install the vagrant-omnibus plugin:
@@ -53,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "8192"]
   end
   #
   # View the documentation for the provider you're using for more
@@ -85,7 +85,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         server_root_password: 'rootpass',
         server_debian_password: 'debpass',
         server_repl_password: 'replpass',
-	use_default_repository: true
+	use_default_repository: true,
+	mysqld: {
+	  options: {
+	    binlog_format: "ROW",
+	    innodb_autoinc_lock_mode: 2
+	  }
+	},
+	galera: {
+	  wsrep_sst_method: 'xtrabackup-v2'
+	}
       },
       grafana: {
 	domain: "portal.raintank.local",
@@ -96,6 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	db_name: "grafana",
 	db_user: "root",
 	db_password: "rootpass",
+	auto_assign_org: false
       },
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9",
@@ -105,13 +115,40 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	},
 	nginx: {
 	  use_ssl: false
+	},
+	cassandra: {
+	  concurrent_reads: 32,
+	  concurrent_writes: 32
 	}
+      },
+      cassandra: {
+	listen_interface: "eth0",
+	'seeds' => [ "127.0.0.1" ]
       },
       influxdb: {
 	version: "0.8.8"
       },
       go: {
 	version: "1.4.2"
+      },
+      nsq: {
+	version: "0.3.5",
+	go_version: "go1.4.2",
+	nsqd: {
+	  statsd_interval: "10s",
+	  e2e_processing_latency_window_time: "10s",
+	  e2e_processing_latency_percentile: "0.90,0.99",
+	  mem_queue_size: 0,
+	  sync_every: 4,
+	  max_msg_size: "10024768",
+	  lookupd_tcp_address: [],
+	  msg_timeout: "60s"
+	},
+	nsqadmin: {
+	  lookupd_http_address: [],
+	  nsqd_http_address: [],
+	  statsd_interval: "10s"
+	}
       }
     }
 
@@ -119,7 +156,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #chef.data_bags_path = "../../data_bags"
 
     chef.run_list = [
-      'recipe[raintank_stack::default]'
+      'recipe[raintank_stack::default]',
+      'recipe[raintank_stack::env_load]'
     ]
   end
 end

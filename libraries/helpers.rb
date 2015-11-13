@@ -37,6 +37,13 @@ module RaintankStack
       return nsqds.map { |n| "#{n.fqdn}:#{port}" }
     end
   end
+  def find_cassandras
+    if Chef::Config[:solo]
+      return [ "127.0.0.1" ]
+      cassandras = search("node", node['raintank_stack']['cassandra_search'])
+      return cassandras.map { |c| c.fqdn }
+    end
+  end
 end
 
 Chef::Recipe.send(:include, ::RaintankStack::Helpers)

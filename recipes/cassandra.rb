@@ -16,7 +16,10 @@ package 'cassandra-tools' do
   version '2.1.9'
   action :install
 end
-package 'dsc21'
+package 'dsc21' do
+  version '2.1.9-1'
+  action :install
+end
 
 service 'cassandra' do
   action [ :enable, :start ]
@@ -42,5 +45,5 @@ template "/etc/cassandra/cassandra.yaml" do
     :concurrent_reads => node['raintank_stack']['cassandra']['concurrent_reads'],
     :concurrent_writes => node['raintank_stack']['cassandra']['concurrent_writes']
   })
-  notifies :restart, 'service[cassandra]'
+  notifies :restart, 'service[cassandra]', :immediately
 end

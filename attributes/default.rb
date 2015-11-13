@@ -2,6 +2,7 @@
 default[:raintank_stack][:packagecloud_repo] = "raintank/raintank"
 default[:raintank_stack][:haproxy_search] = "tags:haproxy AND chef_environment:#{node.chef_environment}"
 default[:raintank_stack][:nsqd_search] = "tags:nsqd AND chef_environment:#{node.chef_environment}"
+default[:raintank_stack][:cassandra_search] = "tags:cassandra AND chef_environment:#{node.chef_environment}"
 
 # package versions hash
 default[:raintank_stack][:package_version] = {}
@@ -88,6 +89,7 @@ default[:raintank_stack][:statsd][:prefix_timers] = 'stats.timers.'
 default[:raintank_stack][:statsd][:prefix_gauges] = 'stats.gauges.'
 default[:raintank_stack][:statsd][:percentile_thresholds] = '90,75'
 default[:raintank_stack][:statsd][:max_timers_per_s] = 10000
+default[:raintank_stack][:env_load_url] = "https://github.com/raintank/env-load/releases/download/20151103/env-load_linux_amd64"
 
 # cassandra
 default[:raintank_stack][:cassandra][:cluster_name] = "Test Cluster"
@@ -132,6 +134,7 @@ default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_addr] = 
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:listen] = ":36060"
 
 ## metrics_to_kairosdb
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:channel] = "kairos"
@@ -143,6 +146,7 @@ default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:nsqd_addr] = node[:rai
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:kairos_addr] = node[:raintank_stack][:nsq_tools][:base][:kairos_addr]
+default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:listen] = ":36061"
 
 ## probe_events_to_elasticsearch
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:channel] = "elasticsearch"
@@ -153,3 +157,9 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:nsqd_addr]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
+default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:listen] = ":36062"
+
+## metric_tank
+default[:raintank_stack][:nsq_tools][:metric_tank][:channel] = "tank"
+default[:raintank_stack][:nsq_tools][:metric_tank][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":36063"

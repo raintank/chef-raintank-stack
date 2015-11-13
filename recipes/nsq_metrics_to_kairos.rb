@@ -12,6 +12,10 @@ end
 package "nsq-metrics-to-kairos" do
   version pkg_version
   action pkg_action
+  case node["platform"]
+  when "ubuntu"
+    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
+  end
 end
 
 service "nsq_metrics_to_kairos" do
@@ -26,7 +30,7 @@ end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['metrics_to_kairos']['nsqd_addr']
 
-template "/etc/init/nsq_metrics_to_kairos.conf" do
+template "/etc/raintank/nsq_metrics_to_kairos.conf" do
   source "nsq_metrics_to_kairos.conf.erb"
   mode '0644'
   owner 'root'
@@ -39,12 +43,13 @@ template "/etc/init/nsq_metrics_to_kairos.conf" do
     :concurrency => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['concurrency'],
     :consumer => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['consumer'],
     :producer => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['producer'],
-    :nsqd_addr => nsqd_addrs,
+    :nsqd_addr => nsqd_addrs.join(','),
     :statsd_addr => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['topic'],
     :topic_low => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['topic_low'],
-    :kairos_addr => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['kairos_addr']
+    :kairos_addr => node['raintank_stack']['nsq_tools']['metrics_to_kairos']['kairos_addr'],
+    :listen =>  node['raintank_stack']['nsq_tools']['metrics_to_kairos']['listen']
   })
   notifies :restart, "service[nsq_metrics_to_kairos]"
 end
