@@ -12,10 +12,7 @@ end
 package "nsq-probe-events-to-elasticsearch" do
   version pkg_version
   action pkg_action
-  case node["platform"]
-  when "ubuntu"
-    options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
-  end
+  options "-o Dpkg::Options::='--force-confnew'"
 end
 
 service "nsq_probe_events_to_elasticsearch" do
@@ -38,7 +35,7 @@ directory "/etc/raintank" do
   action :create
 end
 
-template "/etc/raintank/nsq_probe_events_to_elasticsearch.conf" do
+template "/etc/raintank/nsq_probe_events_to_elasticsearch.ini" do
   source "nsq_probe_events_to_elasticsearch.ini.erb"
   mode '0644'
   owner 'root'
