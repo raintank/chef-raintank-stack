@@ -160,6 +160,6 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:elastic_ad
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:listen] = ":36062"
 
 ## metric_tank
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:channel] = "tank"
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:topic] = "metrics"
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:listen] = ":36063"
+default[:raintank_stack][:nsq_tools][:metric_tank][:channel] = "tank"
+default[:raintank_stack][:nsq_tools][:metric_tank][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":36063"
