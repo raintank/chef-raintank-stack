@@ -36,10 +36,10 @@ module RaintankStack
       nsqds = search("node", node['raintank_stack']['nsqd_search'])
       return nsqds.map { |n| "#{n.fqdn}:#{port}" }
     end
-  end
-  def find_cassandras
-    if Chef::Config[:solo]
-      return [ "127.0.0.1" ]
+    def find_cassandras
+      if Chef::Config[:solo]
+	return [ "127.0.0.1" ]
+      end
       cassandras = search("node", node['raintank_stack']['cassandra_search'])
       return cassandras.map { |c| c.fqdn }
     end

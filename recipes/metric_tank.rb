@@ -60,7 +60,7 @@ template "/etc/raintank/metric_tank.ini" do
     :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['chunkspan'],
     :numchunks => node['raintank_stack']['nsq_tools']['metric_tank']['numchunks'], 
     :cassandras => cassandra_addrs.join(','),
-    :nsqds => nsqds.join(','),
+    :nsqds => nsqd_addrs.join(','),
     :dump_file => node['raintank_stack']['nsq_tools']['metric_tank']['dump_file']
   })
   notifies :restart, "service[metric_tank]"
