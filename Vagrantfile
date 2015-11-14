@@ -119,11 +119,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	cassandra: {
 	  concurrent_reads: 32,
 	  concurrent_writes: 32
-	},
-	nsq_tools: {
-	  metric_tank: {
-	    topic: "metrics-tank"
-	  }
 	}
       },
       cassandra: {

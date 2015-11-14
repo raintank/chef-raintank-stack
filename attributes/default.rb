@@ -162,7 +162,7 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:listen] = 
 ## metric_tank
 default[:raintank_stack][:nsq_tools][:metric_tank][:channel] = "tank"
 default[:raintank_stack][:nsq_tools][:metric_tank][:topic] = "metrics"
-default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":6060"
+default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":36063"
 default[:raintank_stack][:nsq_tools][:metric_tank][:ttl] = 3024000
 default[:raintank_stack][:nsq_tools][:metric_tank][:chunkspan] = 600
 default[:raintank_stack][:nsq_tools][:metric_tank][:numchunks] = 20
