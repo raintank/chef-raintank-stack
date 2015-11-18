@@ -12,6 +12,7 @@ end
 package "metric-tank" do
   version pkg_version
   action pkg_action
+  options "-o Dpkg::Options::='--force-confnew'"
 end
 
 service "metric_tank" do
