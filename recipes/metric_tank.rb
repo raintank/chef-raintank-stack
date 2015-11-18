@@ -65,7 +65,7 @@ template "/etc/raintank/metric_tank.ini" do
     :cassandra_write_concurrency => node['raintank_stack']['nsq_tools']['metric_tank']['cassandra_write_concurrency'],
     :nsqds => nsqd_addrs.join(','),
     :dump_file => node['raintank_stack']['nsq_tools']['metric_tank']['dump_file'],
-    :log_level => node['raintank_stack']['nsq_tools']['metric_tank']['log_file'],
+    :log_level => node['raintank_stack']['nsq_tools']['metric_tank']['log_level'],
     :gc_interval => node['raintank_stack']['nsq_tools']['metric_tank']['gc_interval'],
     :chunk_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['chunk_max_stale'],
     :metric_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['metric_max_stale'],
