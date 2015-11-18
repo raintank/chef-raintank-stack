@@ -55,13 +55,19 @@ template "/etc/raintank/metric_tank.ini" do
     :channel => node['raintank_stack']['nsq_tools']['metric_tank']['channel'],
     :topic => node['raintank_stack']['nsq_tools']['metric_tank']['topic'],
     :max_in_flight => node['raintank_stack']['nsq_tools']['metric_tank']['max_in_flight'],
+    :concurrency => node['raintank_stack']['nsq_tools']['metric_tank']['concurrency'],
     :listen => node['raintank_stack']['nsq_tools']['metric_tank']['listen'],
     :ttl => node['raintank_stack']['nsq_tools']['metric_tank']['ttl'],
     :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['chunkspan'],
     :numchunks => node['raintank_stack']['nsq_tools']['metric_tank']['numchunks'], 
     :cassandras => cassandra_addrs.join(','),
+    :cassandra_write_concurrency => node['raintank_stack']['nsq_tools']['metric_tank']['cassandra_write_concurrency'],
     :nsqds => nsqd_addrs.join(','),
-    :dump_file => node['raintank_stack']['nsq_tools']['metric_tank']['dump_file']
+    :dump_file => node['raintank_stack']['nsq_tools']['metric_tank']['dump_file'],
+    :log_level => node['raintank_stack']['nsq_tools']['metric_tank']['log_file'],
+    :gc_interval => node['raintank_stack']['nsq_tools']['metric_tank']['gc_interval'],
+    :chunk_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['chunk_max_stale'],
+    :metric_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['metric_max_stale']
   })
   notifies :restart, "service[metric_tank]"
 end
