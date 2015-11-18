@@ -24,8 +24,18 @@ logging:
   handlers:
     raw:
       level: <%= @log_level %>
-      class: logging.StreamHandler
+      class: logging.handlers.RotatingFileHandler
+      filename: <%= @log_dir %>/app.log
+      backupCount: 2
+      maxBytes: 536870912
       formatter: raw
+    flask:
+      class : logging.handlers.RotatingFileHandler
+      formatter: default
+      level   : ERROR
+      filename: <%= @log_dir %>/flask.log
+      backupCount: 2
+      maxBytes: 536870912
   loggers:
     root:
       handlers:
@@ -36,3 +46,11 @@ logging:
       handlers:
         - raw
       level: <%= @log_level %>
+  formatters:
+    default:
+      format: '%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
+      datefmt: '%Y-%m-%d %H:%M:%S'
+  root:
+    handlers:
+      - flask
+    level: ERROR
