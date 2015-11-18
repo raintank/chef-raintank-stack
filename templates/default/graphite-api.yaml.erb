@@ -1,9 +1,8 @@
 cache:
   dir: <%= @cache_dir %>
   type: <%= @cache_type %>
-finders: <% @finders.each do |f| %>
-- <%= f %>
-<% end -%>
+finders: 
+- graphite_kairosdb.KairosdbFinder
 functions: <% @functions.each do |f| %>
 - <%= f %>
 <% end -%>
