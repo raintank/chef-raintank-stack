@@ -68,7 +68,9 @@ template "/etc/raintank/metric_tank.ini" do
     :log_level => node['raintank_stack']['nsq_tools']['metric_tank']['log_file'],
     :gc_interval => node['raintank_stack']['nsq_tools']['metric_tank']['gc_interval'],
     :chunk_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['chunk_max_stale'],
-    :metric_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['metric_max_stale']
+    :metric_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['metric_max_stale'],
+    :statsd_addr => node['raintank_stack']['nsq_tools']['metric_tank']['statsd_addr'],
+    :statsd_type => node['raintank_stack']['nsq_tools']['metric_tank']['statsd_type']
   })
   notifies :restart, "service[metric_tank]"
 end
