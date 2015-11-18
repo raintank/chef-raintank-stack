@@ -2,9 +2,24 @@
 channel = <%= @channel %>
 topic = <%= @topic %>
 nsqd-tcp-address = <%= @nsqds %>
-cassandra-addrs = <%= @cassandras %>
-listen = <%= @listen %>
-ttl = <%= @ttl %>
+max-in-fligh = <%= @max_in_flight %>
+concurrency = <%= @concurrency %>
+
 chunkspan = <%= @chunkspan %>
 numchunks = <%= @numchunks %>
+
+cassandra-addrs = <%= @cassandras %>
+cassandra-write-concurrency = <%= @cassandra_write_concurrency %>
+ttl = <%= @ttl %>
+
+listen = <%= @listen %>
+
+gc-interval = <%= @gc_interval %>
+chunk-max-stale = <%= @chunk_max_stale %>
+metric-max-stale = <%= @metric_max_stale %>
+
+log-level = <%= @log_level %>
 dump-file = <%= @dump_file %>
+
+statsd-addr = <%= @statsd_addr %>
+statsd-type = <%= @statsd_type %>
