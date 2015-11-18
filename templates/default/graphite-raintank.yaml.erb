@@ -1,0 +1,38 @@
+cache:
+  dir: <%= @cache_dir %>
+  type: <%= @cache_type %>
+finders: <% @finders.each do |f| %>
+- <%= f %>
+<% end -%>
+functions: <% @functions.each do |f| %>
+- <%= f %>
+<% end -%>
+raintank:
+  tank:
+    url: http://<%= @tank_host %>:<%= @tank_port %>/
+  es:
+    url: http://<%= @elasticsearch_host %>:<%= @elasticsearch_port %>/
+search_index: <%= @search_index %>
+time_zone: <%= @time_zone %>
+<% if @use_statsd %>
+statsd:
+  host: '<%= @statsd_host %>'
+  port: <%= @statsd_port %>
+<% end -%>
+logging:
+  version: 1
+  handlers:
+    raw:
+      level: <%= @log_level %>
+      class: logging.StreamHandler
+      formatter: raw
+  loggers:
+    root:
+      handlers:
+        - raw
+      level: <%= @log_level %>
+      propagate: false
+    graphite_api:
+      handlers:
+        - raw
+      level: <%= @log_level %>

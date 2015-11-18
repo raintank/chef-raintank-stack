@@ -20,9 +20,10 @@ default[:raintank_stack][:kairosdb][:write_buffer_max_size] = 500000
 # graphite-api
 default[:raintank_stack][:cache_dir] = "/tmp/graphite-api-cache"
 default[:raintank_stack][:cache_type] = "filesystem"
-default[:raintank_stack][:finders] = [ 'graphite_kairosdb.KairosdbFinder' ]
+default[:raintank_stack][:finders] = [ 'graphite_raintank.RaintankFinder' ]
 default[:raintank_stack][:functions] = [ 'graphite_api.functions.SeriesFunctions', 'graphite_api.functions.PieFunctions' ]
 default[:raintank_stack][:cassandras] = []
+default[:raintank_stack][:tank_host] = "localhost"
 default[:raintank_stack][:kairosdb_host] = "localhost"
 default[:raintank_stack][:kairosdb_port] = 8080
 default[:raintank_stack][:elasticsearch_host] = "localhost"
@@ -34,6 +35,12 @@ default[:raintank_stack][:graphite_api][:statsd_host] = "localhost"
 default[:raintank_stack][:graphite_api][:statsd_port] = 8125
 default[:raintank_stack][:graphite_api][:log_level] = "INFO"
 default[:raintank_stack][:graphite_api][:log_dir] = "/var/log/graphite"
+# avoid conflicts between the new and old graphite packages
+default[:raintank_stack][:graphite_tank][:use_statsd] = false
+default[:raintank_stack][:graphite_tank][:statsd_host] = "localhost"
+default[:raintank_stack][:graphite_tank][:statsd_port] = 8125
+default[:raintank_stack][:graphite_tank][:log_level] = "INFO"
+default[:raintank_stack][:graphite_tank][:log_dir] = "/var/log/graphite"
 
 # collector
 default[:raintank_stack][:collector_config] = "/etc/raintank/collector/config.json"
@@ -162,7 +169,7 @@ default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:listen] = 
 ## metric_tank
 default[:raintank_stack][:nsq_tools][:metric_tank][:channel] = "tank"
 default[:raintank_stack][:nsq_tools][:metric_tank][:topic] = "metrics"
-default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":36063"
+default[:raintank_stack][:nsq_tools][:metric_tank][:listen] = ":18763"
 default[:raintank_stack][:nsq_tools][:metric_tank][:ttl] = 3024000
 default[:raintank_stack][:nsq_tools][:metric_tank][:chunkspan] = 600
 default[:raintank_stack][:nsq_tools][:metric_tank][:numchunks] = 20
