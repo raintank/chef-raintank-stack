@@ -10,5 +10,5 @@ end
 
 describe package("cassandra") do
   it { should be_installed }
-  its(:version) { should eq '2.1.9' }
+  its(:version) { should eq '2.2.3' }
 end

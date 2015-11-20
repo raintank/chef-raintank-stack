@@ -9,15 +9,15 @@ apt_repository 'cassandra' do
 end
 
 package 'cassandra' do
-  version '2.1.9'
+  version '2.2.3'
   action :install
 end
 package 'cassandra-tools' do
-  version '2.1.9'
+  version '2.2.3'
   action :install
 end
 package 'dsc21' do
-  version '2.1.9-1'
+  version '2.2.3-1'
   action :install
 end
 
