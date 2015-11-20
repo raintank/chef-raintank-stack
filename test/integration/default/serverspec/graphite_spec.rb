@@ -7,9 +7,9 @@ describe "graphite" do
     expect(port(8888)).to be_listening
   end
   it "has graphite running" do
-    expect(service("graphite-api")).to be_running
+    expect(service("graphite-raintank")).to be_running
   end
   it "has graphite enabled" do
-    expect(service("graphite-api")).to be_enabled
+    expect(service("graphite-raintank")).to be_enabled
   end
 end
