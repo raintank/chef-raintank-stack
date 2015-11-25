@@ -16,7 +16,7 @@ package 'cassandra-tools' do
   version '2.2.3'
   action :install
 end
-package 'dsc21' do
+package 'dsc22' do
   version '2.2.3-1'
   action :install
 end

@@ -107,6 +107,43 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	db_password: "rootpass",
 	auto_assign_org: false
       },
+      collectd: {
+	plugins: {
+	  write_graphite: {
+	    config: {
+	      Prefix: "testcollectd.vagrant.",
+	      EscapeCharacter: "_",
+	      SeparateInstances: true,
+	      StoreRates: false,
+	      AlwaysAppendDS: false
+	    }
+	  },
+	  cpu: {},
+	  df: {
+	    config: {
+	      FSType: [ "rootfs", "sysfs", "proc", "devtmpfs", "devpts", "tmpfs", "fusectl", "cgroup" ],
+	      IgnoreSelected: true
+	    }
+	  },
+	  disk: {},
+	  interface: {
+	    config: {
+	      Interface: "lo",
+	      IgnoreSelected: true
+	    }
+	  },
+	  memory: {},
+	  processes: {},
+	  swap: {
+	    config: {
+	      ReportByDevice: false,
+	      ReportBytes: true
+	    }
+	  },
+	  users: {},
+	},
+	graphite_ipaddress: "147.75.194.39"
+      },
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9",
 	ping_port: 9090,
