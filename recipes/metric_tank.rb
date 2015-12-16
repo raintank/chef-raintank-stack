@@ -25,7 +25,7 @@ service "metric_tank" do
   action [ :enable, :start ]
 end
 
-nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['metrics_to_tank']['nsqd_addr']
+nsqd_addrs = find_nsqd || node['raintank_stack']['metrics_to_tank']['nsqd_addr']
 cassandra_addrs = find_cassandras
 
 directory "/etc/raintank" do
@@ -36,16 +36,6 @@ directory "/etc/raintank" do
   action :create
 end
 
-dump_dir = ::File.dirname(node['raintank_stack']['nsq_tools']['metric_tank']['dump_file'])
-directory dump_dir do 
-  owner "root"
-  group "root"
-  mode "0755"
-  recursive true
-  not_if { ::File.exist?(dump_dir) }
-  action :create
-end
-
 template "/etc/raintank/metric_tank.ini" do
   source "metric_tank.ini.erb"
   mode '0644'
@@ -53,24 +43,28 @@ template "/etc/raintank/metric_tank.ini" do
   group 'root'
   action :create
   variables({
-    :channel => node['raintank_stack']['nsq_tools']['metric_tank']['channel'],
-    :topic => node['raintank_stack']['nsq_tools']['metric_tank']['topic'],
-    :max_in_flight => node['raintank_stack']['nsq_tools']['metric_tank']['max_in_flight'],
-    :concurrency => node['raintank_stack']['nsq_tools']['metric_tank']['concurrency'],
-    :listen => node['raintank_stack']['nsq_tools']['metric_tank']['listen'],
-    :ttl => node['raintank_stack']['nsq_tools']['metric_tank']['ttl'],
-    :chunkspan => node['raintank_stack']['nsq_tools']['metric_tank']['chunkspan'],
-    :numchunks => node['raintank_stack']['nsq_tools']['metric_tank']['numchunks'], 
+    :instance => node['raintank_stack']['metric_tank']['instance'],
+    :primary_node => node['raintank_stack']['metric_tank']['primary_node'],
+    :warm_up_period => node['raintank_stack']['metric_tank']['warm_up_period'],
+    :max_unwritten_chunks => node['raintank_stack']['metric_tank']['max_unwritten_chunks'],
+    :topic_notify_persist => node['raintank_stack']['metric_tank']['topic_notify_persist'],
+    :channel => node['raintank_stack']['metric_tank']['channel'],
+    :topic => node['raintank_stack']['metric_tank']['topic'],
+    :max_in_flight => node['raintank_stack']['metric_tank']['max_in_flight'],
+    :concurrency => node['raintank_stack']['metric_tank']['concurrency'],
+    :listen => node['raintank_stack']['metric_tank']['listen'],
+    :ttl => node['raintank_stack']['metric_tank']['ttl'],
+    :chunkspan => node['raintank_stack']['metric_tank']['chunkspan'],
+    :numchunks => node['raintank_stack']['metric_tank']['numchunks'], 
     :cassandras => cassandra_addrs.join(','),
-    :cassandra_write_concurrency => node['raintank_stack']['nsq_tools']['metric_tank']['cassandra_write_concurrency'],
+    :cassandra_write_concurrency => node['raintank_stack']['metric_tank']['cassandra_write_concurrency'],
     :nsqds => nsqd_addrs.join(','),
-    :dump_file => node['raintank_stack']['nsq_tools']['metric_tank']['dump_file'],
-    :log_level => node['raintank_stack']['nsq_tools']['metric_tank']['log_level'],
-    :gc_interval => node['raintank_stack']['nsq_tools']['metric_tank']['gc_interval'],
-    :chunk_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['chunk_max_stale'],
-    :metric_max_stale => node['raintank_stack']['nsq_tools']['metric_tank']['metric_max_stale'],
-    :statsd_addr => node['raintank_stack']['nsq_tools']['metric_tank']['statsd_addr'],
-    :statsd_type => node['raintank_stack']['nsq_tools']['metric_tank']['statsd_type']
+    :log_level => node['raintank_stack']['metric_tank']['log_level'],
+    :gc_interval => node['raintank_stack']['metric_tank']['gc_interval'],
+    :chunk_max_stale => node['raintank_stack']['metric_tank']['chunk_max_stale'],
+    :metric_max_stale => node['raintank_stack']['metric_tank']['metric_max_stale'],
+    :statsd_addr => node['raintank_stack']['metric_tank']['statsd_addr'],
+    :statsd_type => node['raintank_stack']['metric_tank']['statsd_type']
   })
   notifies :restart, "service[metric_tank]"
 end

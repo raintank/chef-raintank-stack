@@ -1,12 +1,21 @@
 # config for metric_tank -- managed by Chef
+instance = <%= @instance %>
+primary-node = <% @primary_node %>
+
 channel = <%= @channel %>
 topic = <%= @topic %>
+
+topic-metric-persist = <%= @topic_metric_persist %>
+warm-up-period = <%= @warm_up_period %>
+
+
 nsqd-tcp-address = <%= @nsqds %>
-max-in-fligh = <%= @max_in_flight %>
+max-in-flight = <%= @max_in_flight %>
 concurrency = <%= @concurrency %>
 
 chunkspan = <%= @chunkspan %>
 numchunks = <%= @numchunks %>
+max-unwritten-chunks = <%= @max_unwritten_chunks %>
 
 cassandra-addrs = <%= @cassandras %>
 cassandra-write-concurrency = <%= @cassandra_write_concurrency %>
@@ -19,7 +28,6 @@ chunk-max-stale = <%= @chunk_max_stale %>
 metric-max-stale = <%= @metric_max_stale %>
 
 log-level = <%= @log_level %>
-dump-file = <%= @dump_file %>
 
 statsd-addr = <%= @statsd_addr %>
 statsd-type = <%= @statsd_type %>
