@@ -107,6 +107,236 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	db_password: "rootpass",
 	auto_assign_org: false
       },
+      collectd: {
+	plugins: {
+	  write_graphite: {
+	    config: {
+	      Prefix: "testcollectd.vagrant.",
+	      EscapeCharacter: "_",
+	      SeparateInstances: true,
+	      StoreRates: false,
+	      AlwaysAppendDS: false
+	    }
+	  },
+	  cpu: {},
+	  df: {
+	    config: {
+	      FSType: [ "rootfs", "sysfs", "proc", "devtmpfs", "devpts", "tmpfs", "fusectl", "cgroup" ],
+	      IgnoreSelected: true
+	    }
+	  },
+	  disk: {},
+	  interface: {
+	    config: {
+	      Interface: "lo",
+	      IgnoreSelected: true
+	    }
+	  },
+	  memory: {},
+	  processes: {},
+	  swap: {
+	    config: {
+	      ReportByDevice: false,
+	      ReportBytes: true
+	    }
+	  },
+	  users: {},
+	},
+	java_plugins: {
+	  cassandra: {
+	    config: {
+	      mbeans: {
+		'cassandra/classes' => {
+		  ObjectName: "java.lang:type=ClassLoading",
+		  InstancePrefix: "cassandra_java",
+		  values: [
+		    {
+		      Type: "gauge",
+		      InstancePrefix: "loaded_classes",
+		      Table: false,
+		      Attribute: "LoadedClassCount"
+		    }
+		  ]
+		},
+		'cassandra/compilation' => {
+		  ObjectName: "java.lang:type=Compilation",
+		  InstancePrefix: "cassandra_java",
+		  values: [
+		    {
+		      Type: "total_time_in_ms",
+		      InstancePrefix: "compilation_time",
+		      Table: false,
+		      Attribute: "TotalCompilationTime"
+		    }
+		  ]
+		},
+		'cassandra/metrics' => {
+		  ObjectName: "org.apache.cassandra.metrics:type=ClientRequest,*",
+		  InstancePrefix: "cassandra_client_request-latency",
+		  values: [
+		    {
+		      Type: "total_time_in_ms",
+		      InstanceFrom: "scope",
+		      Table: false,
+		      Attribute: "Mean"
+		    }
+		  ]
+		},
+		'cassandra/storage_proxy' => {
+		  ObjectName: "org.apache.cassandra.db:type=StorageProxy",
+		  InstancePrefix: "cassandra_activity_storage_proxy",
+		  values: [
+		    {
+		      Type: "counter",
+		      InstancePrefix: "read",
+		      Table: false,
+		      Attribute: "ReadOperations"
+		    },
+		    {
+		      Type: "counter",
+		      InstancePrefix: "write",
+		      Table: false,
+		      Attribute: "WriteOperations"
+		    }
+		  ]
+		},
+		'cassandra/memory' => {
+		  ObjectName: "java.lang:type=Memory,*",
+		  InstancePrefix: "cassandra_java_memory",
+		  values: [
+		    {
+		      Type: "memory",
+		      InstancePrefix: "heap-",
+		      Table: true,
+		      Attribute: "HeapMemoryUsage"
+		    },
+		    {
+		      Type: "memory",
+		      InstancePrefix: "nonheap-",
+		      Table: true,
+		      Attribute: "NonHeapMemoryUsage"
+		    }
+		  ]
+		},
+		'cassandra/memory_pool' => {
+		  ObjectName: "java.lang:type=MemoryPool,*",
+		  InstancePrefix: "cassandra_java_memory_pool-",
+		  InstanceFrom: "name",
+		  values: [
+		    {
+		      Type: "memory",
+		      Table: true,
+		      Attribute: "Usage"
+		    }
+		  ]
+		},
+		'cassandra/garbage_collector' => {
+		  ObjectName: "java.lang:type=GarbageCollector,*",
+		  InstancePrefix: "cassandra_java_gc-",
+		  InstanceFrom: "name",
+		  values: [
+		    {
+		      Type: "invocations",
+		      Table: false,
+		      Attribute: "CollectionCount"
+		    },
+		    {
+		      Type: "total_time_in_ms",
+		      InstancePrefix: "collection_time",
+		      Table: false,
+		      Attribute: "CollectionTime"
+		    }
+		  ]
+		},
+		'cassandra/concurrent' => {
+		  ObjectName: "org.apache.cassandra.internal:type=*",
+		  InstancePrefix: "cassandra_activity_internal",
+		  values: [
+		    {
+		      Type: "counter",
+		      InstancePrefix: "tasks-",
+		      InstanceFrom: "type",
+		      Attribute: "CompletedTasks"
+		    }
+		  ]
+		},
+		'cassandra/request' => {
+		  ObjectName: "org.apache.cassandra.request:type=*",
+		  InstancePrefix: "cassandra_activity_request",
+		  values: [
+		    {
+		      Type: "counter",
+		      InstancePrefix: "tasks-",
+		      InstanceFrom: "type",
+		      Attribute: "CompletedTasks"
+		    }
+		  ]
+		},
+		'cassandra/compaction' => {
+		  ObjectName: "org.apache.cassandra.db:type=CompactionManager",
+		  InstancePrefix: "cassandra_compaction",
+		  values: [
+		    {
+		      Type: "gauge",
+		      InstancePrefix: "pending",
+		      Attribute: "PendingTasks"
+		    }
+		  ]
+		},
+		'cassandra/cifstats' => {
+		  ObjectName: "org.apache.cassandra.db:type=ColumnFamilies,*",
+		  InstanceFrom: "keyspace",
+		  InstancePrefix: "cassandra_columnfamilies_stats-",
+		  values: [
+		    {
+		      Type: "counter",
+		      InstancePrefix: "livereadcount-",
+		      InstanceFrom: "columnfamily",
+		      Attribute: "ReadCount"
+		    },
+		    {
+		      Type: "counter",
+		      InstancePrefix: "livereadlatency-",
+		      InstanceFrom: "columnfamily",
+		      Attribute: "TotalReadLatencyMicros"
+		    },
+		    {
+		      Type: "counter",
+		      InstancePrefix: "livewritecount-",
+		      InstanceFrom: "columnfamily",
+		      Attribute: "WriteCount"
+		    },
+		    {
+		      Type: "counter",
+		      InstancePrefix: "livewrtelatency-",
+		      InstanceFrom: "columnfamily",
+		      Attribute: "TotalWriteLatencyMicros"
+		    },
+		    {
+		      Type: "gauge",
+		      InstancePrefix: "live_sstable_count-",
+		      InstanceFrom: "columnfamily",
+		      Attribute: "LiveSSTableCount"
+		    },
+		    {
+		      Type: "gauge",
+		      InstancePrefix: "total_disk_space_used-",
+		      InstanceFrom: "columnfamily",
+		      Attribute: "TotalDiskSpaceUsed"
+		    }
+		  ]
+		}
+	      },
+	      connection: {
+		Host: "portal.raintank.io",
+		ServiceURL: "service:jmx:rmi:///jndi/rmi://localhost:7199/jmxrmi",
+		Collect: [ "cassandra/storage_proxy", "cassandra/classes", "cassandra/compilation", "cassandra/memory", "cassandra/memory_pool", "cassandra/garbage_collector", "cassandra/metrics", "cassandra/concurrent", "cassandra/cfstats", "cassandra/request", "cassandra/compaction" ]
+	      }
+	    }
+	  }
+	},
+	graphite_ipaddress: "147.75.194.39"
+      },
       raintank_stack: {
 	api_key: "eyJrIjoiWmZLTktlNHJ0UFFBdWtVdkRyemNiMjZPNFpralA1M3kiLCJuIjoiY29sbGVjdG9yIiwiaWQiOjF9",
 	ping_port: 9090,

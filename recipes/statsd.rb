@@ -24,7 +24,8 @@ packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
 end
 
 package "statsdaemon" do
-  action :install
+  action :upgrade
+  options "-o Dpkg::Options::='--force-confnew'"
 end
 
 service "statsdaemon" do
