@@ -75,7 +75,7 @@ template "/etc/graphite-raintank.yaml" do
     functions: node['raintank_stack']['functions'],
     cassandras: node['raintank_stack']['cassandras'],
     tank_host: tank_host,
-    tank_port: node['raintank_stack']['nsq_tools']['metric_tank']['listen'].sub(/^:/, ""),
+    tank_port: node['raintank_stack']['metric_tank']['listen'].sub(/^:/, ""),
     elasticsearch_host: elasticsearch_host,
     elasticsearch_port: node['raintank_stack']['elasticsearch_port'],
     search_index: node['raintank_stack']['search_index'],
