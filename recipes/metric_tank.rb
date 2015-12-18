@@ -64,7 +64,8 @@ template "/etc/raintank/metric_tank.ini" do
     :chunk_max_stale => node['raintank_stack']['metric_tank']['chunk_max_stale'],
     :metric_max_stale => node['raintank_stack']['metric_tank']['metric_max_stale'],
     :statsd_addr => node['raintank_stack']['metric_tank']['statsd_addr'],
-    :statsd_type => node['raintank_stack']['metric_tank']['statsd_type']
+    :statsd_type => node['raintank_stack']['metric_tank']['statsd_type'],
+    :agg_settings => node['raintank_stack']['metric_tank']['agg_settings'],
   })
   notifies :restart, "service[metric_tank]"
 end
