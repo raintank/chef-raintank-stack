@@ -134,6 +134,7 @@ default[:raintank_stack][:nsq_tools][:base][:kairos_addr] = "localhost:8080"
 ## metrics_to_elasticsearch
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:channel] = "elasticsearch"
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:topic] = "metrics"
+default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:index_name] = "metric"
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
 default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
