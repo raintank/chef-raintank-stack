@@ -12,6 +12,7 @@ raintank:
     url: http://<%= @tank_host %>:<%= @tank_port %>/
   es:
     url: http://<%= @elasticsearch_host %>:<%= @elasticsearch_port %>/
+    index: <%= @index_name %>
 search_index: <%= @search_index %>
 time_zone: <%= @time_zone %>
 <% if @use_statsd %>
