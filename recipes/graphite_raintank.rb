@@ -86,6 +86,7 @@ template "/etc/graphite-raintank.yaml" do
     log_level: node['raintank_stack']['graphite_tank']['log_level'],
     log_dir: node['raintank_stack']['graphite_tank']['log_dir'],
     index_name: node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['index_name']
+  })
   notifies :restart, 'service[graphite-raintank]'
 end
 
