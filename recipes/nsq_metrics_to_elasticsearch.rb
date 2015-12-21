@@ -53,7 +53,8 @@ template "/etc/raintank/nsq_metrics_to_elasticsearch.ini" do
     :elastic_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['elastic_addr'],
     :redis_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['redis_addr'],
     :listen =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['listen'],
-    :index_name =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['index_name']
+    :index_name =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['index_name'],
+    :redis_db =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['redis_db'],
   })
   notifies :restart, "service[nsq_metrics_to_elasticsearch]"
 end
