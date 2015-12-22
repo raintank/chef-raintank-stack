@@ -60,7 +60,8 @@ service "graphite-raintank" do
 end
 
 elasticsearch_host = find_haproxy || node['raintank_stack']['elasticsearch_host']
-tank_host = find_haproxy || node['raintank_stack']['tank_host']
+#tank_host = find_haproxy || node['raintank_stack']['tank_host']
+tank_host = node['raintank_stack']['tank_host']
 
 template "/etc/graphite-raintank.yaml" do
   source 'graphite-raintank.yaml.erb'
