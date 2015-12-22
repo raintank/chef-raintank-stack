@@ -26,6 +26,7 @@ service "nsq_metrics_to_elasticsearch" do
 end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['nsqd_addr']
+elasticsearch_host = find_haproxy || node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['elastic_addr']
 
 directory "/etc/raintank" do
   owner "root"
@@ -50,7 +51,7 @@ template "/etc/raintank/nsq_metrics_to_elasticsearch.ini" do
     :statsd_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['topic'],
-    :elastic_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['elastic_addr'],
+    :elastic_addr => elasticsearch_host,
     :redis_addr => node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['redis_addr'],
     :listen =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['listen'],
     :index_name =>  node['raintank_stack']['nsq_tools']['metrics_to_elasticsearch']['index_name'],
