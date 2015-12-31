@@ -131,31 +131,6 @@ default[:raintank_stack][:nsq_tools][:base][:elastic_addr] = "localhost:9200"
 default[:raintank_stack][:nsq_tools][:base][:redis_addr] = "localhost:6379"
 default[:raintank_stack][:nsq_tools][:base][:kairos_addr] = "localhost:8080"
 
-## metrics_to_elasticsearch
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:channel] = "elasticsearch"
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:topic] = "metrics"
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:index_name] = "metric"
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:redis_db] = 0
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_elasticsearch][:listen] = ":36060"
-
-## metrics_to_kairosdb
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:channel] = "kairos"
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:topic] = "metrics"
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:topic_low] = "metrics-lowprio"
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:max_in_flight] = node[:raintank_stack][:nsq_tools][:base][:max_in_flight]
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:num_msg] = node[:raintank_stack][:nsq_tools][:base][:num_msg]
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:nsqd_addr] = node[:raintank_stack][:nsq_tools][:base][:nsqd_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:kairos_addr] = node[:raintank_stack][:nsq_tools][:base][:kairos_addr]
-default[:raintank_stack][:nsq_tools][:metrics_to_kairos][:listen] = ":36061"
 
 ## probe_events_to_elasticsearch
 default[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:channel] = "elasticsearch"
@@ -191,3 +166,8 @@ default[:raintank_stack][:metric_tank][:num_msg] = node[:raintank_stack][:nsq_to
 default[:raintank_stack][:metric_tank][:statsd_addr] = node[:raintank_stack][:nsq_tools][:base][:statsd_addr]
 default[:raintank_stack][:metric_tank][:statsd_type] = node[:raintank_stack][:nsq_tools][:base][:statsd_type]
 default[:raintank_stack][:metric_tank][:agg_settings] = "600:21600:3"
+default[:raintank_stack][:metric_tank][:index_name] = "metric"
+default[:raintank_stack][:metric_tank][:redis_db] = 0
+default[:raintank_stack][:metric_tank][:elastic_addr] = node[:raintank_stack][:nsq_tools][:base][:elastic_addr]
+default[:raintank_stack][:metric_tank][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
+default[:raintank_stack][:metric_tank][:es_warmup_percent] = 1

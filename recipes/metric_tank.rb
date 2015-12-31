@@ -27,6 +27,7 @@ end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['metrics_to_tank']['nsqd_addr']
 cassandra_addrs = find_cassandras
+elasticsearch_host = find_haproxy || node['raintank_stack']['elasticsearch_host']
 
 directory "/etc/raintank" do
   owner "root"
@@ -66,6 +67,10 @@ template "/etc/raintank/metric_tank.ini" do
     :statsd_addr => node['raintank_stack']['metric_tank']['statsd_addr'],
     :statsd_type => node['raintank_stack']['metric_tank']['statsd_type'],
     :agg_settings => node['raintank_stack']['metric_tank']['agg_settings'],
+    :elastic_addr => elasticsearch_host + ":9200",
+    :redis_addr => node['raintank_stack']['metric_tank']['redis_addr'],
+    :index_name =>  node['raintank_stack']['metric_tank']['index_name'],
+    :redis_db =>  node['raintank_stack']['metric_tank']['redis_db'],
   })
   notifies :restart, "service[metric_tank]"
 end
