@@ -151,7 +151,6 @@ default[:raintank_stack][:metric_tank][:listen] = ":18763"
 default[:raintank_stack][:metric_tank][:primary_node] = "true"
 default[:raintank_stack][:metric_tank][:topic_notify_persist] = "metricpersist"
 default[:raintank_stack][:metric_tank][:warm_up_period] = 3600
-default[:raintank_stack][:metric_tank][:] = 10
 default[:raintank_stack][:metric_tank][:ttl] = 3024000
 default[:raintank_stack][:metric_tank][:chunkspan] = 600
 default[:raintank_stack][:metric_tank][:numchunks] = 20
