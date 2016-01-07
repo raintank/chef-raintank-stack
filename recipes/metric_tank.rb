@@ -72,5 +72,4 @@ template "/etc/raintank/metric_tank.ini" do
     :index_name =>  node['raintank_stack']['metric_tank']['index_name'],
     :redis_db =>  node['raintank_stack']['metric_tank']['redis_db'],
   })
-  notifies :restart, "service[metric_tank]"
 end
