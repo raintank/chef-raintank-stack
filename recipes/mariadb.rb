@@ -79,7 +79,7 @@ if node[:raintank_stack][:create_database]
     mysql_database_user node['raintank_stack']['repl_user'] do
       connection connection_info
       password node['raintank_stack']['repl_pass']
-      privileges :repl_slave
+      privileges [ :repl_slave ]
       host node['raintank_stack']['repl_host']
       action :grant
     end
