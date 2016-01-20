@@ -25,8 +25,14 @@ service 'cassandra' do
   action [ :enable, :start ]
 end
 
-seeds = node[:raintank_stack][:cassandra][:seeds].join(",") # todo: search for
-							    # appropriate nodes
+seeds = if Chef::Config[:solo]
+    node[:raintank_stack][:cassandra][:seeds].join(",") # todo: search for
+  else
+    s = search("node", node['raintank_stack']['cassandra_search']).map { |c| c.fqdn } || node[:raintank_stack][:cassandra][:seeds]
+    s.join(",")
+  end
+
+auto_bootstrap = seeds != ""
 
 template "/etc/cassandra/cassandra.yaml" do
   source "cassandra.yaml.erb"
@@ -43,7 +49,8 @@ template "/etc/cassandra/cassandra.yaml" do
     :broadcast_rpc_address => node['raintank_stack']['cassandra']['broadcast_rpc_address'],
     :snitch => node['raintank_stack']['cassandra']['snitch'],
     :concurrent_reads => node['raintank_stack']['cassandra']['concurrent_reads'],
-    :concurrent_writes => node['raintank_stack']['cassandra']['concurrent_writes']
+    :concurrent_writes => node['raintank_stack']['cassandra']['concurrent_writes'],
+    :auto_bootstrap => auto_bootstrap
   })
   notifies :restart, 'service[cassandra]', :immediately
 end

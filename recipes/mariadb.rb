@@ -31,7 +31,7 @@ mysql2_chef_gem 'default' do
   action :install
 end
 
-connection_info = { :host => node['grafana']['db_host'],
+connection_info = { :host => "127.0.0.1",
   :port => node['grafana']['db_port'],
   :username => 'root',
   :password => node['mariadb']['server_root_password']
@@ -79,7 +79,7 @@ if node[:raintank_stack][:create_database]
     mysql_database_user node['raintank_stack']['repl_user'] do
       connection connection_info
       password node['raintank_stack']['repl_pass']
-      privileges [ :repl_slave ]
+      privileges [ :"replication slave" ]
       host node['raintank_stack']['repl_host']
       action :grant
     end

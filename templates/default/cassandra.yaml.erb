@@ -251,6 +251,10 @@ commitlog_sync_period_in_ms: 10000
 # is reasonable.
 commitlog_segment_size_in_mb: 32
 
+# If we don't have any nodes in the cluster yet, set auto_bootstrap to false.
+# Once there are nodes, this gets set to true.
+auto_bootstrap: <%= @auto_bootstrap %>
+
 # any class that implements the SeedProvider interface and has a
 # constructor that takes a Map<String, String> of parameters will do.
 seed_provider:
