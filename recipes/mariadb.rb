@@ -66,6 +66,7 @@ if node[:raintank_stack][:create_database]
       connection connection_info
       password node['grafana']['db_password']
       database_name node['grafana']['db_name']
+      host node['raintank_stack']['repl_host']
       privileges [:all]
       action :grant
     end

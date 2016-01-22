@@ -109,9 +109,6 @@ default[:raintank_stack][:cassandra][:snitch] = "SimpleSnitch"
 default[:raintank_stack][:cassandra][:concurrent_reads] = 8 * node.cpu.total
 default[:raintank_stack][:cassandra][:concurrent_writes] = 8 * node.cpu.total
 
-# influxdb
-override['influxdb']['version'] = "0.8.8"
-
 default[:java][:install_flavor] = "oracle"
 default[:java][:jdk_version] = "8"
 default[:java][:oracle][:accept_oracle_download_terms] = true
