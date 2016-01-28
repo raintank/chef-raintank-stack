@@ -1,0 +1,8 @@
+#!/bin/sh -e
+# rc.local -- managed by chef. Add anything you want in here to the array
+# node['raintank_deploys']['rc_local_items'].
+<% @rc_local_items.each do |rci| -%>
+<%= rci %>
+<% end -%>
+
+exit 0

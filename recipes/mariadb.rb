@@ -26,6 +26,8 @@ include_recipe "mariadb::galera"
 
 # and create the grafana database if it doesn't exist. Installing grafana will
 # not, by itself, create it.
+package "build-essential"
+
 mysql2_chef_gem 'default' do
   provider Chef::Provider::Mysql2ChefGem::Mariadb
   action :install

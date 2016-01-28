@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+tag("new_cassandra")
 if node[:raintank_stack][:use_docker_cassandra]
   include_recipe "raintank_stack::docker"
 else
@@ -24,23 +25,30 @@ else
 end
 #include_recipe "raintank_stack::mysql"
 include_recipe "raintank_stack::mariadb"
-include_recipe "raintank_stack::kairosdb"
 include_recipe "rabbitmq"
 include_recipe "rabbitmq::plugin_management"
 include_recipe "redis2::default_instance"
 include_recipe "java"
 include_recipe "elasticsearch"
-#include_recipe "raintank_stack::graphite_api"
 include_recipe "raintank_stack::graphite_raintank"
 include_recipe "raintank_stack::collector"
 include_recipe "raintank_stack::nsq_server"
 include_recipe "raintank_stack::nsqd_init"
-include_recipe "raintank_stack::nsq_metrics_to_kairos"
-include_recipe "raintank_stack::nsq_metrics_to_elasticsearch"
 include_recipe "raintank_stack::nsq_probe_events_to_elasticsearch"
 include_recipe "raintank_stack::metric_tank"
 include_recipe "grafana2"
 include_recipe "raintank_stack::nginx"
 include_recipe "raintank_stack::statsd"
 include_recipe "golang"
-include_recipe "raintank_stack::collectd"
+
+if node["use_collectd"]
+  if !node["collectd_personality"]
+    node.set["collectd_personality"] = "general"
+  end
+
+  node.set["collectd"]["plugins"]["write_graphite"]["config"]["Prefix"] = "collectd.#{node["collectd_environment"]}.#{node["collectd_personality"]}."
+
+  node.set["collectd"]["name"] = node.name.sub /\.raintank\.io$/, ''
+  include_recipe "raintank_stack::collectd"
+  include_recipe "raintank_stack::statsd"
+end
