@@ -26,6 +26,12 @@ service "nsq_probe_events_to_elasticsearch" do
 end
 
 nsqd_addrs = find_nsqd || node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['nsqd_addr']
+ea = find_haproxy
+elastic_addr = if ea
+  "#{ea}:9200"
+else
+  node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['elastic_addr']
+end  
 
 directory "/etc/raintank" do
   owner "root"
@@ -50,7 +56,7 @@ template "/etc/raintank/nsq_probe_events_to_elasticsearch.ini" do
     :statsd_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_addr'],
     :statsd_type => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['statsd_type'],
     :topic => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['topic'],
-    :elastic_addr => node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['elastic_addr'],
+    :elastic_addr => elastic_addr,
     :listen =>  node['raintank_stack']['nsq_tools']['probe_events_to_elasticsearch']['listen']
   })
   notifies :restart, "service[nsq_probe_events_to_elasticsearch]"
