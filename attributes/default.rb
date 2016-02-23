@@ -68,6 +68,7 @@ default[:raintank_stack][:create_replication_user] = false
 default[:mariadb][:galera][:cluster_name] = "galera_raintank"
 default[:mariadb][:galera][:wsrep_cluster_address] = "gcomm://"
 default[:mariadb][:galera][:wsrep_sst_method] = "xtrabackup"
+default[:mariadb][:innodb][:options][:innodb_flush_log_at_trx_commit] = 0
 override['mariadb']['galera']['cluster_search_query'] = "tags:mariadb AND chef_environment:#{node.environment} AND mariadb_galera_cluster_name:#{node['mariadb']['galera']['cluster_name']}"
 override[:mariadb][:use_default_repository] = true
 
