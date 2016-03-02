@@ -71,5 +71,6 @@ template "/etc/raintank/metric_tank.ini" do
     :redis_addr => node['raintank_stack']['metric_tank']['redis_addr'],
     :index_name =>  node['raintank_stack']['metric_tank']['index_name'],
     :redis_db =>  node['raintank_stack']['metric_tank']['redis_db'],
+    :cassandra_timeout => node['raintank_stack']['metric_tank']['cassandra_timeout']
   })
 end

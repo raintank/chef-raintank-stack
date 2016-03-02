@@ -16,7 +16,7 @@ server {
   }
 }
 
-<% if node["use_datadog"] %>
+<% if node["use_collectd"] %>
 server {
   listen 127.0.0.1:8899;
   server_name _;
