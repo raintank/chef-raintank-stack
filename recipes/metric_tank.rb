@@ -32,7 +32,7 @@ elasticsearch_host = find_haproxy || node['raintank_stack']['elasticsearch_host'
 directory "/etc/raintank" do
   owner "root"
   group "root"
-  mode "0644"
+  mode "0755"
   recursive true
   action :create
 end

@@ -36,7 +36,7 @@ end
 directory "/etc/raintank" do
   owner "root"
   group "root"
-  mode "0644"
+  mode "0755"
   recursive true
   action :create
 end
