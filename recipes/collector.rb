@@ -49,7 +49,8 @@ template '/etc/init/raintank-collector.conf' do
   group 'root'
   action :create
   variables({
-    collector_config: node['raintank_stack']['collector_config']
+    collector_config: node['raintank_stack']['collector_config'],
+    nice_level: node['raintank_stack']['nice_level']
   })
 end
 

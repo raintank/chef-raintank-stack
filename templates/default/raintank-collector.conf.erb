@@ -6,7 +6,7 @@ respawn
 respawn limit 2 5
 umask 022
 limit nofile 10240 10240
-#nice 
+nice <%= @nice_level %>
 #chroot /
 chdir /
 #limit core <softlimit> <hardlimit>
