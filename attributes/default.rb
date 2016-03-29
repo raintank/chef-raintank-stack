@@ -172,3 +172,97 @@ default[:raintank_stack][:metric_tank][:elastic_addr] = node[:raintank_stack][:n
 default[:raintank_stack][:metric_tank][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
 default[:raintank_stack][:metric_tank][:es_warmup_percent] = 1
 default[:raintank_stack][:metric_tank][:cassandra_timeout] = 1000
+
+
+############ Worldping-api 
+
+### INSTALL ###
+default[:raintank_stack]['worldping-api']['user'] = 'grafana'
+default[:raintank_stack]['worldping-api']['group'] = 'grafana'
+
+default[:raintank_stack]['worldping-api']['instance_id'] = 'default'
+
+### PATHS ###
+default[:raintank_stack]['worldping-api']['log_dir'] = '/var/log/grafana'
+default[:raintank_stack]['worldping-api']['data_dir'] = '/var/lib/grafana'
+default[:raintank_stack]['worldping-api']['static_root'] = 'public'
+
+### SERVER ###
+default[:raintank_stack]['worldping-api']['port'] = '3000'
+default[:raintank_stack]['worldping-api']['protocol'] = 'http'
+default[:raintank_stack]['worldping-api']['domain'] = 'grafana2.example.com'
+default[:raintank_stack]['worldping-api']['app_mode'] = 'production'
+default[:raintank_stack]['worldping-api']['root_url'] = '%(protocol)s://%(domain)s:%(http_port)s/'
+default[:raintank_stack]['worldping-api']['router_logging'] = false
+default[:raintank_stack]['worldping-api']['enable_gzip'] = false
+default[:raintank_stack]['worldping-api']['admin_key'] = 'changeme'
+
+### DB ###
+default[:raintank_stack]['worldping-api']['db_type'] = 'sqlite3' # Either mysql, postgres, or sqlite3
+default[:raintank_stack]['worldping-api']['db_file'] = 'grafana.db'
+default[:raintank_stack]['worldping-api']['db_name'] = 'grafana'
+default[:raintank_stack]['worldping-api']['db_host'] = 'localhost'
+default[:raintank_stack]['worldping-api']['db_port'] = 3306 # ip/hostname:port, Only for mysql/postgres
+default[:raintank_stack]['worldping-api']['db_user'] = 'grafana_user' # Only for mysql/postgres
+default[:raintank_stack]['worldping-api']['db_password'] = 'SECRET'   # Only for mysql/postgres
+
+### SMTP ###
+default[:raintank_stack]['worldping-api']['smtp']['enabled'] = false
+default[:raintank_stack]['worldping-api']['smtp']['host'] = ''
+default[:raintank_stack]['worldping-api']['smtp']['user'] = ''
+default[:raintank_stack]['worldping-api']['smtp']['password'] = ''
+default[:raintank_stack]['worldping-api']['smtp']['cert_file'] = ''
+default[:raintank_stack]['worldping-api']['smtp']['key_file'] = ''
+default[:raintank_stack]['worldping-api']['smtp']['from_address'] = 'admin@grafana.localhost'
+
+### EMAIL ###
+default[:raintank_stack]['worldping-api']['email']['welcome_email'] = false
+default[:raintank_stack]['worldping-api']['email']['templates_pattern'] = 'emails/*.html'
+
+### LOGGING ###
+default[:raintank_stack]['worldping-api']['log_level'] = 'Info' # Either "Trace", "Debug", "Info", "Warn", "Error", "Critical"
+default[:raintank_stack]['worldping-api']['log_level_console' ] = default[:raintank_stack]['worldping-api']['log_level']
+default[:raintank_stack]['worldping-api']['log_level_file' ] = default[:raintank_stack]['worldping-api']['log_level']
+default[:raintank_stack]['worldping-api']['log_mode'] = "console"
+
+### EVENT PUBLISHING
+default[:raintank_stack]['worldping-api']['event_publish'] = true
+default[:raintank_stack]['worldping-api']['rabbitmq_host'] = 'localhost'
+default[:raintank_stack]['worldping-api']['event_exchange'] = 'grafana_events'
+
+### RAINTANK ###
+default[:raintank_stack]['worldping-api']['raintank'] = true
+default[:raintank_stack]['worldping-api']['graphite_host'] = 'localhost'
+default[:raintank_stack]['worldping-api']['graphite_port'] = 8888
+default[:raintank_stack]['worldping-api']['elasticsearch_host'] = 'localhost'
+
+default[:raintank_stack]['worldping-api']['haproxy_search'] = "tags:haproxy AND chef_environment:#{node.chef_environment}"
+
+### TELEMETRY
+default[:raintank_stack]['worldping-api']['use_statsd'] = false
+default[:raintank_stack]['worldping-api']['statsd_addr'] = "localhost:8125"
+default[:raintank_stack]['worldping-api']['statsd_type'] = "standard"
+
+### PROFILING
+default[:raintank_stack]['worldping-api']['use_profiling'] = false
+default[:raintank_stack]['worldping-api']['profile_heap_mb'] = 4000
+default[:raintank_stack]['worldping-api']['profile_heap_dir'] = '/tmp/worldping-api-profile'
+default[:raintank_stack]['worldping-api']['profile_heap_wait'] = 3600
+
+### ALERTING
+default[:raintank_stack]['worldping-api']['alerting']['enabled'] = false
+default[:raintank_stack]['worldping-api']['alerting']['handler'] = "amqp"
+default[:raintank_stack]['worldping-api']['alerting']['queue_ticks_size'] = 20
+default[:raintank_stack]['worldping-api']['alerting']['queue_jobs_size'] = 1000
+default[:raintank_stack]['worldping-api']['alerting']['pre_amqp_jobs_size'] = 1000
+default[:raintank_stack]['worldping-api']['alerting']['executor_lru_size'] = 10000
+default[:raintank_stack]['worldping-api']['alerting']['enable_scheduler'] = false
+default[:raintank_stack]['worldping-api']['alerting']['executors'] = 10
+default[:raintank_stack]['worldping-api']['alerting']['individual_alerts'] = false
+
+### QUOTAS
+default[:raintank_stack]['worldping-api']['quota']['enabled'] = true
+default[:raintank_stack]['worldping-api']['quota']['org_endpoint'] = 10
+default[:raintank_stack]['worldping-api']['quota']['org_collector'] = 10
+default[:raintank_stack]['worldping-api']['quota']['global_endpoint'] = -1
+default[:raintank_stack]['worldping-api']['quota']['global_collector'] = -1

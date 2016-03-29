@@ -1,0 +1,181 @@
+##################### Grafana Configuration Example #####################
+#
+# Everything has defaults so you only need to uncomment things you want to
+# change
+
+app_mode = <%= node['raintank_stack']['worldping-api']['app_mode'] %>
+
+# all grafana instances in your environment should have a unique instance_id
+instance_id = <%= node['raintank_stack']['worldping-api']['instance_id'] %>
+
+#################################### Paths ####################################
+[paths]
+# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is useD)
+#
+data = <%= node['raintank_stack']['worldping-api']['data_dir'] %>
+#
+# Directory where grafana can store logs
+#
+logs = <%= node['raintank_stack']['worldping-api']['log_dir'] %>
+
+#################################### Server ####################################
+[server]
+# Protocol (http or https)
+protocol = <%= node['raintank_stack']['worldping-api']['protocol'] %>
+
+# The ip address to bind to, empty will bind to all interfaces
+<% if node['raintank_stack']['worldping-api']['http_addr'] %>
+http_addr = <%= node['raintank_stack']['worldping-api']['http_addr'] %>
+<% end %>
+
+# The http port  to use
+http_port = <%= node['raintank_stack']['worldping-api']['port'] %>
+
+# The public facing domain name used to access grafana from a browser
+domain = <%= node['raintank_stack']['worldping-api']['domain'] %>
+
+# The full public facing url
+;root_url = %(protocol)s://%(domain)s:%(http_port)s/
+root_url = <%= node['raintank_stack']['worldping-api']['root_url'] %>
+
+# Log web requests
+router_logging = <%= node['raintank_stack']['worldping-api']['router_logging'] %>
+
+# the path relative working path
+static_root_path = <%= node['raintank_stack']['worldping-api']['static_root'] %>
+
+# enable gzip
+enable_gzip = <%= node['raintank_stack']['worldping-api']['enable_gzip'] %>
+
+admin)key = <%= node['raintank_stack']['worldping-api']['admin_key'] %>
+
+#################################### Database ####################################
+[database]
+# Either "mysql", "postgres" or "sqlite3", it's your choice
+type = <%= node['raintank_stack']['worldping-api']['db_type'] %>
+host = <%= @db_host %>:<%= node['raintank_stack']['worldping-api']['db_port'] %>
+name = <%= node['raintank_stack']['worldping-api']['db_name'] %>
+user = <%= node['raintank_stack']['worldping-api']['db_user'] %>
+password = <%= node['raintank_stack']['worldping-api']['db_password'] %>
+
+# For "postgres" only, either "disable", "require" or "verify-full"
+<% if node['raintank_stack']['worldping-api']['db_type'] == "postgres" %>
+ssl_mode = <%= node['raintank_stack']['worldping-api']['db_ssl_mode'] %>
+<% end %>
+
+# For "sqlite3" only, path relative to data_path setting
+# ;path = grafana.db
+
+
+#################################### SMTP / Emailing ##########################
+[smtp]
+enabled = <%= node['raintank_stack']['worldping-api']['smtp']['enabled'] %>
+host = <%= node['raintank_stack']['worldping-api']['smtp']['host'] %>
+user = <%= node['raintank_stack']['worldping-api']['smtp']['user'] %>
+password = <%= node['raintank_stack']['worldping-api']['smtp']['password'] %>
+cert_file = <%= node['raintank_stack']['worldping-api']['smtp']['cert_file'] %>
+key_file = <%= node['raintank_stack']['worldping-api']['smtp']['key_file'] %>
+from_address = <%= node['raintank_stack']['worldping-api']['smtp']['from_address'] %>
+
+[emails]
+welcome_email_on_sign_up = <%= node['raintank_stack']['worldping-api']['email']['welcome_email'] %>
+templates_pattern = <%= node['raintank_stack']['worldping-api']['email']['templates_pattern'] %>
+
+#################################### Alerting ##########################
+[alerting]
+enabled = <%= node['raintank_stack']['worldping-api']['alerting']['enabled'] %>
+handler = <%= node['raintank_stack']['worldping-api']['alerting']['handler'] %>
+tickqueue_size = <%= node['raintank_stack']['worldping-api']['alerting']['queue_ticks_size'] %>
+internal_jobqueue_size = <%= node['raintank_stack']['worldping-api']['alerting']['queue_jobs_size'] %>
+pre_amqp_jobqueue_size = <%= node['raintank_stack']['worldping-api']['alerting']['pre_amqp_jobs_size'] %>
+executor_lru_size = <%= node['raintank_stack']['worldping-api']['alerting']['executor_lru_size'] %>
+enable_scheduler = <%= node['raintank_stack']['worldping-api']['alerting']['enable_scheduler'] %>
+executors = <%= node['raintank_stack']['worldping-api']['alerting']['executors'] %>
+write_individual_alert_results = <%= node['raintank_stack']['worldping-api']['alerting']['individual_alerts'] %>
+
+#################################### Logging ##########################
+[log]
+# Either "console", "file", default is "console"
+# Use comma to separate multiple modes, e.g. "console, file"
+mode = <%= node['raintank_stack']['worldping-api']['log_mode'] %>
+
+# Buffer length of channel, keep it as it is if you don't know what it is.
+;buffer_len = 10000
+
+# Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
+level = <%= node['raintank_stack']['worldping-api']['log_level'] %>
+
+# For "console" mode only
+[log.console]
+level = <%= node['raintank_stack']['worldping-api']['log_level_console'] %>
+
+# For "file" mode only
+[log.file]
+level = <%= node['raintank_stack']['worldping-api']['log_level_file'] %>
+
+<% if node['raintank_stack']['worldping-api']['no_log_rotate'] %>
+# This enables automated log rotate(switch of following options), default is true
+log_rotate = false
+<% end %>
+
+# Max line number of single file, default is 1000000
+;max_lines = 1000000
+
+# Max size shift of single file, default is 28 means 1 << 28, 256MB
+;max_lines_shift = 28
+
+# Segment log daily, default is true
+;daily_rotate = true
+
+# Expired days of log file(delete after max days), default is 7
+;max_days = 7
+
+#################################### AMPQ Event Publisher ##########################
+[event_publisher]
+enabled = <%= node['raintank_stack']['worldping-api']['event_publish'] %>
+rabbitmq_url = amqp://<%= @rabbitmq_host %>/
+exchange = <%= node['raintank_stack']['worldping-api']['event_exchange'] %>
+
+<% if node['raintank_stack']['worldping-api']['raintank'] %>
+[raintank]
+graphite_url = http://<%= @graphite_host %>:<%= node['raintank_stack']['worldping-api']['graphite_port'] %>/
+
+[elasticsearch]
+host = <%= @elasticsearch_host %>
+
+##################### telemetry
+[telemetry]
+statsd_enabled = <%= node['raintank_stack']['worldping-api']['use_statsd'] %>
+statsd_addr = <%= node['raintank_stack']['worldping-api']['statsd_addr'] %>
+<% if node['raintank_stack']['worldping-api']['statsd_type'] %>
+statsd_type = <%= node['raintank_stack']['worldping-api']['statsd_type'] %>
+<% end %>
+
+############## profiling
+<% if node['raintank_stack']['worldping-api']['use_profiling'] %>
+# profiling
+profile_heap_MB = <%= node['raintank_stack']['worldping-api']['profile_heap_mb'] %>
+profile_heap_dir = <%= node['raintank_stack']['worldping-api']['profile_heap_dir'] %>
+profile_heap_wait = <%= node['raintank_stack']['worldping-api']['profile_heap_wait'] %>
+<% end %>
+
+
+################ QUOTA
+[quota]
+enabled = <%= node['raintank_stack']['worldping-api']['quota']['enabled'] %>
+
+#### set quotas to -1 to make unlimited. ####
+
+# limit number of endpoints per Org.
+org_endpoint = <%= node['raintank_stack']['worldping-api']['quota']['org_endpoint'] %>
+
+# limit number of collectors per Org.
+org_collector = <%= node['raintank_stack']['worldping-api']['quota']['org_collector'] %>
+
+# golbal limit of endpoints
+global_endpoint =  <%= node['raintank_stack']['worldping-api']['quota']['global_endpoint'] %>
+
+# golbal limit of collectors
+global_collector =  <%= node['raintank_stack']['worldping-api']['quota']['global_collector'] %>
+
+<% end %>
