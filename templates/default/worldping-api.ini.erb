@@ -179,3 +179,13 @@ global_endpoint =  <%= node['raintank_stack']['worldping-api']['quota']['global_
 global_collector =  <%= node['raintank_stack']['worldping-api']['quota']['global_collector'] %>
 
 <% end %>
+
+[metric_publisher]
+enabled = true
+nsqd_addr = localhost:4150
+topic = metrics
+
+[collector_event_publisher]
+enabled = true
+nsqd_addr = localhost:4150
+topic = probe_events
