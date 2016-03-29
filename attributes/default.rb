@@ -75,7 +75,9 @@ override[:mariadb][:use_default_repository] = true
 
 # nginx
 default[:raintank_stack][:grafana_backend] = "localhost:3000"
+default[:raintank_stack][:worldping_backend] = "localhost:3001"
 default[:raintank_stack][:grafana_domain] = node[:grafana][:domain]
+default[:raintank_stack][:worldping_domain] = "worldping-api.raintank.io"
 default[:raintank_stack][:grafana_root] = "/usr/share/grafana/public"
 default[:raintank_stack][:nginx][:use_ssl] = false
 default[:raintank_stack][:nginx][:ssl_cert_file] = "/etc/nginx/ssl/grafana.crt"
@@ -190,7 +192,7 @@ default[:raintank_stack]['worldping-api']['static_root'] = 'public'
 ### SERVER ###
 default[:raintank_stack]['worldping-api']['port'] = '3000'
 default[:raintank_stack]['worldping-api']['protocol'] = 'http'
-default[:raintank_stack]['worldping-api']['domain'] = 'grafana2.example.com'
+default[:raintank_stack]['worldping-api']['domain'] = default[:raintank_stack][:worldping_domain]
 default[:raintank_stack]['worldping-api']['app_mode'] = 'production'
 default[:raintank_stack]['worldping-api']['root_url'] = '%(protocol)s://%(domain)s:%(http_port)s/'
 default[:raintank_stack]['worldping-api']['router_logging'] = false
