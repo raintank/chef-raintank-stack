@@ -192,7 +192,7 @@ default[:raintank_stack]['worldping-api']['static_root'] = 'public'
 ### SERVER ###
 default[:raintank_stack]['worldping-api']['port'] = '3000'
 default[:raintank_stack]['worldping-api']['protocol'] = 'http'
-default[:raintank_stack]['worldping-api']['domain'] = default[:raintank_stack][:worldping_domain]
+default[:raintank_stack]['worldping-api']['domain'] = node[:raintank_stack][:worldping_domain]
 default[:raintank_stack]['worldping-api']['app_mode'] = 'production'
 default[:raintank_stack]['worldping-api']['root_url'] = '%(protocol)s://%(domain)s:%(http_port)s/'
 default[:raintank_stack]['worldping-api']['router_logging'] = false
@@ -223,8 +223,8 @@ default[:raintank_stack]['worldping-api']['email']['templates_pattern'] = 'email
 
 ### LOGGING ###
 default[:raintank_stack]['worldping-api']['log_level'] = 'Info' # Either "Trace", "Debug", "Info", "Warn", "Error", "Critical"
-default[:raintank_stack]['worldping-api']['log_level_console' ] = default[:raintank_stack]['worldping-api']['log_level']
-default[:raintank_stack]['worldping-api']['log_level_file' ] = default[:raintank_stack]['worldping-api']['log_level']
+default[:raintank_stack]['worldping-api']['log_level_console' ] = node[:raintank_stack]['worldping-api']['log_level']
+default[:raintank_stack]['worldping-api']['log_level_file' ] = node[:raintank_stack]['worldping-api']['log_level']
 default[:raintank_stack]['worldping-api']['log_mode'] = "console"
 
 ### EVENT PUBLISHING
