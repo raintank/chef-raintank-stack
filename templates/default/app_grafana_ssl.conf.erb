@@ -20,6 +20,20 @@ server {
   }
 }
 
+server {
+  listen 80;
+  server_name health.<%= node['raintank_stack']['worldping_domain'] %>;
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass http://worldping;
+  }
+}
+
 <% if node["use_collectd"] %>
 server {
   listen 127.0.0.1:8899;
@@ -47,6 +61,68 @@ server {
 # TODO: allow for listening on HTTPS, upgrading the connection for non-SSL.
 server {
   listen 443 default ssl; # for Linux
+  server_name <%= node['raintank_stack']['worldping_domain'] %>;
+
+  ssl_certificate <%= node['raintank_stack']['nginx']['ssl_cert_file'] %>;
+  ssl_certificate_key <%= node['raintank_stack']['nginx']['ssl_key_file'] %>;
+  ssl_session_timeout 5m;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+  ssl_prefer_server_ciphers on;
+
+  # allow only valid crud methods
+  if ($request_method !~ GET|POST|PUT|DELETE|PATCH) {
+    return 405;
+  }
+
+  # ignore obviously false requests
+  if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
+    return 404;
+  }
+
+  ## Block http user agent - wget ##
+  if ($http_user_agent ~* (SecopsSecurityScan) ) {
+     return 403;
+  }
+
+  # opt-in to the future
+  add_header "X-UA-Compatible" "IE=Edge,chrome=1";
+
+  root "<%= node['raintank_stack']['grafana_root'] %>";
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass http://worldping;
+  }
+
+  # TODO: static files could be spelled out more here, maybe, rather than
+  # trying to see if they're on
+
+  location / {
+    try_files $uri @grafana;
+  }
+
+  location /nginx_status {
+    stub_status on;
+    access_log  off;
+    allow       127.0.0.1;
+    deny        all;
+  }
+  location /debug {
+    stub_status on;
+    access_log  off;
+    allow       127.0.0.1;
+    deny        all;
+  }
+}
+
+# TODO: allow for listening on HTTPS, upgrading the connection for non-SSL.
+server {
+  listen 443; # for Linux
   server_name <%= node['raintank_stack']['grafana_domain'] %>;
 
   ssl_certificate <%= node['raintank_stack']['nginx']['ssl_cert_file'] %>;
@@ -106,64 +182,3 @@ server {
   }
 }
 
-# TODO: allow for listening on HTTPS, upgrading the connection for non-SSL.
-server {
-  listen 443; # for Linux
-  server_name <%= node['raintank_stack']['worldping_domain'] %>;
-
-  ssl_certificate <%= node['raintank_stack']['nginx']['ssl_cert_file'] %>;
-  ssl_certificate_key <%= node['raintank_stack']['nginx']['ssl_key_file'] %>;
-  ssl_session_timeout 5m;
-  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-  ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
-  ssl_prefer_server_ciphers on;
-
-  # allow only valid crud methods
-  if ($request_method !~ GET|POST|PUT|DELETE|PATCH) {
-    return 405;
-  }
-
-  # ignore obviously false requests
-  if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
-    return 404;
-  }
-
-  ## Block http user agent - wget ##
-  if ($http_user_agent ~* (SecopsSecurityScan) ) {
-     return 403;
-  }
-
-  # opt-in to the future
-  add_header "X-UA-Compatible" "IE=Edge,chrome=1";
-
-  root "<%= node['raintank_stack']['grafana_root'] %>";
-  location / {
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_pass http://worldping;
-  }
-
-  # TODO: static files could be spelled out more here, maybe, rather than
-  # trying to see if they're on
-
-  location / {
-    try_files $uri @grafana;
-  }
-
-  location /nginx_status {
-    stub_status on;
-    access_log  off;
-    allow       127.0.0.1;
-    deny        all;
-  }
-  location /debug {
-    stub_status on;
-    access_log  off;
-    allow       127.0.0.1;
-    deny        all;
-  }
-}
