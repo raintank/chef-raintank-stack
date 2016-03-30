@@ -43,3 +43,19 @@ template "/etc/raintank/worldping-api.ini" do
   })
   notifies :restart, 'service[worldping-api]', :delayed
 end
+
+directory node[:raintank_stack]['worldping-api']['log_dir'] do
+  owner node[:raintank_stack]['worldping-api']['user']
+  group node[:raintank_stack]['worldping-api']['group']
+  mode "0755"
+  recursive true
+  action :create
+end
+
+directory node[:raintank_stack]['worldping-api']['data_dir'] do
+  owner node[:raintank_stack]['worldping-api']['user']
+  group node[:raintank_stack]['worldping-api']['group']
+  mode "0755"
+  recursive true
+  action :create
+end
