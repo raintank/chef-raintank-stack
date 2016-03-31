@@ -99,13 +99,6 @@ server {
     proxy_pass http://worldping;
   }
 
-  # TODO: static files could be spelled out more here, maybe, rather than
-  # trying to see if they're on
-
-  location / {
-    try_files $uri @grafana;
-  }
-
   location /nginx_status {
     stub_status on;
     access_log  off;
