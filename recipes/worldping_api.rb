@@ -30,6 +30,8 @@ db_host = find_haproxy || node['grafana']['db_host']
 rabbitmq_host = find_haproxy || node['grafana']['rabbitmq_host']
 graphite_host = find_haproxy || node['grafana']['graphite_host']
 
+node.default[:raintank_stack]['worldping-api']['instance_id'] = node['hostname']
+
 template "/etc/raintank/worldping-api.ini" do
   source 'worldping-api.ini.erb'
   mode '600'
