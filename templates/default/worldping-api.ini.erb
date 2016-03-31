@@ -138,9 +138,7 @@ exchange = <%= node['raintank_stack']['worldping-api']['event_exchange'] %>
 
 [raintank]
 graphite_url = http://<%= @graphite_host %>:<%= node['raintank_stack']['worldping-api']['graphite_port'] %>/
-
-[elasticsearch]
-host = <%= @elasticsearch_host %>
+elasticsearch_url = http://<%= @elasticsearch_host %>:9200/
 
 ##################### telemetry
 [telemetry]
