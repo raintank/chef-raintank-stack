@@ -1,0 +1,284 @@
+##################### Grafana Configuration Example #####################
+#
+# Everything has defaults so you only need to uncomment things you want to
+# change
+
+app_mode = <%= node['grafana']['app_mode'] %>
+
+#################################### Paths ####################################
+[paths]
+# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is useD)
+#
+data = <%= node['grafana']['data_dir'] %>
+plugins = <%= node['grafana']['data_dir'] %>/plugins
+#
+# Directory where grafana can store logs
+#
+logs = <%= node['grafana']['log_dir'] %>
+
+#################################### Server ####################################
+[server]
+# Protocol (http or https)
+protocol = <%= node['grafana']['protocol'] %>
+
+# The ip address to bind to, empty will bind to all interfaces
+<% if node['grafana']['http_addr'] %>
+http_addr = <%= node['grafana']['http_addr'] %>
+<% end %>
+
+# The http port  to use
+http_port = <%= node['grafana']['port'] %>
+
+# The public facing domain name used to access grafana from a browser
+domain = <%= node['grafana']['domain'] %>
+
+# The full public facing url
+;root_url = %(protocol)s://%(domain)s:%(http_port)s/
+root_url = <%= node['grafana']['root_url'] %>
+
+# Log web requests
+router_logging = <%= node['grafana']['router_logging'] %>
+
+# the path relative working path
+static_root_path = <%= node['grafana']['static_root'] %>
+
+# enable gzip
+enable_gzip = <%= node['grafana']['enable_gzip'] %>
+
+# https certs & key file
+<% if @cert_file && @cert_key %>
+cert_file = <%= @cert_file %>
+cert_key = <%= @cert_key %>
+<% end %>
+
+#################################### Database ####################################
+[database]
+# Either "mysql", "postgres" or "sqlite3", it's your choice
+type = <%= node['grafana']['db_type'] %>
+host = <%= @db_host %>:<%= node['grafana']['db_port'] %>
+name = <%= node['grafana']['db_name'] %>
+user = <%= node['grafana']['db_user'] %>
+password = <%= node['grafana']['db_password'] %>
+
+# For "postgres" only, either "disable", "require" or "verify-full"
+<% if node['grafana']['db_type'] == "postgres" %>
+ssl_mode = <%= node['grafana']['db_ssl_mode'] %>
+<% end %>
+
+# For "sqlite3" only, path relative to data_path setting
+# ;path = grafana.db
+
+#################################### Session ####################################
+[session]
+# Either "memory", "file", "redis", "mysql", default is "memory"
+provider = <%= node['grafana']['session_type'] %>
+
+# Provider config options
+# memory: not have any config yet
+# file: session dir path, is relative to grafana data_path
+# redis: config like redis server addr, poolSize, password, e.g. `127.0.0.1:6379,100,grafana`
+# mysql: go-sql-driver/mysql dsn config string, e.g. `user:passwordnode['grafana']['tcp(127.0.0.1)/database_name`
+provider_config = <%= node['grafana']['db_user'] %>:<%= node['grafana']['db_password'] %>@tcp(<%= @db_host %>:<%= node['grafana']['db_port'] %>)/<%= node['grafana']['db_name'] %>
+
+# Session cookie name
+cookie_name = <%= node['grafana']['cookie_name'] %>
+
+# If you use session in https only, default is false
+cookie_secure = <%= node['grafana']['cookie_secure'] %>
+
+# Session life time, default is 86400
+session_life_time = <%= node['grafana']['session_life_time'] %>
+
+#################################### Analytics ####################################
+[analytics]
+# Server reporting, sends usage counters to stats.grafana.org every 24 hours.
+# No ip addresses are being tracked, only simple counters to track
+# running instances, dashboard and error counts. It is very helpful to us.
+# Change this option to false to disable reporting.
+reporting_enabled = <%= node['grafana']['reporting_enabled'] %>
+
+# Google Analytics universal tracking code, only enabled if you specify an id here
+<% if node['grafana']['ga_id'] %>
+google_analytics_ua_id = <%= node['grafana']['ga_id'] %>
+<% end %>
+<% if node['grafana']['tag_manager_id'] %>
+google_tag_manager_id = <%= node['grafana']['tag_manager_id'] %>
+<% end %>
+
+#################################### Security ####################################
+[security]
+# default admin user, created on startup
+admin_user = <%= node['grafana']['admin_user'] %>
+
+# default admin password, can be changed before first start of grafana,  or in profile settings
+admin_password = <%= node['grafana']['admin_password'] %>
+
+# used for signing
+secret_key = <%= node['grafana']['secret_key'] %>
+
+# Auto-login remember days
+login_remember_days = <%= node['grafana']['login_remember_days'] %>
+cookie_username = <%= node['grafana']['cookie_username'] %>
+cookie_remember_name = <%= node['grafana']['cookie_remember_name'] %>
+
+#################################### Users ####################################
+[users]
+# disable user signup / registration
+allow_sign_up = <%= node['grafana']['allow_sign_up'] %>
+
+# Allow non admin users to create organizations
+allow_org_create = <%= node['grafana']['allow_org_create'] %>
+
+# Set to true to automatically assign new users to the default organization (id 1)
+auto_assign_org = <%= node['grafana']['auto_assign_org'] %>
+
+# Default role new users will be automatically assigned (if disabled above is set to true)
+auto_assign_org_role = <%= node['grafana']['auto_assign_org_role'] %>
+
+#################################### Anonymous Auth ##########################
+[auth.anonymous]
+# enable anonymous access
+enabled = <%= node['grafana']['anon_enabled'] %>
+
+# specify organization name that should be used for unauthenticated users
+org_name = <%= node['grafana']['org_name'] %>
+
+# specify role for unauthenticated users
+org_role = <%= node['grafana']['org_role'] %>
+
+#################################### Github Auth ##########################
+<% if node['grafana']['auth_github'] %>
+[auth.github]
+enabled = true
+client_id = <%= node['grafana']['auth_github_id'] %>
+client_secret = <%= node['grafana']['auth_github_secret'] %>
+scopes = user:email
+auth_url = https://github.com/login/oauth/authorize
+token_url = https://github.com/login/oauth/access_token
+api_url = https://api.github.com/user
+# Uncomment bellow to only allow specific email domains
+<% if node['grafana']['auth_github_allowed_domains'] %>
+allowed_domains = <%= node['grafana']['auth_github_allowed_domains'].join ' ' %>
+<% end %>
+<% end %>
+
+#################################### Google Auth ##########################
+<% if node['grafana']['auth_google'] %>
+[auth.google]
+enabled = true
+client_id = <%= node['grafana']['auth_google_client_id'] %>
+client_secret = <%= node['grafana']['auth_google_client_secret'] %>
+scopes = https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
+auth_url = https://accounts.google.com/o/oauth2/auth
+token_url = https://accounts.google.com/o/oauth2/token
+api_url = https://www.googleapis.com/oauth2/v1/userinfo
+# Uncomment bellow to only allow specific email domains
+<% if node['grafana']['auth_github_allowed_domains'] %>
+allowed_domains = <%= node['grafana']['auth_google_allowed_domains'].join ' ' %>
+<% end %>
+<% end %>
+
+#################################### Auth Proxy ##########################
+[auth.proxy]
+enabled = <%= node['grafana']['auth_proxy']['enabled'] %>
+header_name = <%= node['grafana']['auth_proxy']['header_name'] %>
+header_property = <%= node['grafana']['auth_proxy']['header_property'] %>
+auto_sign_up = <%= node['grafana']['auth_proxy']['auto_sign_up'] %>
+
+#################################### SMTP / Emailing ##########################
+[smtp]
+enabled = <%= node['grafana']['smtp']['enabled'] %>
+host = <%= node['grafana']['smtp']['host'] %>
+user = <%= node['grafana']['smtp']['user'] %>
+password = <%= node['grafana']['smtp']['password'] %>
+cert_file = <%= node['grafana']['smtp']['cert_file'] %>
+key_file = <%= node['grafana']['smtp']['key_file'] %>
+skip_verify = <%= node['grafana']['smtp']['skip_verify'] %>
+from_address = <%= node['grafana']['smtp']['from_address'] %>
+
+[emails]
+welcome_email_on_sign_up = <%= node['grafana']['email']['welcome_email'] %>
+templates_pattern = <%= node['grafana']['email']['templates_pattern'] %>
+
+#################################### Logging ##########################
+[log]
+# Either "console", "file", default is "console"
+# Use comma to separate multiple modes, e.g. "console, file"
+mode = <%= node['grafana']['log_mode'] %>
+
+# Buffer length of channel, keep it as it is if you don't know what it is.
+;buffer_len = 10000
+
+# Either "Trace", "Debug", "Info", "Warn", "Error", "Critical", default is "Trace"
+level = <%= node['grafana']['log_level'] %>
+
+# For "console" mode only
+[log.console]
+level = <%= node['grafana']['log_level_console'] %>
+formatting = <%= node['grafana']['log_formatting'] %>
+
+# For "file" mode only
+[log.file]
+level = <%= node['grafana']['log_level_file'] %>
+
+<% if node['grafana']['no_log_rotate'] %>
+# This enables automated log rotate(switch of following options), default is true
+log_rotate = false
+<% end %>
+
+# Max line number of single file, default is 1000000
+;max_lines = 1000000
+
+# Max size shift of single file, default is 28 means 1 << 28, 256MB
+;max_lines_shift = 28
+
+# Segment log daily, default is true
+;daily_rotate = true
+
+# Expired days of log file(delete after max days), default is 7
+;max_days = 7
+
+#################################### AMPQ Event Publisher ##########################
+[event_publisher]
+enabled = <%= node['grafana']['event_publish'] %>
+rabbitmq_url = amqp://<%= @rabbitmq_host %>/
+exchange = <%= node['grafana']['event_exchange'] %>
+
+#################################### Dashboard JSON files ##########################
+[dashboards.json]
+enabled = true
+path = <%= node['grafana']['litmus_path'] %>
+
+[quota]
+enabled = <%= node['grafana']['quota']['enabled'] %>
+
+#### set quotas to -1 to make unlimited. ####
+# limit number of users per Org.
+org_user = <%= node['grafana']['quota']['org_user'] %>
+
+# limit number of dashboards per Org.
+org_dashboard = <%= node['grafana']['quota']['org_dashboard'] %>
+
+# limit number of data_sources per Org.
+org_data_source = <%= node['grafana']['quota']['org_data_source'] %>
+
+# limit number of api_keys per Org.
+org_api_key = <%= node['grafana']['quota']['org_api_key'] %>
+
+# limit number of orgs a user can create.
+user_org = <%= node['grafana']['quota']['user_org'] %>
+
+# Global limit of users.
+global_user = <%= node['grafana']['quota']['global_user'] %>
+
+# global limit of orgs.
+global_org = <%= node['grafana']['quota']['global_org'] %>
+
+# global limit of dashboards
+global_dashboard = <%= node['grafana']['quota']['global_dashboard'] %>
+
+# global limit of api_keys
+global_api_key =  <%= node['grafana']['quota']['global_api_key'] %>
+
+# global limit on number of logged in users.
+global_session =  <%= node['grafana']['quota']['global_session'] %>

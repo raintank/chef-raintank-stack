@@ -83,28 +83,28 @@ if !node['raintank_stack']['grafana_domain_aliases'].nil? && !node['raintank_sta
       ssl_cert = site['ssl_cert_file']
       ssl_key = site['ssl_key_file']
       file ssl_cert do
-	owner node['nginx']['user']
-	group node['nginx']['group']
-	mode '0600'
-	content redir_certs['ssl_cert']
-	action :create
+        owner node['nginx']['user']
+        group node['nginx']['group']
+        mode '0600'
+        content redir_certs['ssl_cert']
+        action :create
       end
       file ssl_key do
-	owner node['nginx']['user']
-	group node['nginx']['group']
-	mode '0600'
-	content redir_certs['ssl_key']
-	action :create
+        owner node['nginx']['user']
+        group node['nginx']['group']
+        mode '0600'
+        content redir_certs['ssl_key']
+        action :create
       end
     end
     template "/etc/nginx/sites-available/#{site['server_name']}" do
       source "app_grafana_redir.conf.erb"
       variables({
-	server_name: site['server_name'],
-	redir_name: node['raintank_stack']['grafana_domain'],
-	use_ssl: site['use_ssl'],
-	ssl_cert: ssl_cert,
-	ssl_key: ssl_key
+        server_name: site['server_name'],
+        redir_name: node['raintank_stack']['grafana_domain'],
+        use_ssl: site['use_ssl'],
+        ssl_cert: ssl_cert,
+        ssl_key: ssl_key
       })
     end
     nginx_site site['server_name'] do

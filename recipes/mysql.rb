@@ -45,3 +45,13 @@ mysql_database node['grafana']['db_name'] do
   )
   action :create
 end
+
+mysql_database node['raintank_stack']['worldping-api']['db_name'] do
+  connection(
+    :host => node['raintank_stack']['worldping-api']['db_host'],
+    :port => node['raintank_stack']['worldping-api']['db_port'],
+    :username => 'root',
+    :password => node['mysql']['server_root_password']
+  )
+  action :create
+end
