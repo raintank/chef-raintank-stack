@@ -268,3 +268,41 @@ default[:raintank_stack]['worldping-api']['quota']['org_endpoint'] = 10
 default[:raintank_stack]['worldping-api']['quota']['org_collector'] = 10
 default[:raintank_stack]['worldping-api']['quota']['global_endpoint'] = -1
 default[:raintank_stack]['worldping-api']['quota']['global_collector'] = -1
+
+
+## task_server
+default[:raintank_stack]['task_server']['log_level'] = 2
+default[:raintank_stack]['task_server']['addr'] = ":8082"
+default[:raintank_stack]['task_server']['db_type'] = "sqlite3"
+default[:raintank_stack]['task_server']['db_connect_str'] = "file:/var/lib/task-server/task_server.db?cache=shared&mode=rwc&_loc=Local"
+default[:raintank_stack]['task_server']['stats_enabled'] = false
+default[:raintank_stack]['task_server']['statsd_addr'] = "localhost:8125"
+default[:raintank_stack]['task_server']['statsd_type'] = "standard"
+default[:raintank_stack]['task_server']['admin_key'] = "changeme"
+
+## task_agent
+default[:raintank_stack]['task_agent']['log_level'] = 2
+default[:raintank_stack]['task_agent']['server_url'] = "ws://localhost:8082/api/v1"
+default[:raintank_stack]['task_agent']['tsdb_url'] = "http://localhost:8081/"
+default[:raintank_stack]['task_agent']['snap_url'] = "http://localhost:8181/"
+default[:raintank_stack]['task_agent']['stats_enabled'] = false
+default[:raintank_stack]['task_agent']['statsd_addr'] = "localhost:8125"
+default[:raintank_stack]['task_agent']['statsd_type'] = "standard"
+default[:raintank_stack]['task_agent']['api_key'] = "changeme"
+default[:raintank_stack]['task_agent']['node_name'] = node['hostname']
+
+#tsdb
+default[:raintank_stack]['tsdb']['log_level'] = 2
+default[:raintank_stack]['tsdb']['addr'] = ":8081"
+default[:raintank_stack]['tsdb']['stats_enabled'] = false
+default[:raintank_stack]['tsdb']['statsd_addr'] = "localhost:8125"
+default[:raintank_stack]['tsdb']['statsd_type'] = "standard"
+default[:raintank_stack]['tsdb']['admin_key'] = "changeme"
+default[:raintank_stack]['tsdb']['nsqd_addr'] = "localhost:4150"
+default[:raintank_stack]['tsdb']['metric_topic'] = "metrics"
+default[:raintank_stack]['tsdb']['publish_metrics'] = true
+default[:raintank_stack]['tsdb']['event_topic'] = "events"
+default[:raintank_stack]['tsdb']['publish_events'] = true
+default[:raintank_stack]['tsdb']['graphite_url'] = "http://localhost:8888/"
+default[:raintank_stack]['tsdb']['elasticsearch_url'] = "http://localhost:9200/"
+default[:raintank_stack]['tsdb']['es_index'] = "events"

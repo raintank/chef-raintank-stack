@@ -1,0 +1,15 @@
+log-level = <%= node['raintank_stack']['task_server']['log_level'] %>
+addr = <%= node['raintank_stack']['task_server']['addr'] %>
+stats-enabled = <%= node['raintank_stack']['task_server']['stats_enabled'] %>
+statsd-addr = <%= node['raintank_stack']['task_server']['statsd_addr'] %>
+statsd-type = <%= node['raintank_stack']['task_server']['statsd_type'] %>
+admin-key = <%= node['raintank_stack']['task_server']['admin_key'] %>
+nsqd-addr = <%= node['raintank_stack']['task_server']['nsqd_addr'] %>
+metric-topic = <%= node['raintank_stack']['task_server']['metric_topic'] %>
+public-metrics = <%= node['raintank_stack']['task_server']['publish_metrics'] %>
+event-topic = <%= node['raintank_stack']['task_server']['event_topic'] %>
+publish-events = <%= node['raintank_stack']['task_server']['publish_events'] %>
+graphite-url = <%= node['raintank_stack']['task_server']['graphite_url'] %>
+elasticsearch-url = <%= node['raintank_stack']['task_server']['elasticsearch_url'] %>
+es-index = <%= node['raintank_stack']['task_server']['es_index'] %>
+

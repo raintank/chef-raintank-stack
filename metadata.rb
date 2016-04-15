@@ -4,7 +4,7 @@ maintainer_email 'jeremy@raintank.io'
 license          'Apache 2.0'
 description      'Installs/Configures raintank-stack'
 long_description 'Installs/Configures raintank-stack'
-version          '0.4.0'
+version          '0.5.0'
 
 depends 'apt', '~> 2.7.0'
 depends 'basic_server', '~> 0.1.0'
