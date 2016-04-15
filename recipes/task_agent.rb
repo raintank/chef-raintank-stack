@@ -25,6 +25,31 @@ service "task-agent" do
   action [ :enable, :start]
 end
 
+
+pkg_version = node['raintank_stack']['package_version']['snap']
+pkg_action = if pkg_version.nil?
+  :upgrade
+else
+  :install
+end
+
+package "snap" do
+  version pkg_version
+  action pkg_action
+  notifies :restart, 'service[snap]', :delayed
+end
+
+service "snap" do
+  case node["platform"]
+  when "ubuntu"
+    if node["platform_version"].to_f >= 9.10
+      provider Chef::Provider::Service::Upstart
+    end
+  end
+  action [ :enable, :start]
+end
+
+
 template "/etc/raintank/task-agent.ini" do
   source 'task-agent.ini.erb'
   mode '0644'
