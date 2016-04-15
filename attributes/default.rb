@@ -76,8 +76,13 @@ override[:mariadb][:use_default_repository] = true
 # nginx
 default[:raintank_stack][:grafana_backend] = "localhost:3000"
 default[:raintank_stack][:worldping_backend] = "localhost:3001"
+default[:raintank_stack][:tsdb_backend] = "localhost:8081"
+default[:raintank_stack][:task_server_backend] = "localhost:8082"
+
 default[:raintank_stack][:grafana_domain] = node[:grafana][:domain]
 default[:raintank_stack][:worldping_domain] = "worldping-api.raintank.io"
+default[:raintank_stack][:tsdb_domain] = "tsdb.raintank.io"
+default[:raintank_stack][:task_server_domain] = "task-server.raintank.io"
 default[:raintank_stack][:grafana_root] = "/usr/share/grafana/public"
 default[:raintank_stack][:nginx][:use_ssl] = false
 default[:raintank_stack][:nginx][:ssl_cert_file] = "/etc/nginx/ssl/grafana.crt"
