@@ -1,7 +1,7 @@
 group node[:raintank_stack]['worldping-api']['group'] do
   system true
   action :create
-  only_if "getent group #{node[:raintank_stack]['worldping-api']['group']}"
+  not_if "getent group #{node[:raintank_stack]['worldping-api']['group']}"
 end
 
 user node[:raintank_stack]['worldping-api']['user'] do
@@ -9,7 +9,7 @@ user node[:raintank_stack]['worldping-api']['user'] do
   gid node[:raintank_stack]['worldping-api']['group']
   home node[:raintank_stack]['worldping-api']['data_dir']
   action :create
-  only_if "getent passwd #{node[:raintank_stack]['worldping-api']['user']}"
+  not_if "getent passwd #{node[:raintank_stack]['worldping-api']['user']}"
 end
 
 packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
