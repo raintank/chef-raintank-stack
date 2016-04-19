@@ -33,7 +33,7 @@ else
   :install
 end
 
-package "snap" do
+package "snap-agent" do
   version pkg_version
   action pkg_action
   notifies :restart, 'service[snap]', :delayed
