@@ -312,5 +312,6 @@ default[:raintank_stack]['tsdb']['publish_metrics'] = true
 default[:raintank_stack]['tsdb']['event_topic'] = "events"
 default[:raintank_stack]['tsdb']['publish_events'] = true
 default[:raintank_stack]['tsdb']['graphite_url'] = "http://localhost:8888/"
+default[:raintank_stack]['tsdb']['worldping_url'] = node[:raintank_stack]['worldping-api']['root_url']
 default[:raintank_stack]['tsdb']['elasticsearch_url'] = "http://localhost:9200/"
 default[:raintank_stack]['tsdb']['es_index'] = "events"
