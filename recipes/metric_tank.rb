@@ -37,6 +37,14 @@ directory "/etc/raintank" do
   action :create
 end
 
+directory node['raintank_stack']['metric_tank']['proftrigger']['path'] do
+  owner "root"
+  group "root"
+  mode "0755"
+  recursive true
+  action :create
+end
+
 template "/etc/raintank/metric_tank.ini" do
   source "metric_tank.ini.erb"
   mode '0644'
@@ -71,6 +79,9 @@ template "/etc/raintank/metric_tank.ini" do
     :redis_addr => node['raintank_stack']['metric_tank']['redis_addr'],
     :index_name =>  node['raintank_stack']['metric_tank']['index_name'],
     :redis_db =>  node['raintank_stack']['metric_tank']['redis_db'],
-    :cassandra_timeout => node['raintank_stack']['metric_tank']['cassandra_timeout']
+    :cassandra_timeout => node['raintank_stack']['metric_tank']['cassandra_timeout'],
+    :proftrigger_heap => node['raintank_stack']['metric_tank']['proftrigger']['heap_thresh'],
+    :proftrigger_freq => node['raintank_stack']['metric_tank']['proftrigger']['freq'],
+    :proftrigger_path => node['raintank_stack']['metric_tank']['proftrigger']['path']
   })
 end

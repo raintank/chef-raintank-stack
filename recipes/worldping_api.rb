@@ -1,3 +1,17 @@
+group node[:raintank_stack]['worldping-api']['group'] do
+  system true
+  action :create
+  not_if "getent group #{node[:raintank_stack]['worldping-api']['group']}"
+end
+
+user node[:raintank_stack]['worldping-api']['user'] do
+  system true
+  gid node[:raintank_stack]['worldping-api']['group']
+  home node[:raintank_stack]['worldping-api']['data_dir']
+  action :create
+  not_if "getent passwd #{node[:raintank_stack]['worldping-api']['user']}"
+end
+
 packagecloud_repo node[:raintank_stack][:packagecloud_repo] do
   type "deb"
 end
@@ -7,6 +21,22 @@ pkg_action = if pkg_version.nil?
   :upgrade
 else
   :install
+end
+
+directory node[:raintank_stack]['worldping-api']['log_dir'] do
+  owner node[:raintank_stack]['worldping-api']['user']
+  group node[:raintank_stack]['worldping-api']['group']
+  mode "0755"
+  recursive true
+  action :create
+end
+
+directory node[:raintank_stack]['worldping-api']['data_dir'] do
+  owner node[:raintank_stack]['worldping-api']['user']
+  group node[:raintank_stack]['worldping-api']['group']
+  mode "0755"
+  recursive true
+  action :create
 end
 
 package "worldping-api" do
@@ -46,18 +76,4 @@ template "/etc/raintank/worldping-api.ini" do
   notifies :restart, 'service[worldping-api]', :delayed
 end
 
-directory node[:raintank_stack]['worldping-api']['log_dir'] do
-  owner node[:raintank_stack]['worldping-api']['user']
-  group node[:raintank_stack]['worldping-api']['group']
-  mode "0755"
-  recursive true
-  action :create
-end
 
-directory node[:raintank_stack]['worldping-api']['data_dir'] do
-  owner node[:raintank_stack]['worldping-api']['user']
-  group node[:raintank_stack]['worldping-api']['group']
-  mode "0755"
-  recursive true
-  action :create
-end

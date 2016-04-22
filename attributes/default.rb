@@ -179,6 +179,9 @@ default[:raintank_stack][:metric_tank][:elastic_addr] = node[:raintank_stack][:n
 default[:raintank_stack][:metric_tank][:redis_addr] = node[:raintank_stack][:nsq_tools][:base][:redis_addr]
 default[:raintank_stack][:metric_tank][:es_warmup_percent] = 1
 default[:raintank_stack][:metric_tank][:cassandra_timeout] = 1000
+default[:raintank_stack][:metric_tank][:proftrigger][:heap_thresh] = 20000000
+default[:raintank_stack][:metric_tank][:proftrigger][:freq] = "1s"
+default[:raintank_stack][:metric_tank][:proftrigger][:path] = "/var/lib/metric-tank/prof"
 
 
 ############ Worldping-api 
