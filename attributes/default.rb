@@ -281,12 +281,17 @@ default[:raintank_stack]['worldping-api']['quota']['global_collector'] = -1
 ## task_server
 default[:raintank_stack]['task_server']['log_level'] = 2
 default[:raintank_stack]['task_server']['addr'] = ":8082"
-default[:raintank_stack]['task_server']['db_type'] = "sqlite3"
-default[:raintank_stack]['task_server']['db_connect_str'] = "file:/var/lib/task-server/task_server.db?cache=shared&mode=rwc&_loc=Local"
+default[:raintank_stack]['task_server']['db_host'] = "localhost"
+default[:raintank_stack]['task_server']['db_port'] = 3306
+default[:raintank_stack]['task_server']['db_name'] = "task_server"
+default[:raintank_stack]['task_server']['db_user'] = "task_server"
+default[:raintank_stack]['task_server']['db_password'] = "secret"
 default[:raintank_stack]['task_server']['stats_enabled'] = false
 default[:raintank_stack]['task_server']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['task_server']['statsd_type'] = "standard"
 default[:raintank_stack]['task_server']['admin_key'] = "changeme"
+default[:raintank_stack]['task_server']['exchange'] = "events"
+default[:raintank_stack]['task_server']['rabbitmq_url'] = "amqp://guest:guest@localhost:5672/"
 
 ## task_agent
 default[:raintank_stack]['task_agent']['log_level'] = 2
@@ -296,7 +301,7 @@ default[:raintank_stack]['task_agent']['snap_url'] = "http://localhost:8181/"
 default[:raintank_stack]['task_agent']['stats_enabled'] = false
 default[:raintank_stack]['task_agent']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['task_agent']['statsd_type'] = "standard"
-default[:raintank_stack]['task_agent']['api_key'] = "changeme"
+default[:raintank_stack]['task_agent']['api_key'] = node[:raintank_stack]['task-server']['api_key']
 default[:raintank_stack]['task_agent']['node_name'] = node['hostname']
 
 #tsdb
@@ -305,13 +310,13 @@ default[:raintank_stack]['tsdb']['addr'] = ":8081"
 default[:raintank_stack]['tsdb']['stats_enabled'] = false
 default[:raintank_stack]['tsdb']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['tsdb']['statsd_type'] = "standard"
-default[:raintank_stack]['tsdb']['admin_key'] = "changeme"
+default[:raintank_stack]['tsdb']['admin_key'] = node[:raintank_stack]['task-server']['api_key']
 default[:raintank_stack]['tsdb']['nsqd_addr'] = "localhost:4150"
-default[:raintank_stack]['tsdb']['metric_topic'] = "metrics"
+default[:raintank_stack]['tsdb']['metric_topic'] = node[:raintank_stack][:metric_tank][:topic]
 default[:raintank_stack]['tsdb']['publish_metrics'] = true
-default[:raintank_stack]['tsdb']['event_topic'] = "events"
+default[:raintank_stack]['tsdb']['event_topic'] = node[:raintank_stack][:nsq_tools][:probe_events_to_elasticsearch][:topic]
 default[:raintank_stack]['tsdb']['publish_events'] = true
 default[:raintank_stack]['tsdb']['graphite_url'] = "http://localhost:8888/"
-default[:raintank_stack]['tsdb']['worldping_url'] = node[:raintank_stack]['worldping-api']['root_url']
+default[:raintank_stack]['tsdb']['worldping_url'] = "https://worldping-api.raintank.io/"
 default[:raintank_stack]['tsdb']['elasticsearch_url'] = "http://localhost:9200/"
 default[:raintank_stack]['tsdb']['es_index'] = "events"
