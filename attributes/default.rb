@@ -301,7 +301,7 @@ default[:raintank_stack]['task_agent']['snap_url'] = "http://localhost:8181/"
 default[:raintank_stack]['task_agent']['stats_enabled'] = false
 default[:raintank_stack]['task_agent']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['task_agent']['statsd_type'] = "standard"
-default[:raintank_stack]['task_agent']['api_key'] = node[:raintank_stack]['task-server']['api_key']
+default[:raintank_stack]['task_agent']['api_key'] = node[:raintank_stack]['task-server']['admin_key']
 default[:raintank_stack]['task_agent']['node_name'] = node['hostname']
 
 #tsdb
