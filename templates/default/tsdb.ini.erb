@@ -6,7 +6,7 @@ statsd-type = <%= node['raintank_stack']['tsdb']['statsd_type'] %>
 admin-key = <%= node['raintank_stack']['tsdb']['admin_key'] %>
 nsqd-addr = <%= node['raintank_stack']['tsdb']['nsqd_addr'] %>
 metric-topic = <%= node['raintank_stack']['tsdb']['metric_topic'] %>
-public-metrics = <%= node['raintank_stack']['tsdb']['publish_metrics'] %>
+publish-metrics = <%= node['raintank_stack']['tsdb']['publish_metrics'] %>
 event-topic = <%= node['raintank_stack']['tsdb']['event_topic'] %>
 publish-events = <%= node['raintank_stack']['tsdb']['publish_events'] %>
 graphite-url = <%= node['raintank_stack']['tsdb']['graphite_url'] %>
