@@ -22,7 +22,7 @@ service "task-agent" do
       provider Chef::Provider::Service::Upstart
     end
   end
-  action [ :enable, :start]
+  action [ :enable]
 end
 
 
@@ -46,7 +46,7 @@ service "snap" do
       provider Chef::Provider::Service::Upstart
     end
   end
-  action [ :enable, :start]
+  action [ :enable]
 end
 
 
