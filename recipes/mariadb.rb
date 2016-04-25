@@ -45,6 +45,16 @@ if node[:raintank_stack][:create_database]
     action :create
   end
 
+  mysql_database node['raintank_stack']['worldping-api']['db_name'] do
+    connection connection_info
+    action :create
+  end
+
+  mysql_database node['raintank_stack']['task_server']['db_name'] do
+    connection connection_info
+    action :create
+  end
+
   if !node['raintank_stack']['sst_user'].nil?
     mysql_database_user node['raintank_stack']['sst_user'] do
       connection connection_info
@@ -84,6 +94,36 @@ if node[:raintank_stack][:create_database]
       password node['raintank_stack']['repl_pass']
       privileges [ :"replication slave" ]
       host node['raintank_stack']['repl_host']
+      action :grant
+    end
+  end
+  if node['raintank_stack']['worldping-api']['db_user'] != 'root'
+    mysql_database_user node['raintank_stack']['worldping-api']['db_user'] do
+      connection connection_info
+      password node['raintank_stack']['worldping-api']['db_password']
+      action :create
+    end
+    mysql_database_user node['raintank_stack']['worldping-api']['db_user'] do
+      connection connection_info
+      password node['raintank_stack']['worldping-api']['db_password']
+      database_name node['raintank_stack']['worldping-api']['db_name']
+      host node['raintank_stack']['repl_host']
+      privileges [:all]
+      action :grant
+    end
+  end
+  if node['raintank_stack']['task_server']['db_user'] != 'root'
+    mysql_database_user node['raintank_stack']['task_server']['db_user'] do
+      connection connection_info
+      password node['raintank_stack']['task_server']['db_password']
+      action :create
+    end
+    mysql_database_user node['raintank_stack']['task_server']['db_user'] do
+      connection connection_info
+      password node['raintank_stack']['task_server']['db_password']
+      database_name node['raintank_stack']['task_server']['db_name']
+      host node['raintank_stack']['repl_host']
+      privileges [:all]
       action :grant
     end
   end

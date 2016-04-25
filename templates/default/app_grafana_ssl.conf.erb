@@ -6,6 +6,14 @@ upstream worldping {
   server <%= node['raintank_stack']['worldping_backend'] %>;
 }
 
+upstream task_server {
+  server <%= node['raintank_stack']['task_server_backend'] %>;
+}
+
+upstream tsdb {
+  server <%= node['raintank_stack']['tsdb_backend'] %>;
+}
+
 server {
   listen 80;
   server_name health.<%= node['raintank_stack']['grafana_domain'] %>;
@@ -31,6 +39,34 @@ server {
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
     proxy_pass http://worldping;
+  }
+}
+
+server {
+  listen 80;
+  server_name health.<%= node['raintank_stack']['tsdb_domain'] %>;
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass http://tsdb;
+  }
+}
+
+server {
+  listen 80;
+  server_name health.<%= node['raintank_stack']['task_server_domain'] %>;
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass http://task_server;
   }
 }
 
@@ -175,3 +211,84 @@ server {
   }
 }
 
+server {
+  listen 443; # for Linux
+  server_name <%= node['raintank_stack']['tsdb_domain'] %>;
+
+  ssl_certificate <%= node['raintank_stack']['nginx']['ssl_cert_file'] %>;
+  ssl_certificate_key <%= node['raintank_stack']['nginx']['ssl_key_file'] %>;
+  ssl_session_timeout 5m;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+  ssl_prefer_server_ciphers on;
+
+  # allow only valid crud methods
+  if ($request_method !~ GET|POST|PUT|DELETE|PATCH) {
+    return 405;
+  }
+
+  # ignore obviously false requests
+  if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
+    return 404;
+  }
+
+  ## Block http user agent - wget ##
+  if ($http_user_agent ~* (SecopsSecurityScan) ) {
+     return 403;
+  }
+
+  # opt-in to the future
+  add_header "X-UA-Compatible" "IE=Edge,chrome=1";
+
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass http://tsdb;
+  }
+}
+
+server {
+  listen 443; # for Linux
+  server_name <%= node['raintank_stack']['task_server_domain'] %>;
+
+  ssl_certificate <%= node['raintank_stack']['nginx']['ssl_cert_file'] %>;
+  ssl_certificate_key <%= node['raintank_stack']['nginx']['ssl_key_file'] %>;
+  ssl_session_timeout 5m;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+  ssl_prefer_server_ciphers on;
+
+  # allow only valid crud methods
+  if ($request_method !~ GET|POST|PUT|DELETE|PATCH) {
+    return 405;
+  }
+
+  # ignore obviously false requests
+  if ($request_filename ~ \.(php.?|[ajk]sp[ax]?|x|idc|log|cf[mc]?|mdb|do|(ms|f)?cgi|p(er)?lx?|nsf|dll|fts|exe|bat|dot|ini|com|pif|sh|sql|git|svn|yml)$) {
+    return 404;
+  }
+
+  ## Block http user agent - wget ##
+  if ($http_user_agent ~* (SecopsSecurityScan) ) {
+     return 403;
+  }
+
+  # opt-in to the future
+  add_header "X-UA-Compatible" "IE=Edge,chrome=1";
+
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass http://task_server;
+  }
+}

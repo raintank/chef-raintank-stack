@@ -1,0 +1,11 @@
+
+log-level = <%= node['raintank_stack']['task_server']['log_level'] %>
+addr = <%= node['raintank_stack']['task_server']['addr'] %>
+db-type = mysql
+db-connect-str = <%= node['raintank_stack']['task_server']['db_user'] %>:<%= node['raintank_stack']['task_server']['db_password'] %>@tcp(<%= node['raintank_stack']['task_server']['db_host'] %>:<%= node['raintank_stack']['task_server']['db_port'] %>)/<%= node['raintank_stack']['task_server']['db_name'] %>?charset=utf8
+stats-enabled = <%= node['raintank_stack']['task_server']['stats_enabled'] %>
+statsd-addr = <%= node['raintank_stack']['task_server']['statsd_addr'] %>
+statsd-type = <%= node['raintank_stack']['task_server']['statsd_type'] %>
+admin-key = <%= node['raintank_stack']['task_server']['admin_key'] %>
+exchange = <%= node['raintank_stack']['task_server']['exchange'] %>
+rabbitmq-url = <%= node['raintank_stack']['task_server']['rabbitmq_url'] %>
