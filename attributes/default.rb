@@ -301,7 +301,7 @@ default[:raintank_stack]['task_agent']['snap_url'] = "http://localhost:8181/"
 default[:raintank_stack]['task_agent']['stats_enabled'] = false
 default[:raintank_stack]['task_agent']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['task_agent']['statsd_type'] = "standard"
-default[:raintank_stack]['task_agent']['api_key'] = node[:raintank_stack]['task-server']['admin_key']
+default[:raintank_stack]['task_agent']['api_key'] = node[:raintank_stack]['task_server']['admin_key']
 default[:raintank_stack]['task_agent']['node_name'] = node['hostname']
 
 #tsdb
@@ -310,7 +310,7 @@ default[:raintank_stack]['tsdb']['addr'] = ":8081"
 default[:raintank_stack]['tsdb']['stats_enabled'] = false
 default[:raintank_stack]['tsdb']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['tsdb']['statsd_type'] = "standard"
-default[:raintank_stack]['tsdb']['admin_key'] = node[:raintank_stack]['task-server']['api_key']
+default[:raintank_stack]['tsdb']['admin_key'] = node[:raintank_stack]['task_server']['admin_key']
 default[:raintank_stack]['tsdb']['nsqd_addr'] = "localhost:4150"
 default[:raintank_stack]['tsdb']['metric_topic'] = node[:raintank_stack][:metric_tank][:topic]
 default[:raintank_stack]['tsdb']['publish_metrics'] = true
