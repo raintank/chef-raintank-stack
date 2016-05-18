@@ -28,13 +28,19 @@ end
 nspace = {
   'key_path' => node['raintank_stack']['tsdb']['key_file'],
   'cert_path' => node['raintank_stack']['tsdb']['cert_file'],
+  'key_dir' => "/etc/raintank",
+  'cert_dir' => "/etc/raintank",
   'common_name' => node.name
 }
 
-ssl_certificate "tsdb-#{node.name}" do
-  namespace nspace
-  notifies :restart, 'service[tsdb]', :delayed
-  only_if { node['raintank_stack']['tsdb']['ssl'] }
+if node['raintank_stack']['tsdb']['ssl']
+  cert = ssl_certificate "tsdb-#{node.name}" do
+    namespace nspace
+    notifies :restart, 'service[tsdb]', :delayed
+  end
+
+  node.set['raintank_stack']['tsdb']['cert_file'] = cert.cert_path
+  node.set['raintank_stack']['tsdb']['key_file'] = cert.key_path
 end
 
 template "/etc/raintank/tsdb.ini" do
