@@ -25,7 +25,7 @@ service "metric_tank" do
   action [ :enable, :start ]
 end
 
-nsqd_addrs = find_nsqd || node['raintank_stack']['metrics_to_tank']['nsqd_addr']
+nsqd_addrs = find_nsqd || node['raintank_stack']['metric_tank']['nsqd_addr']
 cassandra_addrs = find_cassandras
 elasticsearch_host = find_haproxy || node['raintank_stack']['elasticsearch_host']
 
