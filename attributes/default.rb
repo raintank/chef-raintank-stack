@@ -27,10 +27,6 @@ default[:raintank_stack][:elasticsearch_port] = 9200
 default[:raintank_stack][:search_index] = "/var/lib/graphite/index"
 default[:raintank_stack][:time_zone] = "UTC"
 default[:raintank_stack][:graphite_api][:use_statsd] = false
-default[:raintank_stack][:graphite_api][:use_cache] = false
-default[:raintank_stack][:graphite_api][:cache_dir] = "/tmp/graphite-api-cache"
-default[:raintank_stack][:graphite_api][:cache_servers] = ["127.0.0.1:11211"]
-default[:raintank_stack][:graphite_api][:cache_type] = "filesystem"
 default[:raintank_stack][:graphite_api][:statsd_host] = "localhost"
 default[:raintank_stack][:graphite_api][:statsd_port] = 8125
 default[:raintank_stack][:graphite_api][:log_level] = "INFO"
@@ -42,6 +38,10 @@ default[:raintank_stack][:graphite_tank][:statsd_port] = 8125
 default[:raintank_stack][:graphite_tank][:log_level] = "INFO"
 default[:raintank_stack][:graphite_tank][:log_dir] = "/var/log/graphite"
 default[:raintank_stack][:graphite_tank][:cache_ttl] = 60
+default[:raintank_stack][:graphite_tank][:use_cache] = false
+default[:raintank_stack][:graphite_tank][:cache_dir] = "/tmp/graphite-api-cache"
+default[:raintank_stack][:graphite_tank][:cache_servers] = ["127.0.0.1:11211"]
+default[:raintank_stack][:graphite_tank][:cache_type] = "filesystem"
 
 # collector
 default[:raintank_stack][:collector_config] = "/etc/raintank/collector/config.json"
