@@ -69,8 +69,6 @@ template "/etc/graphite-raintank.yaml" do
   mode '0644'
   action :create
   variables({
-    cache_dir: node['raintank_stack']['cache_dir'],
-    cache_type:	node['raintank_stack']['cache_type'],
     finders: node['raintank_stack']['finders'],
     functions: node['raintank_stack']['functions'],
     cassandras: node['raintank_stack']['cassandras'],
@@ -85,7 +83,12 @@ template "/etc/graphite-raintank.yaml" do
     statsd_port: node['raintank_stack']['graphite_tank']['statsd_port'],
     log_level: node['raintank_stack']['graphite_tank']['log_level'],
     log_dir: node['raintank_stack']['graphite_tank']['log_dir'],
-    index_name: node['raintank_stack']['metric_tank']['index_name']
+    index_name: node['raintank_stack']['metric_tank']['index_name'],
+    use_cache: node['raintank_stack']['graphite_tank']['use_cache'],
+    cache_ttl: node['raintank_stack']['graphite_tank']['cache_ttl'],
+    cache_dir: node['raintank_stack']['graphite_tank']['cache_dir'],
+    cache_servers: node['raintank_stack']['graphite_tank']['cache_servers'],
+    cache_type: node['raintank_stack']['graphite_tank']['cache_type']
   })
   notifies :restart, 'service[graphite-raintank]'
 end

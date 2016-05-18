@@ -18,14 +18,10 @@ default[:raintank_stack][:kairosdb][:write_delay] = 1000
 default[:raintank_stack][:kairosdb][:write_buffer_max_size] = 500000
 
 # graphite-api
-default[:raintank_stack][:cache_dir] = "/tmp/graphite-api-cache"
-default[:raintank_stack][:cache_type] = "filesystem"
 default[:raintank_stack][:finders] = [ 'graphite_raintank.RaintankFinder' ]
 default[:raintank_stack][:functions] = [ 'graphite_api.functions.SeriesFunctions', 'graphite_api.functions.PieFunctions' ]
 default[:raintank_stack][:cassandras] = []
 default[:raintank_stack][:tank_host] = "localhost"
-default[:raintank_stack][:kairosdb_host] = "localhost"
-default[:raintank_stack][:kairosdb_port] = 8080
 default[:raintank_stack][:elasticsearch_host] = "localhost"
 default[:raintank_stack][:elasticsearch_port] = 9200
 default[:raintank_stack][:search_index] = "/var/lib/graphite/index"
@@ -41,6 +37,11 @@ default[:raintank_stack][:graphite_tank][:statsd_host] = "localhost"
 default[:raintank_stack][:graphite_tank][:statsd_port] = 8125
 default[:raintank_stack][:graphite_tank][:log_level] = "INFO"
 default[:raintank_stack][:graphite_tank][:log_dir] = "/var/log/graphite"
+default[:raintank_stack][:graphite_tank][:cache_ttl] = 60
+default[:raintank_stack][:graphite_tank][:use_cache] = false
+default[:raintank_stack][:graphite_tank][:cache_dir] = "/tmp/graphite-api-cache"
+default[:raintank_stack][:graphite_tank][:cache_servers] = ["127.0.0.1:11211"]
+default[:raintank_stack][:graphite_tank][:cache_type] = "filesystem"
 
 # collector
 default[:raintank_stack][:collector_config] = "/etc/raintank/collector/config.json"
@@ -308,6 +309,9 @@ default[:raintank_stack]['task_agent']['node_name'] = node['hostname']
 #tsdb
 default[:raintank_stack]['tsdb']['log_level'] = 2
 default[:raintank_stack]['tsdb']['addr'] = ":8081"
+default[:raintank_stack]['tsdb']['ssl'] = "false"
+default[:raintank_stack]['tsdb']['cert_file'] = ""
+default[:raintank_stack]['tsdb']['key_file'] = ""
 default[:raintank_stack]['tsdb']['stats_enabled'] = false
 default[:raintank_stack]['tsdb']['statsd_addr'] = "localhost:8125"
 default[:raintank_stack]['tsdb']['statsd_type'] = "standard"
