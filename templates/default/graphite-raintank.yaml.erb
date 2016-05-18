@@ -1,6 +1,16 @@
+<% if @use_cache %>
 cache:
-  dir: <%= @cache_dir %>
   type: <%= @cache_type %>
+  <% if @cache_type == "filesystem" %>
+  dir: <%= @cache_dir %>
+  <% end -%>
+  <% if @cache_type == "memcached" %>
+  memcached_servers:
+    <% @cache_servers.each do |m| %>
+    - <%= m %>
+    <% end -%>
+  <% end -%>
+<% end -%>
 finders: <% @finders.each do |f| %>
 - <%= f %>
 <% end -%>
@@ -13,6 +23,7 @@ raintank:
   es:
     url: http://<%= @elasticsearch_host %>:<%= @elasticsearch_port %>/
     index: <%= @index_name %>
+    cache_ttl: <%= @cache_ttl %>
 search_index: <%= @search_index %>
 time_zone: <%= @time_zone %>
 <% if @use_statsd %>
