@@ -309,7 +309,7 @@ default[:raintank_stack]['task_agent']['node_name'] = node['hostname']
 #tsdb
 default[:raintank_stack]['tsdb']['log_level'] = 2
 default[:raintank_stack]['tsdb']['addr'] = ":8081"
-default[:raintank_stack]['tsdb']['ssl'] = "false"
+default[:raintank_stack]['tsdb']['ssl'] = false
 default[:raintank_stack]['tsdb']['cert_file'] = ""
 default[:raintank_stack]['tsdb']['key_file'] = ""
 default[:raintank_stack]['tsdb']['stats_enabled'] = false

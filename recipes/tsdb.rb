@@ -25,6 +25,18 @@ service "tsdb" do
   action [ :enable, :start]
 end
 
+nspace = {
+  'key_path' => node['raintank_stack']['tsdb']['key_file'],
+  'cert_path' => node['raintank_stack']['tsdb']['cert_file'],
+  'common_name' => node.name
+}
+
+ssl_certificate "tsdb-#{node.name}" do
+  namespace nspace
+  notifies :restart, 'service[tsdb]', :delayed
+  only_if { node['raintank_stack']['tsdb']['ssl'] }
+end
+
 template "/etc/raintank/tsdb.ini" do
   source 'tsdb.ini.erb'
   mode '0644'
