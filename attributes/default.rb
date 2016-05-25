@@ -325,3 +325,6 @@ default[:raintank_stack]['tsdb']['graphite_url'] = "http://localhost:8888/"
 default[:raintank_stack]['tsdb']['worldping_url'] = "https://worldping-api.raintank.io/"
 default[:raintank_stack]['tsdb']['elasticsearch_url'] = "http://localhost:9200/"
 default[:raintank_stack]['tsdb']['es_index'] = "events"
+
+# grafana plugins
+default[:raintank_stack][:grafana_plugins] = []
