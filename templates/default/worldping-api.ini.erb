@@ -84,13 +84,11 @@ templates_pattern = <%= node['raintank_stack']['worldping-api']['email']['templa
 #################################### Alerting ##########################
 [alerting]
 enabled = <%= node['raintank_stack']['worldping-api']['alerting']['enabled'] %>
-handler = <%= node['raintank_stack']['worldping-api']['alerting']['handler'] %>
 tickqueue_size = <%= node['raintank_stack']['worldping-api']['alerting']['queue_ticks_size'] %>
 internal_jobqueue_size = <%= node['raintank_stack']['worldping-api']['alerting']['queue_jobs_size'] %>
 pre_amqp_jobqueue_size = <%= node['raintank_stack']['worldping-api']['alerting']['pre_amqp_jobs_size'] %>
 executor_lru_size = <%= node['raintank_stack']['worldping-api']['alerting']['executor_lru_size'] %>
 enable_scheduler = <%= node['raintank_stack']['worldping-api']['alerting']['enable_scheduler'] %>
-executors = <%= node['raintank_stack']['worldping-api']['alerting']['executors'] %>
 write_individual_alert_results = <%= node['raintank_stack']['worldping-api']['alerting']['individual_alerts'] %>
 
 #################################### Logging ##########################
@@ -131,10 +129,11 @@ log_rotate = false
 ;max_days = 7
 
 #################################### AMPQ Event Publisher ##########################
-[event_publisher]
+[rabbitmq]
 enabled = <%= node['raintank_stack']['worldping-api']['event_publish'] %>
-rabbitmq_url = amqp://<%= @rabbitmq_host %>/
-exchange = <%= node['raintank_stack']['worldping-api']['event_exchange'] %>
+url = amqp://<%= @rabbitmq_host %>/
+events_exchange = <%= node['raintank_stack']['worldping-api']['event_exchange'] %>
+alerts_exchange = <%= node['raintank_stack']['worldping-api']['alerts_exchange'] %>
 
 [raintank]
 graphite_url = http://<%= @graphite_host %>:<%= node['raintank_stack']['worldping-api']['graphite_port'] %>/

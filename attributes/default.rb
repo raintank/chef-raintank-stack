@@ -241,6 +241,7 @@ default[:raintank_stack]['worldping-api']['log_mode'] = "console"
 default[:raintank_stack]['worldping-api']['event_publish'] = true
 default[:raintank_stack]['worldping-api']['rabbitmq_host'] = 'localhost'
 default[:raintank_stack]['worldping-api']['event_exchange'] = 'grafana_events'
+default[:raintank_stack]['worldping-api']['alerts_exchange'] = 'wp_alerts'
 
 ### RAINTANK ###
 default[:raintank_stack]['worldping-api']['raintank'] = true
