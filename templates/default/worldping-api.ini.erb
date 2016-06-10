@@ -166,13 +166,13 @@ enabled = <%= node['raintank_stack']['worldping-api']['quota']['enabled'] %>
 org_endpoint = <%= node['raintank_stack']['worldping-api']['quota']['org_endpoint'] %>
 
 # limit number of collectors per Org.
-org_collector = <%= node['raintank_stack']['worldping-api']['quota']['org_collector'] %>
+org_probe = <%= node['raintank_stack']['worldping-api']['quota']['org_probe'] %>
 
 # golbal limit of endpoints
 global_endpoint =  <%= node['raintank_stack']['worldping-api']['quota']['global_endpoint'] %>
 
 # golbal limit of collectors
-global_collector =  <%= node['raintank_stack']['worldping-api']['quota']['global_collector'] %>
+global_probe =  <%= node['raintank_stack']['worldping-api']['quota']['global_probe'] %>
 
 
 [metric_publisher]

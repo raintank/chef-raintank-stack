@@ -276,9 +276,9 @@ default[:raintank_stack]['worldping-api']['alerting']['individual_alerts'] = fal
 ### QUOTAS
 default[:raintank_stack]['worldping-api']['quota']['enabled'] = true
 default[:raintank_stack]['worldping-api']['quota']['org_endpoint'] = 10
-default[:raintank_stack]['worldping-api']['quota']['org_collector'] = 10
+default[:raintank_stack]['worldping-api']['quota']['org_probe'] = 10
 default[:raintank_stack]['worldping-api']['quota']['global_endpoint'] = -1
-default[:raintank_stack]['worldping-api']['quota']['global_collector'] = -1
+default[:raintank_stack]['worldping-api']['quota']['global_probe'] = -1
 
 
 ## task_server
