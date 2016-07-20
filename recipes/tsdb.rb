@@ -34,13 +34,31 @@ nspace = {
 }
 
 if node['raintank_stack']['tsdb']['ssl']
-  cert = ssl_certificate "tsdb-#{node.name}" do
-    namespace nspace
-    notifies :restart, 'service[tsdb]', :delayed
-  end
+  if node['raintank_stack']['tsdb']['real_ssl_cert']
+    certs = Chef::EncryptedDataBagItem.load(:grafana_ssl_certs, node['raintank_stack']['tsdb']['ssl_data_bag']).to_hash
+    file node['raintank_stack']['tsdb']['cert_file'] do
+      owner "root"
+      group "root"
+      mode '0600'
+      content certs['ssl_cert']
+      action :create
+    end
+    file node['raintank_stack']['tsdb']['key_file'] do
+      owner "root"
+      group "root"
+      mode '0600'
+      content certs['ssl_key']
+      action :create
+    end
+  else
+    cert = ssl_certificate "tsdb-#{node.name}" do
+      namespace nspace
+      notifies :restart, 'service[tsdb]', :delayed
+    end
 
-  node.set['raintank_stack']['tsdb']['cert_file'] = cert.cert_path
-  node.set['raintank_stack']['tsdb']['key_file'] = cert.key_path
+    node.set['raintank_stack']['tsdb']['cert_file'] = cert.cert_path
+    node.set['raintank_stack']['tsdb']['key_file'] = cert.key_path
+  end
 end
 
 template "/etc/raintank/tsdb.ini" do
