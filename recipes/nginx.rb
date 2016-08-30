@@ -20,6 +20,9 @@
 include_recipe 'nginx::repo'
 include_recipe 'nginx'
 
+include_recipe 'raintank_stack::ssl_updates'
+include_recipe 'raintank_stack::dhparams'
+
 # create ssl cert files if we're doing that
 if node['raintank_stack']['nginx']['use_ssl']
   directory "/etc/nginx/ssl" do
